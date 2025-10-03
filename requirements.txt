@@ -1,0 +1,8 @@
+# Python Dependencies
+google-genai
+pydantic
+python-dotenv
+pyyaml
+torch
+whisper
+# You may need to specify the correct versions of these libraries
