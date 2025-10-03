@@ -1,0 +1,1 @@
+# NASDAQ_Trade_Idea_Extractor
