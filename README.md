@@ -32,7 +32,7 @@ Bu program, yapay zeka analizi için Google'ın Gemini 2.5 Flash modelini kullan
 1.  Anahtarınızı Alın: [Google AI Studio](https://aistudio.google.com/app/apikey) adresine gidin ve ücretsiz bir API anahtarı oluşturun.
 2.  Projeyi İndirin: Bu GitHub sayfasındaki \< \> Code (Kod) düğmesine tıklayıp "Download ZIP" (ZIP İndir) seçeneğiyle projeyi bilgisayarınıza indirin ve bir klasöre açın.
 3.  `.env` Dosyasını Oluşturun:
-      * İndirdiğiniz bu klasörde, `.env.example` adında bir şablon dosyası göreceksiniz.
+      * İndirdiğiniz bu klasörde, `env__example.txt` adında bir şablon dosyası göreceksiniz.
       * Bu dosyanın adını değiştirip tam olarak sadece `.env` yapın (Dosya adında ön başta nokta olmalı).
 4.  Anahtarınızı Ekleyin: Yeni ismini verdiğiniz `.env` dosyasını Not Defteri veya herhangi bir metin düzenleyiciyle açın. İçindeki `"[YOUR_GEMINI_API_KEY_GOES_HERE]"` metnini silerek, kendi gerçek API anahtarınızla değiştirin.
       * Örnek görünüm: `GEMINI_API_KEY="AIzaSy...sizin_gercek_gizli_anahtarınız...xyz123"`
