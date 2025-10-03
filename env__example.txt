@@ -1,0 +1,2 @@
+# .env file content (do NOT put quotes around the key)
+GEMINI_API_KEY=copy your api key here
