@@ -1,17 +1,14 @@
 """
-Nasdaq Trader Pipeline (Refactored)
+Nasdaq Trader Pipeline
 
-Non-coders: This single Python file contains the full workflow to analyze stock-related
-YouTube videos. It downloads audio, transcribes it to Turkish text, asks an AI model to
-extract trade ideas ONLY from what was said in the video (no invention), and produces a
-readable report plus a JSON file. It also identifies the video creator for the report header.
+This file processes YouTube finance videos: downloads audio, generates Turkish transcript,
+extracts trade ideas based ONLY on what is said in the video, and produces reports/JSON.
+Report includes video creator information at the top.
 
-How to run (from the project folder):
+Usage (from project folder):
   - Ensure config.yaml and video_list.txt exist
-  - Install dependencies: pip install -r requirements.txt
-  - Run: python nasdaq_trader.py
-
-This will process each YouTube URL in video_list.txt and write results into the summary/ folder.
+  - pip install -r requirements.txt
+  - python nasdaq_trader.py
 """
 
 import os
@@ -99,17 +96,23 @@ logger.info("Video list at: %s", VIDEO_LIST_PATH)
 
 # Non-coders: This defines the exact "boxes" the AI must fill for each trade idea.
 class TradeIdea(BaseModel):
-    ticker: str = Field(..., description="The primary NASDAQ stock ticker discussed. MUST be a valid ticker.")
-    segment_timestamp: str = Field(..., description="HH:MM:SS where this trade idea starts.")
-    key_thesis_tr: str = Field(..., description="CONCISE thesis in Turkish INCLUDING the asset name/ticker; only from transcript.")
-    sentiment: Literal['BULLISH', 'BEARISH', 'NEUTRAL'] = Field(..., description="Overall sentiment.")
-    risk_assessment: Literal['High', 'Medium', 'Low'] = Field(..., description="Risk/volatility assessment.")
-    risk_justification_tr: str = Field(..., description="Minimal exact reason from transcript in Turkish. Use '' if not specified.")
-    investment_horizon: Literal['Short-Term', 'Long-Term', 'Swing/Momentum'] = Field(..., description="Holding period.")
-    trade_action: Literal['Long', 'Short', 'Hold', 'Watchlist'] = Field(..., description="Recommended action.")
-    support_level: float = Field(..., description="Support price or 0.0 if not mentioned.")
-    resistance_level: float = Field(..., description="Resistance price or 0.0 if not mentioned.")
-    target_price: float = Field(..., description="Target price or 0.0 if not mentioned.")
+    # Core fields
+    asset_type: Literal['Equity', 'ETF', 'Index', 'Crypto', 'Commodity'] = Field(..., description="Asset type.")
+    symbol: str = Field(..., description="Symbol or short name (e.g. AAPL, QQQ, BTC, XAU).")
+    market: Optional[str] = Field(None, description="Market/Exchange (e.g. NASDAQ, CRYPTO, COMMODITY).")
+    segment_timestamp: str = Field(..., description="HH:MM:SS start time.")
+    key_thesis_tr: str = Field(..., description="Concise Turkish thesis; transcript only.")
+    sentiment: Literal['BULLISH', 'BEARISH', 'NEUTRAL'] = Field(..., description="Overall direction.")
+    risk_assessment: Literal['High', 'Medium', 'Low'] = Field(..., description="Risk level.")
+    risk_justification_tr: str = Field(..., description="Risk justification (transcript), or '' if not specified.")
+    investment_horizon: Literal['Short-Term', 'Long-Term', 'Swing/Momentum'] = Field(..., description="Time horizon.")
+    trade_action: Literal['Long', 'Short', 'Hold', 'Watchlist'] = Field(..., description="Action.")
+
+    # Price levels (optional/if available)
+    support_level: float = Field(..., description="Support; 0.0 if not mentioned")
+    resistance_level: float = Field(..., description="Resistance; 0.0 if not mentioned")
+    target_price: float = Field(..., description="Target; 0.0 if not mentioned")
+    stop_loss: Optional[float] = Field(None, description="Stop level (if stated, especially for crypto).")
 
 
 class TradeSummaryList(BaseModel):
@@ -185,15 +188,19 @@ def format_price(value: float) -> str:
     return f"${value:.2f}" if value and value > 0.0 else "N/A"
 
 
-def validate_ticker_if_possible(ticker: str) -> bool:
-    """Optionally validate ticker via yfinance. Returns True if likely valid or if validation unavailable."""
+CRYPTO_SYMBOLS = {"BTC", "ETH", "XRP", "SOL", "ADA", "BNB"}
+COMMODITY_SYMBOLS = {"XAU", "XAG", "GOLD", "SILVER", "ALTIN", "GUMUS", "GÜMÜŞ"}
+
+
+def validate_equity_ticker_if_possible(ticker: str) -> bool:
+    """Quick validation for stocks/ETFs/indexes only. Returns False if validation fails."""
     if not ticker:
         return False
     if not YFINANCE_AVAILABLE:
-        return True  # can't validate offline; be permissive but we never invent values
+        return True
     try:
         t = yf.Ticker(ticker)
-        info = t.fast_info  # lightweight field
+        info = t.fast_info
         return bool(info)
     except Exception:
         return False
@@ -362,24 +369,31 @@ def module_prepare_trade_summary(transcript_text: str, video_id: Optional[str]) 
     client = genai.Client()
 
     system_instruction_base = (
-        "You are an experienced stock analyst. The input is a Turkish transcript.\n"
-        "STRICT RULES:\n"
-        "- Only use information explicitly present in the transcript.\n"
-        "- Do NOT invent tickers, prices, timestamps, or facts.\n"
-        "- If any field is not present in the transcript, use: support_level=0.0, resistance_level=0.0, target_price=0.0, or '' for missing Turkish reason.\n"
-        "- TICKER IDENTIFICATION PRIORITY: (1) Exact mention; (2) Phonetic similarity; (3) If uncertain, omit that idea.\n"
-        "- TIMESTAMPS: Choose the nearest matching segment start time from provided segments.\n"
-        "- OUTPUT: JSON ONLY that matches the provided schema. No extra text.\n"
+        "You are an analyst. Input is a Turkish transcript.\n"
+        "RULES:\n"
+        "- Use ONLY transcript content; do NOT invent tickers/prices/timestamps.\n"
+        "- Extract ALL assets discussed: Equities, ETFs, Indexes, Crypto, Commodities.\n"
+        "- For each idea, set asset_type {Equity, ETF, Index, Crypto, Commodity}, symbol (e.g., AAPL, QQQ, BTC, XAU), and market (e.g., NASDAQ, CRYPTO, COMMODITY).\n"
+        "- If stops are explicitly stated (e.g., Bitcoin stop 116.000), set stop_loss.\n"
+        "- Missing fields must remain empty/0.0 (do NOT guess).\n"
+        "- CRITICAL: segment_timestamp MUST be a real time from the SEGMENTS_GUIDE (e.g., 00:01:23), NOT 00:00:00.\n"
+        "- Find the segment that contains the asset mention and use its start time.\n"
+        "- OUTPUT: JSON ONLY matching the provided schema.\n"
     )
 
-    # Small guide: list of segment starts and short text clips
+    # Enhanced segment guide with more context for timestamp matching
     segments_preview = []
     for s in segments[:200]:
         st = seconds_to_hms(s.get("start", 0.0))
-        txt = s.get("text", "")
+        txt = s.get("text", "").strip()
         if not txt:
             continue
-        segments_preview.append({"start": st, "text": txt[:120]})
+        # Include more context to help LLM match content to segments
+        segments_preview.append({
+            "start": st, 
+            "text": txt[:200],  # Longer text for better matching
+            "keywords": " ".join([word for word in txt.split() if len(word) > 3][:10])  # Key words for matching
+        })
 
     # Deterministic chunking and caching
     CHUNK_SIZE = 12000  # keep deterministic; can be made configurable
@@ -419,12 +433,13 @@ def module_prepare_trade_summary(transcript_text: str, video_id: Optional[str]) 
                 try:
                     response = client.models.generate_content(
                         model=GEMINI_MODEL,
-                        contents=(
-                            "Analyze the following Turkish transcript CHUNK and extract trade ideas strictly from it.\n"
-                            "Return ONLY valid JSON for TradeSummaryList.\n\n"
-                            f"SEGMENTS_GUIDE (start and snippet): {json.dumps(segments_preview, ensure_ascii=False)}\n\n"
-                            f"TRANSCRIPT_CHUNK:\n{chunk}"
-                        ),
+                    contents=(
+                        "Analyze the following Turkish transcript CHUNK and extract trade ideas strictly from it.\n"
+                        "Return ONLY valid JSON for TradeSummaryList.\n\n"
+                        f"SEGMENTS_GUIDE (use these timestamps - find the segment containing each asset mention):\n{json.dumps(segments_preview, ensure_ascii=False, indent=2)}\n\n"
+                        f"TRANSCRIPT_CHUNK:\n{chunk}\n\n"
+                        "IMPORTANT: For each trade idea, find the segment that contains the asset mention and use its 'start' time as segment_timestamp."
+                    ),
                         config=types.GenerateContentConfig(
                             system_instruction=system_instruction_base,
                             response_mime_type="application/json",
@@ -451,21 +466,28 @@ def module_prepare_trade_summary(transcript_text: str, video_id: Optional[str]) 
             for idea in attempt_summary.trade_ideas:
                 final_ideas.append(idea.model_dump())
 
-    # De-duplicate by ticker+timestamp; also optionally validate tickers
+    # De-duplicate by symbol+timestamp; validate only equities/ETFs/indexes
     seen = set()
     unique_ideas: List[dict] = []
     for idea in final_ideas:
-        tick = (idea.get("ticker") or "").upper()
+        tick = (idea.get("symbol") or "").upper()
         ts = idea.get("segment_timestamp", "")
         key = (tick, ts)
         if key in seen:
             continue
         seen.add(key)
 
-        # Optional: If validation is available and fails, skip the idea
-        if YFINANCE_AVAILABLE and tick and not validate_ticker_if_possible(tick):
-            logger.info("Skipping unvalidated ticker from AI: %s", tick)
-            continue
+        atype = idea.get("asset_type")
+        if atype in ("Equity", "ETF", "Index"):
+            if tick and not validate_equity_ticker_if_possible(tick):
+                logger.info("Skipping unvalidated equity symbol from AI: %s", tick)
+                continue
+        elif atype == "Crypto":
+            # Soft whitelist, do not drop if not listed
+            pass
+        elif atype == "Commodity":
+            # Soft whitelist, do not drop if not listed
+            pass
 
         unique_ideas.append(idea)
 
@@ -532,17 +554,24 @@ def process_single_video(video_url: str):
         if not trade_summary_list.trade_ideas:
             report_lines.append("No distinct trade ideas were extracted from the video.")
         else:
+            # Grouping: asset_type
             for i, trade_data in enumerate(trade_summary_list.trade_ideas):
-                report_lines.append(f"=== TRADE IDEA {i+1}: {trade_data.ticker} (Starts at {trade_data.segment_timestamp}) ===")
+                report_lines.append(
+                    f"=== TRADE IDEA {i+1}: {trade_data.asset_type} | {trade_data.symbol} (Starts at {trade_data.segment_timestamp}) ==="
+                )
                 report_lines.append(f"  Action:        {trade_data.trade_action}")
                 report_lines.append(f"  Sentiment:     {trade_data.sentiment}")
                 report_lines.append(f"  Horizon:       {trade_data.investment_horizon}")
                 report_lines.append(f"  Risk:          {trade_data.risk_assessment}")
                 if trade_data.risk_justification_tr:
                     report_lines.append(f"  Risk Reason:   {trade_data.risk_justification_tr}")
+                if trade_data.market:
+                    report_lines.append(f"  Market:        {trade_data.market}")
                 report_lines.append(f"  Support:       {format_price(trade_data.support_level)}")
                 report_lines.append(f"  Resistance:    {format_price(trade_data.resistance_level)}")
                 report_lines.append(f"  Target Price:  {format_price(trade_data.target_price)}")
+                if trade_data.stop_loss is not None:
+                    report_lines.append(f"  Stop Loss:     {format_price(trade_data.stop_loss)}")
                 report_lines.append("-------------------------------------")
                 report_lines.append(f"  Key Thesis (TR Original):\n{trade_data.key_thesis_tr}")
                 report_lines.append("-------------------------------------\n")
