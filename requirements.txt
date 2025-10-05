@@ -1,0 +1,12 @@
+﻿yt-dlp==2024.09.27
+openai-whisper==20231117
+google-genai==0.3.0
+pydantic==2.8.2
+PyYAML==6.0.2
+python-dotenv==1.0.1
+yfinance==0.2.44
+ffmpeg-python==0.2.0
+numpy>=1.23
+# Install torch per your platform (CPU/GPU); see https://pytorch.org/get-started/locally/
+# Example CPU-only on Windows:
+# pip install torch==2.3.1+cpu --index-url https://download.pytorch.org/whl/cpu

@@ -1,0 +1,14 @@
+# config.yaml (Updated)
+
+INPUTS:
+  VIDEO_LIST_PATH: "video_list.txt" # NEW: Path to the file containing all URLs
+  MAX_LLM_RETRIES: 3
+  TARGET_LANGUAGE: "Turkish" 
+
+MODEL_PERFORMANCE:
+  WHISPER_MODEL: "medium"
+  GEMINI_MODEL: "gemini-2.5-flash"
+
+DIRECTORIES:
+  CACHE_DIR: "video_cache"
+  SUMMARY_DIR: "summary"
