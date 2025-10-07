@@ -18,9 +18,11 @@ import time
 import yaml
 import logging
 import warnings
-from datetime import datetime
+from datetime import datetime, timedelta
 from typing import Literal, List, Tuple, Dict, Any, Optional
 import hashlib
+import threading
+from tqdm import tqdm
 
 import whisper
 from dotenv import load_dotenv
@@ -62,32 +64,153 @@ except yaml.YAMLError as e:
 # Map config fields with defaults
 VIDEO_LIST_PATH = CONFIG.get('INPUTS', {}).get('VIDEO_LIST_PATH', 'video_list.txt')
 MAX_LLM_RETRIES = int(CONFIG.get('INPUTS', {}).get('MAX_LLM_RETRIES', 3))
-TARGET_LANGUAGE = CONFIG.get('INPUTS', {}).get('TARGET_LANGUAGE', 'Turkish')  # 'Turkish'|'English'|'auto'
-WHISPER_MODEL = CONFIG.get('MODEL_PERFORMANCE', {}).get('WHISPER_MODEL', 'small')
+TARGET_LANGUAGE = CONFIG.get('INPUTS', {}).get('TARGET_LANGUAGE', 'Turkish')
+PARALLEL_VIDEOS = int(CONFIG.get('INPUTS', {}).get('PARALLEL_VIDEOS', 1))
+QUALITY_MODE = CONFIG.get('INPUTS', {}).get('QUALITY_MODE', 'balanced')
+
+WHISPER_MODEL = CONFIG.get('MODEL_PERFORMANCE', {}).get('WHISPER_MODEL', 'medium')
 GEMINI_MODEL = CONFIG.get('MODEL_PERFORMANCE', {}).get('GEMINI_MODEL', 'gemini-2.5-flash')
+CHUNK_SIZE = int(CONFIG.get('MODEL_PERFORMANCE', {}).get('CHUNK_SIZE', 12000))
+ENABLE_MODEL_CACHING = CONFIG.get('MODEL_PERFORMANCE', {}).get('ENABLE_MODEL_CACHING', True)
+
+ENABLE_PROGRESS_TRACKING = CONFIG.get('PROCESSING', {}).get('ENABLE_PROGRESS_TRACKING', True)
+ENABLE_DETAILED_LOGGING = CONFIG.get('PROCESSING', {}).get('ENABLE_DETAILED_LOGGING', True)
+MAX_VIDEO_LENGTH_MINUTES = int(CONFIG.get('PROCESSING', {}).get('MAX_VIDEO_LENGTH_MINUTES', 120))
+MIN_VIDEO_LENGTH_MINUTES = int(CONFIG.get('PROCESSING', {}).get('MIN_VIDEO_LENGTH_MINUTES', 1))
+
+YFINANCE_TIMEOUT = int(CONFIG.get('API_OPTIMIZATION', {}).get('YFINANCE_TIMEOUT', 10))
+GEMINI_TIMEOUT = int(CONFIG.get('API_OPTIMIZATION', {}).get('GEMINI_TIMEOUT', 60))
+ENABLE_RATE_LIMITING = CONFIG.get('API_OPTIMIZATION', {}).get('ENABLE_RATE_LIMITING', True)
+RETRY_DELAY_SECONDS = int(CONFIG.get('API_OPTIMIZATION', {}).get('RETRY_DELAY_SECONDS', 2))
+
 CACHE_DIR = CONFIG.get('DIRECTORIES', {}).get('CACHE_DIR', 'video_cache')
 SUMMARY_DIR = CONFIG.get('DIRECTORIES', {}).get('SUMMARY_DIR', 'summary')
+LOGS_DIR = CONFIG.get('DIRECTORIES', {}).get('LOGS_DIR', 'logs')
 
 os.makedirs(CACHE_DIR, exist_ok=True)
 os.makedirs(SUMMARY_DIR, exist_ok=True)
+os.makedirs(LOGS_DIR, exist_ok=True)
 
 
 # =======
 # Logging
 # =======
 
-# Non-coders: Logging helps us diagnose issues. We log to the console and to a file.
+# Enhanced logging system with progress tracking
+log_level = logging.DEBUG if ENABLE_DETAILED_LOGGING else logging.INFO
+
+# Main logger for console and summary
 logging.basicConfig(
-    level=logging.INFO,
+    level=log_level,
     format="%(asctime)s | %(levelname)s | %(message)s",
     handlers=[
         logging.StreamHandler(),
         logging.FileHandler(os.path.join(SUMMARY_DIR, "run.log"), encoding="utf-8")
     ]
 )
+
+# Detailed logger for processing logs
+detailed_logger = logging.getLogger("nasdaq_trader_detailed")
+detailed_logger.setLevel(log_level)
+detailed_handler = logging.FileHandler(
+    os.path.join(LOGS_DIR, f"detailed_{datetime.now().strftime('%Y%m%d_%H%M%S')}.log"), 
+    encoding="utf-8"
+)
+detailed_handler.setFormatter(logging.Formatter("%(asctime)s | %(levelname)s | %(funcName)s:%(lineno)d | %(message)s"))
+detailed_logger.addHandler(detailed_handler)
+
 logger = logging.getLogger("nasdaq_trader")
 logger.info("Setup complete. Models: Whisper=%s, Gemini=%s", WHISPER_MODEL, GEMINI_MODEL)
 logger.info("Video list at: %s", VIDEO_LIST_PATH)
+logger.info("Quality mode: %s, Parallel videos: %d", QUALITY_MODE, PARALLEL_VIDEOS)
+
+
+# ==========
+# Progress Tracking
+# ==========
+
+class ProgressTracker:
+    """Track processing progress with ETA and detailed status."""
+    
+    def __init__(self, total_videos: int, enable_tracking: bool = True):
+        self.total_videos = total_videos
+        self.enable_tracking = enable_tracking
+        self.processed_videos = 0
+        self.start_time = datetime.now()
+        self.video_times = []
+        self.current_video_start = None
+        self.pbar = None
+        
+        if self.enable_tracking:
+            self.pbar = tqdm(
+                total=total_videos,
+                desc="Processing Videos",
+                unit="video",
+                bar_format="{l_bar}{bar}| {n_fmt}/{total_fmt} [{elapsed}<{remaining}, {rate_fmt}]"
+            )
+    
+    def start_video(self, video_id: str, video_title: str = ""):
+        """Start processing a new video."""
+        self.current_video_start = datetime.now()
+        if self.enable_tracking:
+            self.pbar.set_description(f"Processing: {video_id[:8]}...")
+            if video_title:
+                self.pbar.set_postfix(title=video_title[:30] + "..." if len(video_title) > 30 else video_title)
+    
+    def update_video_progress(self, step: str, details: str = ""):
+        """Update progress for current video."""
+        if self.enable_tracking and self.pbar:
+            self.pbar.set_postfix(step=step, details=details[:20] if details else "")
+    
+    def complete_video(self, success: bool = True):
+        """Mark current video as completed."""
+        if self.current_video_start:
+            duration = (datetime.now() - self.current_video_start).total_seconds()
+            self.video_times.append(duration)
+            self.processed_videos += 1
+            
+            if self.enable_tracking and self.pbar:
+                self.pbar.update(1)
+                if success:
+                    self.pbar.set_postfix(status="✅ Complete", time=f"{duration:.1f}s")
+                else:
+                    self.pbar.set_postfix(status="❌ Failed", time=f"{duration:.1f}s")
+        
+        self.current_video_start = None
+    
+    def get_eta(self) -> str:
+        """Get estimated time to completion."""
+        if not self.video_times or self.processed_videos >= self.total_videos:
+            return "N/A"
+        
+        avg_time = sum(self.video_times) / len(self.video_times)
+        remaining = self.total_videos - self.processed_videos
+        eta_seconds = remaining * avg_time
+        eta = self.start_time + timedelta(seconds=eta_seconds)
+        
+        return eta.strftime("%H:%M:%S")
+    
+    def get_stats(self) -> Dict[str, Any]:
+        """Get processing statistics."""
+        if not self.video_times:
+            return {"processed": 0, "total": self.total_videos, "eta": "N/A"}
+        
+        avg_time = sum(self.video_times) / len(self.video_times)
+        total_elapsed = (datetime.now() - self.start_time).total_seconds()
+        
+        return {
+            "processed": self.processed_videos,
+            "total": self.total_videos,
+            "avg_time_per_video": f"{avg_time:.1f}s",
+            "total_elapsed": f"{total_elapsed:.1f}s",
+            "eta": self.get_eta(),
+            "success_rate": f"{(self.processed_videos / self.total_videos) * 100:.1f}%"
+        }
+    
+    def close(self):
+        """Close progress tracker."""
+        if self.pbar:
+            self.pbar.close()
 
 
 # ==========
@@ -207,6 +330,35 @@ def validate_equity_ticker_if_possible(ticker: str) -> bool:
 
 
 # ================================
+# Model Caching
+# ================================
+
+# Global Whisper model cache
+_whisper_model_cache = {}
+
+def get_whisper_model(model_name: str):
+    """Get Whisper model with caching to avoid reloading."""
+    if not ENABLE_MODEL_CACHING:
+        detailed_logger.debug("Model caching disabled, loading fresh model")
+        return whisper.load_model(model_name)
+    
+    if model_name not in _whisper_model_cache:
+        detailed_logger.info("Loading Whisper model '%s' into cache", model_name)
+        _whisper_model_cache[model_name] = whisper.load_model(model_name)
+        detailed_logger.info("Whisper model '%s' cached successfully", model_name)
+    else:
+        detailed_logger.debug("Using cached Whisper model '%s'", model_name)
+    
+    return _whisper_model_cache[model_name]
+
+def clear_model_cache():
+    """Clear the model cache to free memory."""
+    global _whisper_model_cache
+    _whisper_model_cache.clear()
+    detailed_logger.info("Model cache cleared")
+
+
+# ================================
 # Module 1: Audio Download + Meta
 # ================================
 
@@ -276,7 +428,7 @@ def _determine_whisper_language() -> Optional[str]:
     return None  # auto-detect
 
 
-def module_create_transcription(audio_path: str) -> str:
+def module_create_transcription(audio_path: str, progress_tracker: Optional[ProgressTracker] = None) -> str:
     """Create a Turkish transcription and cache both full text and per-segment timings."""
     video_id = os.path.basename(audio_path).split('_')[0]
     transcript_file_path = os.path.join(CACHE_DIR, f"{video_id}_audio_tr_transcript.txt")
@@ -284,13 +436,26 @@ def module_create_transcription(audio_path: str) -> str:
 
     if os.path.exists(transcript_file_path):
         logger.info("2/4: Transcript found in cache: %s", transcript_file_path)
+        detailed_logger.debug("Using cached transcript for video %s", video_id)
+        if progress_tracker:
+            progress_tracker.update_video_progress("📝 Using cached transcript")
         with open(transcript_file_path, 'r', encoding='utf-8') as f:
             return f.read()
 
     whisper_language = _determine_whisper_language()
     logger.info("2/4: Transcript not found. Loading Whisper '%s' and transcribing…", WHISPER_MODEL)
+    detailed_logger.info("Starting transcription for video %s with model %s", video_id, WHISPER_MODEL)
+    
+    if progress_tracker:
+        progress_tracker.update_video_progress("🎤 Loading Whisper model")
+    
     try:
-        model = whisper.load_model(WHISPER_MODEL)
+        model = get_whisper_model(WHISPER_MODEL)
+        
+        if progress_tracker:
+            progress_tracker.update_video_progress("🎵 Transcribing audio")
+        
+        detailed_logger.debug("Starting Whisper transcription for %s", audio_path)
         result = model.transcribe(
             audio_path,
             language=whisper_language,
@@ -298,7 +463,9 @@ def module_create_transcription(audio_path: str) -> str:
             word_timestamps=False,
             verbose=False
         )
+        detailed_logger.info("Whisper transcription completed for video %s", video_id)
     except Exception as e:
+        detailed_logger.error("Error in Whisper transcription for video %s: %s", video_id, str(e))
         logger.error("Error loading/transcribing with Whisper: %s", e)
         raise
 
@@ -358,12 +525,140 @@ def _stable_hash_for_transcript(transcript_text: str, model_name: str, chunk_siz
     return h.hexdigest()
 
 
-def module_prepare_trade_summary(transcript_text: str, video_id: Optional[str]) -> TradeSummaryList:
+def _resolve_company_to_ticker(company_name: str) -> str:
+    """Dynamically resolve company names to ticker symbols using external APIs.
+    Falls back to original name if resolution fails.
+    """
+    if not company_name:
+        return ""
+    
+    company_name = company_name.upper().strip()
+    
+    # Check if it's already a ticker (3-5 uppercase letters)
+    if len(company_name) >= 3 and len(company_name) <= 5 and company_name.isalpha():
+        return company_name
+    
+    # Try to resolve using yfinance (free, no API key required)
+    try:
+        import yfinance as yf
+        
+        # Common variations to try
+        search_terms = [
+            company_name,
+            company_name.replace(" ", ""),
+            company_name.replace("&", "AND"),
+            company_name.replace("INC", "").replace("CORP", "").replace("LTD", "").strip(),
+        ]
+        
+        for term in search_terms:
+            if not term:
+                continue
+                
+            # Try direct ticker lookup first
+            try:
+                ticker = yf.Ticker(term)
+                info = ticker.fast_info
+                if info and hasattr(info, 'symbol'):
+                    resolved_symbol = info.symbol.upper()
+                    if resolved_symbol and len(resolved_symbol) >= 3:
+                        logger.info("Resolved '%s' to ticker '%s'", company_name, resolved_symbol)
+                        return resolved_symbol
+            except Exception:
+                continue
+            
+            # Try searching by company name
+            try:
+                # Use yfinance's search functionality
+                search_results = yf.Ticker(term)
+                if hasattr(search_results, 'info') and search_results.info:
+                    symbol = search_results.info.get('symbol', '').upper()
+                    if symbol and len(symbol) >= 3:
+                        logger.info("Resolved '%s' to ticker '%s' via search", company_name, symbol)
+                        return symbol
+            except Exception:
+                continue
+                
+    except ImportError:
+        logger.warning("yfinance not available for ticker resolution")
+    except Exception as e:
+        logger.warning("Error resolving ticker for '%s': %s", company_name, e)
+    
+    # Fallback: return original name if resolution fails
+    logger.info("Could not resolve ticker for '%s', using original name", company_name)
+    return company_name
+
+
+def _normalize_company_name(symbol: str) -> str:
+    """Normalize company names to standard ticker symbols to prevent duplicates.
+    Uses dynamic resolution instead of hardcoded mappings.
+    """
+    if not symbol:
+        return ""
+    
+    # Use dynamic resolution
+    resolved_symbol = _resolve_company_to_ticker(symbol)
+    
+    # Additional normalization for common cases
+    resolved_symbol = resolved_symbol.upper().strip()
+    
+    # Handle common crypto/commodity symbols
+    crypto_mappings = {
+        "BITCOIN": "BTC",
+        "ETHEREUM": "ETH", 
+        "SOLANA": "SOL",
+        "GOLD": "XAU",
+        "SILVER": "XAG",
+    }
+    
+    if resolved_symbol in crypto_mappings:
+        return crypto_mappings[resolved_symbol]
+    
+    return resolved_symbol
+
+
+def _clear_ai_cache_for_video(video_id: str) -> None:
+    """Clear all AI analysis cache files for a specific video to ensure fresh analysis.
+    Keeps audio and transcript cache, only removes AI-generated JSON files.
+    """
+    if not video_id:
+        return
+    
+    # Pattern to match AI cache files for this video
+    patterns = [
+        f"{video_id}_*_final.json",
+        f"{video_id}_*_chunk*.json"
+    ]
+    
+    deleted_count = 0
+    for pattern in patterns:
+        import glob
+        cache_files = glob.glob(os.path.join(CACHE_DIR, pattern))
+        for cache_file in cache_files:
+            try:
+                os.remove(cache_file)
+                deleted_count += 1
+                detailed_logger.debug("Deleted AI cache file: %s", cache_file)
+            except OSError as e:
+                detailed_logger.warning("Could not delete cache file %s: %s", cache_file, e)
+    
+    if deleted_count > 0:
+        detailed_logger.info("Cleared %d AI cache files for video %s", deleted_count, video_id)
+    else:
+        detailed_logger.debug("No AI cache files found for video %s", video_id)
+
+
+def module_prepare_trade_summary(transcript_text: str, video_id: Optional[str], progress_tracker: Optional[ProgressTracker] = None) -> TradeSummaryList:
     """Analyze transcript with Gemini, chunking input if long, and enforce strict JSON schema.
     Uses segments to improve timestamp selection guidance. No hallucinations allowed.
+    Always generates fresh AI analysis by deleting any existing cache.
     """
     if not transcript_text.strip():
         raise ValueError("Cannot extract trade idea: Transcript text is empty.")
+
+    # Auto-delete AI cache to ensure fresh analysis every time
+    if video_id:
+        _clear_ai_cache_for_video(video_id)
+        detailed_logger.info("Cleared AI cache for video %s to ensure fresh analysis", video_id)
 
     segments = _load_cached_segments(video_id) if video_id else []
     client = genai.Client()
@@ -373,11 +668,16 @@ def module_prepare_trade_summary(transcript_text: str, video_id: Optional[str]) 
         "RULES:\n"
         "- Use ONLY transcript content; do NOT invent tickers/prices/timestamps.\n"
         "- Extract ALL assets discussed: Equities, ETFs, Indexes, Crypto, Commodities.\n"
-        "- For each idea, set asset_type {Equity, ETF, Index, Crypto, Commodity}, symbol (e.g., AAPL, QQQ, BTC, XAU), and market (e.g., NASDAQ, CRYPTO, COMMODITY).\n"
+        "- For each idea, set asset_type {Equity, ETF, Index, Crypto, Commodity}, symbol (use company name or ticker as mentioned), and market (e.g., NASDAQ, CRYPTO, COMMODITY).\n"
         "- If stops are explicitly stated (e.g., Bitcoin stop 116.000), set stop_loss.\n"
         "- Missing fields must remain empty/0.0 (do NOT guess).\n"
-        "- CRITICAL: segment_timestamp MUST be a real time from the SEGMENTS_GUIDE (e.g., 00:01:23), NOT 00:00:00.\n"
-        "- Find the segment that contains the asset mention and use its start time.\n"
+        "- CRITICAL TIMESTAMP RULE: segment_timestamp MUST be the EXACT time from SEGMENTS_GUIDE where the asset is FIRST mentioned.\n"
+        "- TIMESTAMP EXTRACTION PROCESS:\n"
+        "  1. Find the segment that contains the asset name/company mention\n"
+        "  2. Use the 'start' time from that segment\n"
+        "  3. Convert seconds to HH:MM:SS format (e.g., 28 seconds = 00:00:28, 125 seconds = 00:02:05)\n"
+        "  4. NEVER use 00:00:00 unless the asset is mentioned in the very first segment\n"
+        "- For symbol field: Use the exact company name or ticker as mentioned in the transcript (e.g., 'Apple', 'Microsoft', 'Bitcoin', 'AAPL', 'MSFT', 'BTC').\n"
         "- OUTPUT: JSON ONLY matching the provided schema.\n"
     )
 
@@ -390,13 +690,13 @@ def module_prepare_trade_summary(transcript_text: str, video_id: Optional[str]) 
             continue
         # Include more context to help LLM match content to segments
         segments_preview.append({
-            "start": st, 
-            "text": txt[:200],  # Longer text for better matching
-            "keywords": " ".join([word for word in txt.split() if len(word) > 3][:10])  # Key words for matching
+            "timestamp": st,  # Clear timestamp field
+            "start_seconds": s.get("start", 0.0),  # Raw seconds for reference
+            "text": txt[:300],  # Longer text for better matching
+            "company_mentions": [word for word in txt.split() if word.isupper() and len(word) > 2][:5]  # Potential company names
         })
 
     # Deterministic chunking and caching
-    CHUNK_SIZE = 12000  # keep deterministic; can be made configurable
     transcript_hash = _stable_hash_for_transcript(transcript_text, GEMINI_MODEL, CHUNK_SIZE)
 
     # If final cache exists, reuse
@@ -412,6 +712,10 @@ def module_prepare_trade_summary(transcript_text: str, video_id: Optional[str]) 
     final_ideas: List[dict] = []
     chunks = _chunk_text(transcript_text, max_chars=CHUNK_SIZE)
     logger.info("3/4: Sending transcript to AI in %d chunk(s)…", len(chunks))
+    detailed_logger.info("Processing %d chunks for video %s", len(chunks), video_id or "unknown")
+    
+    if progress_tracker:
+        progress_tracker.update_video_progress("🤖 Analyzing with AI", f"{len(chunks)} chunks")
 
     for idx, chunk in enumerate(chunks):
         # Chunk-level cache
@@ -436,9 +740,15 @@ def module_prepare_trade_summary(transcript_text: str, video_id: Optional[str]) 
                     contents=(
                         "Analyze the following Turkish transcript CHUNK and extract trade ideas strictly from it.\n"
                         "Return ONLY valid JSON for TradeSummaryList.\n\n"
-                        f"SEGMENTS_GUIDE (use these timestamps - find the segment containing each asset mention):\n{json.dumps(segments_preview, ensure_ascii=False, indent=2)}\n\n"
+                        f"SEGMENTS_GUIDE (CRITICAL: Match each asset to its segment and use the EXACT timestamp):\n"
+                        f"Format: [TIMESTAMP] [TEXT] [COMPANY_MENTIONS]\n"
+                        f"{json.dumps(segments_preview, ensure_ascii=False, indent=2)}\n\n"
                         f"TRANSCRIPT_CHUNK:\n{chunk}\n\n"
-                        "IMPORTANT: For each trade idea, find the segment that contains the asset mention and use its 'start' time as segment_timestamp."
+                        "TIMESTAMP EXTRACTION RULES:\n"
+                        "1. Find the segment that contains the asset/company name\n"
+                        "2. Use the 'timestamp' field from that segment (already in HH:MM:SS format)\n"
+                        "3. NEVER use 00:00:00 unless the asset is in the very first segment\n"
+                        "4. Example: If 'Apple' is mentioned in segment with timestamp '00:02:15', use '00:02:15'"
                     ),
                         config=types.GenerateContentConfig(
                             system_instruction=system_instruction_base,
@@ -466,21 +776,26 @@ def module_prepare_trade_summary(transcript_text: str, video_id: Optional[str]) 
             for idea in attempt_summary.trade_ideas:
                 final_ideas.append(idea.model_dump())
 
-    # De-duplicate by symbol+timestamp; validate only equities/ETFs/indexes
+    # De-duplicate by normalized symbol only (ignore timestamps to prevent redundant entries)
     seen = set()
     unique_ideas: List[dict] = []
     for idea in final_ideas:
-        tick = (idea.get("symbol") or "").upper()
+        original_symbol = idea.get("symbol") or ""
+        normalized_symbol = _normalize_company_name(original_symbol)
         ts = idea.get("segment_timestamp", "")
-        key = (tick, ts)
+        key = normalized_symbol  # Use only symbol, not timestamp
         if key in seen:
+            logger.info("Skipping duplicate: %s (normalized: %s) at %s", original_symbol, normalized_symbol, ts)
             continue
         seen.add(key)
+        
+        # Update the idea with normalized symbol for consistency
+        idea["symbol"] = normalized_symbol
 
         atype = idea.get("asset_type")
         if atype in ("Equity", "ETF", "Index"):
-            if tick and not validate_equity_ticker_if_possible(tick):
-                logger.info("Skipping unvalidated equity symbol from AI: %s", tick)
+            if normalized_symbol and not validate_equity_ticker_if_possible(normalized_symbol):
+                logger.info("Skipping unvalidated equity symbol from AI: %s", normalized_symbol)
                 continue
         elif atype == "Crypto":
             # Soft whitelist, do not drop if not listed
@@ -516,20 +831,27 @@ def _load_metadata(video_id: str) -> Dict[str, Any]:
     return {}
 
 
-def process_single_video(video_url: str):
+def process_single_video(video_url: str, progress_tracker: Optional[ProgressTracker] = None):
     """Process one video end-to-end and write both text and JSON reports."""
     print(f"\n🎬 Starting analysis for: {video_url}")
 
     try:
         audio_file_path = module_get_audio_file(video_url)
-        transcript = module_create_transcription(audio_file_path)
+        if progress_tracker:
+            progress_tracker.update_video_progress("📥 Audio downloaded")
+        
+        transcript = module_create_transcription(audio_file_path, progress_tracker)
+        if progress_tracker:
+            progress_tracker.update_video_progress("📝 Transcript complete")
 
         video_id, _ = parse_youtube_url(video_url)
         meta = _load_metadata(video_id)
         creator = meta.get("creator") or meta.get("channel")
         title = meta.get("title")
 
-        trade_summary_list = module_prepare_trade_summary(transcript, video_id)
+        trade_summary_list = module_prepare_trade_summary(transcript, video_id, progress_tracker)
+        if progress_tracker:
+            progress_tracker.update_video_progress("🤖 AI analysis complete")
 
         print("\n" + "="*50)
         print(f"ALL MODULES COMPLETE for {video_id}. GENERATING REPORT.")
@@ -573,7 +895,7 @@ def process_single_video(video_url: str):
                 if trade_data.stop_loss is not None:
                     report_lines.append(f"  Stop Loss:     {format_price(trade_data.stop_loss)}")
                 report_lines.append("-------------------------------------")
-                report_lines.append(f"  Key Thesis (TR Original):\n{trade_data.key_thesis_tr}")
+                report_lines.append(f"  Key Thesis (TR Original) - {trade_data.symbol} ({trade_data.asset_type}):\n{trade_data.key_thesis_tr}")
                 report_lines.append("-------------------------------------\n")
 
         report_content = "\n".join(report_lines)
@@ -596,16 +918,60 @@ def process_single_video(video_url: str):
 
 
 def main():
-    """Batch process all URLs in the configured list file."""
+    """Batch process all URLs in the configured list file with progress tracking."""
     try:
         urls_to_process = load_video_urls(VIDEO_LIST_PATH)
         print(f"\n🚀 Starting batch analysis for {len(urls_to_process)} videos...")
+        
+        # Initialize progress tracker
+        progress_tracker = ProgressTracker(
+            total_videos=len(urls_to_process),
+            enable_tracking=ENABLE_PROGRESS_TRACKING
+        )
+        
+        successful_videos = 0
+        failed_videos = 0
+        
         for i, url in enumerate(urls_to_process):
+            video_id, _ = parse_youtube_url(url)
+            meta = _load_metadata(video_id)
+            title = meta.get("title", "Unknown Title")
+            
             print(f"\n\n--- VIDEO {i+1}/{len(urls_to_process)} ---\n")
-            process_single_video(url)
-        print("\n\n*** BATCH PROCESSING COMPLETE ***")
+            progress_tracker.start_video(video_id, title)
+            
+            try:
+                success = process_single_video(url, progress_tracker)
+                if success:
+                    successful_videos += 1
+                    progress_tracker.complete_video(success=True)
+                else:
+                    failed_videos += 1
+                    progress_tracker.complete_video(success=False)
+            except Exception as e:
+                failed_videos += 1
+                progress_tracker.complete_video(success=False)
+                detailed_logger.error("Failed to process video %s: %s", video_id, str(e))
+                logger.error("Failed to process video %s: %s", video_id, str(e))
+        
+        # Final statistics
+        stats = progress_tracker.get_stats()
+        print(f"\n\n*** BATCH PROCESSING COMPLETE ***")
+        print(f"✅ Successful: {successful_videos}")
+        print(f"❌ Failed: {failed_videos}")
+        print(f"📊 Success Rate: {(successful_videos / len(urls_to_process)) * 100:.1f}%")
+        print(f"⏱️  Total Time: {stats.get('total_elapsed', 'N/A')}")
+        print(f"📈 Average per Video: {stats.get('avg_time_per_video', 'N/A')}")
+        
+        progress_tracker.close()
+        
+        # Clear model cache to free memory
+        if ENABLE_MODEL_CACHING:
+            clear_model_cache()
+            
     except Exception as e:
         print(f"\n❌ CRITICAL ERROR in BATCH STARTUP: {e}")
+        detailed_logger.error("Critical error in main: %s", str(e))
 
 
 # Note: For Jupyter, run main() from a separate cell. For CLI, you can import and call main().
