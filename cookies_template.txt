@@ -1,0 +1,20 @@
+# YouTube Cookies Template
+# 
+# To use manual cookies:
+# 1. Open YouTube in your browser and sign in
+# 2. Open Developer Tools (F12)
+# 3. Go to Application/Storage > Cookies > https://youtube.com
+# 4. Copy the important cookies below and replace the values
+# 5. Save this file as 'cookies.txt' in the same folder as your script
+#
+# Format: domain	flag	path	secure	expiration	name	value
+# 
+# Important YouTube cookies (replace with your actual values):
+.youtube.com	TRUE	/	FALSE	0	VISITOR_INFO1_LIVE	YOUR_VISITOR_INFO1_LIVE_VALUE
+.youtube.com	TRUE	/	FALSE	0	YSC	YOUR_YSC_VALUE
+.youtube.com	TRUE	/	FALSE	0	PREF	YOUR_PREF_VALUE
+.youtube.com	TRUE	/	FALSE	0	LOGIN_INFO	YOUR_LOGIN_INFO_VALUE
+.youtube.com	TRUE	/	FALSE	0	__Secure-1PSID	YOUR_SECURE_1PSID_VALUE
+.youtube.com	TRUE	/	FALSE	0	__Secure-3PSID	YOUR_SECURE_3PSID_VALUE
+.youtube.com	TRUE	/	FALSE	0	__Secure-1PSIDTS	YOUR_SECURE_1PSIDTS_VALUE
+.youtube.com	TRUE	/	FALSE	0	__Secure-3PSIDTS	YOUR_SECURE_3PSIDTS_VALUE

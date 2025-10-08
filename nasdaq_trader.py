@@ -394,20 +394,169 @@ def module_get_audio_file(url: str) -> str:
         "writesubtitles": False,
         "writeinfojson": False,
         "skip_download": False,
+        # Enhanced authentication options to bypass bot detection
+        "cookiesfrombrowser": ("chrome",),  # Try Chrome first, then other browsers
+        "extractor_retries": 3,
+        "fragment_retries": 3,
+        "retries": 3,
+        "sleep_interval": 1,
+        "max_sleep_interval": 5,
+        # Additional headers to appear more like a real browser
+        "http_headers": {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
+            "Accept-Language": "en-US,en;q=0.5",
+            "Accept-Encoding": "gzip, deflate",
+            "DNT": "1",
+            "Connection": "keep-alive",
+            "Upgrade-Insecure-Requests": "1",
+        },
     }
 
     logger.info("1/4: Audio not in cache. Downloading via yt-dlp API…")
-    with YoutubeDL(ydl_opts) as ydl:
-        info = ydl.extract_info(url, download=True)
-        creator = info.get("uploader") or info.get("channel") or info.get("uploader_id")
-        channel = info.get("channel")
-        title = info.get("title")
-        meta = {"video_id": video_id, "creator": creator, "channel": channel, "title": title}
+    
+    # Enhanced authentication with multiple strategies
+    download_successful = False
+    last_error = None
+    
+    # Strategy 0: Try manual cookies file first (most reliable on Windows)
+    manual_cookies = _extract_manual_cookies()
+    if manual_cookies:
         try:
-            with open(metadata_path, "w", encoding="utf-8") as mf:
-                json.dump(meta, mf, ensure_ascii=False, indent=2)
+            logger.info("Trying authentication with manual cookies file...")
+            ydl_opts_manual = ydl_opts.copy()
+            ydl_opts_manual["cookiefile"] = manual_cookies
+            ydl_opts_manual.pop("cookiesfrombrowser", None)
+            
+            with YoutubeDL(ydl_opts_manual) as ydl:
+                info = ydl.extract_info(url, download=True)
+                creator = info.get("uploader") or info.get("channel") or info.get("uploader_id")
+                channel = info.get("channel")
+                title = info.get("title")
+                meta = {"video_id": video_id, "creator": creator, "channel": channel, "title": title}
+                try:
+                    with open(metadata_path, "w", encoding="utf-8") as mf:
+                        json.dump(meta, mf, ensure_ascii=False, indent=2)
+                except Exception as e:
+                    logger.warning("Could not write metadata cache: %s", e)
+                
+                download_successful = True
+                logger.info("✅ Successfully downloaded with manual cookies")
+                
         except Exception as e:
-            logger.warning("Could not write metadata cache: %s", e)
+            logger.warning("❌ Failed with manual cookies: %s", str(e))
+    
+    # Strategy 1: Try browser cookies (with Windows-specific handling)
+    if not download_successful:
+        browsers_to_try = ["firefox", "chrome", "edge"]  # Reorder for better Windows compatibility
+        for browser in browsers_to_try:
+            try:
+                # Update cookies for this browser attempt
+                ydl_opts["cookiesfrombrowser"] = (browser,)
+                logger.info("Trying authentication with %s cookies...", browser.title())
+                
+                with YoutubeDL(ydl_opts) as ydl:
+                    info = ydl.extract_info(url, download=True)
+                    creator = info.get("uploader") or info.get("channel") or info.get("uploader_id")
+                    channel = info.get("channel")
+                    title = info.get("title")
+                    meta = {"video_id": video_id, "creator": creator, "channel": channel, "title": title}
+                    try:
+                        with open(metadata_path, "w", encoding="utf-8") as mf:
+                            json.dump(meta, mf, ensure_ascii=False, indent=2)
+                    except Exception as e:
+                        logger.warning("Could not write metadata cache: %s", e)
+                    
+                    download_successful = True
+                    logger.info("✅ Successfully downloaded with %s cookies", browser.title())
+                    break
+                    
+            except Exception as e:
+                last_error = e
+                logger.warning("❌ Failed with %s cookies: %s", browser.title(), str(e))
+                continue
+    
+    # Strategy 2: Try with enhanced headers and no cookies (for some protected videos)
+    if not download_successful:
+        try:
+            logger.info("Trying with enhanced headers (no cookies)...")
+            ydl_opts_enhanced = ydl_opts.copy()
+            ydl_opts_enhanced.pop("cookiesfrombrowser", None)
+            # Add more realistic headers
+            ydl_opts_enhanced["http_headers"].update({
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+                "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8",
+                "Accept-Language": "en-US,en;q=0.9",
+                "Accept-Encoding": "gzip, deflate, br",
+                "Sec-Fetch-Dest": "document",
+                "Sec-Fetch-Mode": "navigate",
+                "Sec-Fetch-Site": "none",
+                "Sec-Fetch-User": "?1",
+                "Upgrade-Insecure-Requests": "1",
+                "Cache-Control": "max-age=0"
+            })
+            
+            with YoutubeDL(ydl_opts_enhanced) as ydl:
+                info = ydl.extract_info(url, download=True)
+                creator = info.get("uploader") or info.get("channel") or info.get("uploader_id")
+                channel = info.get("channel")
+                title = info.get("title")
+                meta = {"video_id": video_id, "creator": creator, "channel": channel, "title": title}
+                try:
+                    with open(metadata_path, "w", encoding="utf-8") as mf:
+                        json.dump(meta, mf, ensure_ascii=False, indent=2)
+                except Exception as e:
+                    logger.warning("Could not write metadata cache: %s", e)
+                
+                download_successful = True
+                logger.info("✅ Successfully downloaded with enhanced headers")
+                
+        except Exception as e:
+            last_error = e
+            logger.warning("❌ Failed with enhanced headers: %s", str(e))
+    
+    # Strategy 3: Try with minimal options (for public videos)
+    if not download_successful:
+        try:
+            logger.info("Trying with minimal options (public video fallback)...")
+            ydl_opts_minimal = {
+                "format": "bestaudio/best",
+                "outtmpl": outtmpl,
+                "postprocessors": [
+                    {"key": "FFmpegExtractAudio", "preferredcodec": "mp3", "preferredquality": "0"}
+                ],
+                "noplaylist": True,
+                "quiet": True,
+                "no_warnings": True,
+                "writesubtitles": False,
+                "writeinfojson": False,
+                "skip_download": False,
+                "extractor_retries": 1,
+                "fragment_retries": 1,
+                "retries": 1,
+            }
+            
+            with YoutubeDL(ydl_opts_minimal) as ydl:
+                info = ydl.extract_info(url, download=True)
+                creator = info.get("uploader") or info.get("channel") or info.get("uploader_id")
+                channel = info.get("channel")
+                title = info.get("title")
+                meta = {"video_id": video_id, "creator": creator, "channel": channel, "title": title}
+                try:
+                    with open(metadata_path, "w", encoding="utf-8") as mf:
+                        json.dump(meta, mf, ensure_ascii=False, indent=2)
+                except Exception as e:
+                    logger.warning("Could not write metadata cache: %s", e)
+                
+                download_successful = True
+                logger.info("✅ Successfully downloaded with minimal options")
+                
+        except Exception as e:
+            last_error = e
+            logger.warning("❌ Failed with minimal options: %s", str(e))
+    
+    if not download_successful:
+        raise RuntimeError(f"Failed to download video after trying all authentication methods. Last error: {last_error}")
 
     if not os.path.exists(audio_file_path):
         candidate = os.path.join(CACHE_DIR, f"{video_id}.mp3")
@@ -618,6 +767,25 @@ def _normalize_company_name(symbol: str) -> str:
         return crypto_mappings[resolved_symbol]
     
     return resolved_symbol
+
+
+def _extract_manual_cookies() -> Optional[str]:
+    """Helper function to guide users on manual cookie extraction for Windows."""
+    logger.info("💡 MANUAL COOKIE EXTRACTION GUIDE:")
+    logger.info("If browser cookies fail, you can manually extract cookies:")
+    logger.info("1. Open YouTube in your browser and sign in")
+    logger.info("2. Open Developer Tools (F12)")
+    logger.info("3. Go to Application/Storage > Cookies > https://youtube.com")
+    logger.info("4. Copy the cookie values and save them to a 'cookies.txt' file")
+    logger.info("5. The system will automatically use cookies.txt if available")
+    
+    # Check if manual cookies file exists
+    cookies_file = "cookies.txt"
+    if os.path.exists(cookies_file):
+        logger.info("✅ Found manual cookies file: %s", cookies_file)
+        return cookies_file
+    
+    return None
 
 
 def _clear_ai_cache_for_video(video_id: str) -> None:

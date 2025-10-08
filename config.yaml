@@ -25,6 +25,12 @@ API_OPTIMIZATION:
   ENABLE_RATE_LIMITING: true # Respect API rate limits
   RETRY_DELAY_SECONDS: 2 # Base delay between retries
 
+YOUTUBE_AUTHENTICATION:
+  ENABLE_BROWSER_COOKIES: true # Use browser cookies for authentication
+  PREFERRED_BROWSERS: ["chrome", "firefox", "edge", "safari"] # Order of browsers to try
+  MAX_RETRIES_PER_BROWSER: 3 # Number of retries per browser
+  FALLBACK_TO_NO_AUTH: true # Try without authentication as last resort
+
 DIRECTORIES:
   CACHE_DIR: "video_cache"
   SUMMARY_DIR: "summary"
