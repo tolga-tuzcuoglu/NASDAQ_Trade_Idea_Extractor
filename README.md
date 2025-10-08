@@ -1,264 +1,263 @@
-# 🚀 NASDAQ Trader - AI-Powered YouTube Finance Video Analyzer
+# 🚀 NASDAQ Trader - AI Destekli YouTube Finans Video Analizörü
 
-**Automated YouTube Finance Video Analysis Pipeline** that downloads audio, generates Turkish transcripts, extracts trade ideas based ONLY on what is said in the video, and produces comprehensive reports/JSON. Built with **zero hallucination** principles - reports are based strictly on video content.
+**Otomatik YouTube Finans Video Analiz Pipeline'ı** - ses indirir, Türkçe transkript oluşturur, videoda GERÇEKTEN söylenenlere dayanarak trade fikirlerini çıkarır ve kapsamlı raporlar/JSON üretir. **Sıfır halüsinasyon** prensipleriyle inşa edilmiştir - raporlar sadece video içeriğine dayanır.
 
-## 🎯 **Who This Is For**
-- **Non-coders**: Investors and traders who want automated analysis
-- **Finance professionals**: Quick, reliable, source-based trade idea extraction
-- **Content creators**: Analyze their own finance videos for insights
-- **Researchers**: Systematic analysis of finance video content
+## 🎯 **Kimler İçin**
+- **Kod bilmeyenler**: Yatırımcılar ve trader'lar için otomatik analiz
+- **Finans profesyonelleri**: Hızlı, güvenilir, kaynak tabanlı trade fikri çıkarma
+- **İçerik üreticileri**: Kendi finans videolarını analiz etme
+- **Araştırmacılar**: Finans video içeriğinin sistematik analizi
 
-## ✨ **Key Features**
+## ✨ **Temel Özellikler**
 
-### 🔒 **Zero Hallucination Guarantee**
-- ✅ **No AI hallucination** - reports based strictly on video content
-- ✅ **Source verification** - only information actually mentioned in video
-- ✅ **Fresh AI analysis** every time (no cached AI results)
-- ✅ **Deterministic caching** - same transcript = same results
+### 🔒 **Sıfır Halüsinasyon Garantisi**
+- ✅ **AI halüsinasyonu yok** - raporlar sadece video içeriğine dayanır
+- ✅ **Kaynak doğrulama** - sadece videoda gerçekten bahsedilen bilgiler
+- ✅ **Her seferinde taze AI analizi** (AI önbelleği yok)
+- ✅ **Deterministik önbellekleme** - aynı transkript = aynı sonuçlar
 
-### 🎬 **Video Processing**
-- ✅ **YouTube audio download** with enhanced authentication
-- ✅ **Turkish transcription** using OpenAI Whisper
-- ✅ **Automatic timestamp extraction** from video segments
-- ✅ **Video creator information** included in reports
-- ✅ **Progress tracking** with ETA and real-time updates
+### 🎬 **Video İşleme**
+- ✅ **YouTube ses indirme** gelişmiş kimlik doğrulama ile
+- ✅ **Türkçe transkripsiyon** OpenAI Whisper kullanarak
+- ✅ **Otomatik zaman damgası çıkarma** video segmentlerinden
+- ✅ **Video üretici bilgisi** raporlarda yer alır
+- ✅ **İlerleme takibi** ETA ve gerçek zamanlı güncellemeler ile
 
-### 📊 **Trade Analysis**
-- ✅ **All asset types**: Equities, ETFs, Crypto, Commodities
-- ✅ **Dynamic ticker resolution** using yfinance API
-- ✅ **Smart deduplication** - no redundant tickers in same report
-- ✅ **Comprehensive reports** with Turkish thesis and risk assessment
-- ✅ **JSON output** for programmatic access
+### 📊 **Trade Analizi**
+- ✅ **Tüm varlık türleri**: Hisse senetleri, ETF'ler, Kripto, Emtialar
+- ✅ **Dinamik ticker çözümleme** yfinance API kullanarak
+- ✅ **Akıllı tekrar önleme** - aynı raporda gereksiz ticker'lar yok
+- ✅ **Kapsamlı raporlar** Türkçe tez ve risk değerlendirmesi ile
+- ✅ **JSON çıktı** programatik erişim için
 
-### 🛡️ **Enhanced Authentication**
-- ✅ **Multi-strategy YouTube authentication** (browser cookies, manual cookies, headers)
-- ✅ **Windows compatibility** with cookie database access fixes
-- ✅ **Fallback mechanisms** for protected videos
-- ✅ **Manual cookie extraction guide** for challenging videos
+### 🛡️ **Gelişmiş Kimlik Doğrulama**
+- ✅ **Çoklu strateji YouTube kimlik doğrulama** (tarayıcı çerezleri, manuel çerezler, başlıklar)
+- ✅ **Windows uyumluluğu** çerez veritabanı erişim düzeltmeleri ile
+- ✅ **Korumalı videolar için yedek mekanizmalar**
+- ✅ **Zorlu videolar için manuel çerez çıkarma rehberi**
 
-## 📋 **Requirements**
+## 📋 **Gereksinimler**
 - **Python 3.10+**
-- **FFmpeg** (for audio processing)
-- **Google Gemini API key** (free tier available)
-- **yt-dlp** (for YouTube downloads)
+- **FFmpeg** (ses işleme için)
+- **Google Gemini API anahtarı** (ücretsiz katman mevcut)
+- **yt-dlp** (YouTube indirmeleri için)
 
-## 🚀 **Quick Start**
+## 🚀 **Hızlı Başlangıç**
 
-### **1. Installation**
+### **1. Kurulum**
 ```bash
-# Clone the repository
+# Depoyu klonlayın
 git clone https://github.com/yourusername/nasdaq-trader-pipeline.git
 cd nasdaq-trader-pipeline
 
-# Install dependencies
+# Bağımlılıkları yükleyin
 pip install -r requirements.txt
 ```
 
-### **2. Configuration**
+### **2. Yapılandırma**
 ```bash
-# Copy configuration template
+# Yapılandırma şablonunu kopyalayın
 cp config.yaml config_local.yaml
 
-# Create environment file
-echo "GEMINI_API_KEY=your_api_key_here" > .env
+# Ortam dosyası oluşturun
+echo "GEMINI_API_KEY=api_anahtarınız_buraya" > .env
 ```
 
-### **3. Add Your Videos**
+### **3. Videolarınızı Ekleyin**
 ```bash
-# Edit video_list.txt with your YouTube URLs
+# video_list.txt dosyasını YouTube URL'lerinizle düzenleyin
 echo "https://youtube.com/watch?v=VIDEO_ID" >> video_list.txt
 ```
 
-### **4. Run Analysis**
+### **4. Analizi Çalıştırın**
 ```bash
-# Option 1: Jupyter Notebook (Recommended)
+# Seçenek 1: Jupyter Notebook (Önerilen)
 jupyter notebook Nasdaq_Trader.ipynb
 
-# Option 2: Command Line
+# Seçenek 2: Komut Satırı
 python nasdaq_trader.py
 ```
 
-## 📁 **Project Structure**
+## 📁 **Proje Yapısı**
 ```
 nasdaq-trader-pipeline/
-├── nasdaq_trader.py              # Main Python script
+├── nasdaq_trader.py              # Ana Python scripti
 ├── Nasdaq_Trader.ipynb          # Jupyter notebook
-├── Nasdaq_Trader_Colab_Lean.ipynb # Google Colab version
-├── config.yaml                  # Configuration template
-├── requirements.txt             # Python dependencies
-├── cookies_template.txt         # Manual cookie extraction guide
-├── .gitignore                  # Git ignore file
-├── README.md                   # This file
-└── .env                        # Your API keys (create this)
+├── config.yaml                  # Yapılandırma şablonu
+├── requirements.txt             # Python bağımlılıkları
+├── cookies_template.txt         # Manuel çerez çıkarma rehberi
+├── .gitignore                  # Git ignore dosyası
+├── README.md                   # Bu dosya
+└── .env                        # API anahtarlarınız (bunu oluşturun)
 ```
 
-## ⚙️ **Configuration Options**
+## ⚙️ **Yapılandırma Seçenekleri**
 
-### **Model Performance**
+### **Model Performansı**
 ```yaml
 MODEL_PERFORMANCE:
   WHISPER_MODEL: "medium"        # tiny|small|medium|large|large-v2|large-v3
   GEMINI_MODEL: "gemini-2.5-flash" # gemini-2.5-flash|gemini-1.5-pro
-  CHUNK_SIZE: 12000              # Characters per chunk for long transcripts
-  ENABLE_MODEL_CACHING: true     # Keep Whisper model in memory
+  CHUNK_SIZE: 12000              # Uzun transkriptler için karakter sayısı
+  ENABLE_MODEL_CACHING: true     # Whisper modelini bellekte tut
 ```
 
-### **Processing Settings**
+### **İşleme Ayarları**
 ```yaml
 PROCESSING:
-  ENABLE_PROGRESS_TRACKING: true  # Show progress bars and ETA
-  ENABLE_DETAILED_LOGGING: true   # More verbose logging
-  MAX_VIDEO_LENGTH_MINUTES: 120  # Skip videos longer than this
-  MIN_VIDEO_LENGTH_MINUTES: 1    # Skip videos shorter than this
+  ENABLE_PROGRESS_TRACKING: true  # İlerleme çubukları ve ETA göster
+  ENABLE_DETAILED_LOGGING: true   # Daha ayrıntılı günlük
+  MAX_VIDEO_LENGTH_MINUTES: 120  # Bu süreden uzun videoları atla
+  MIN_VIDEO_LENGTH_MINUTES: 1    # Bu süreden kısa videoları atla
 ```
 
-### **YouTube Authentication**
+### **YouTube Kimlik Doğrulama**
 ```yaml
 YOUTUBE_AUTHENTICATION:
-  ENABLE_BROWSER_COOKIES: true    # Use browser cookies for authentication
+  ENABLE_BROWSER_COOKIES: true    # Kimlik doğrulama için tarayıcı çerezleri kullan
   PREFERRED_BROWSERS: ["chrome", "firefox", "edge", "safari"]
-  MAX_RETRIES_PER_BROWSER: 3      # Number of retries per browser
-  FALLBACK_TO_NO_AUTH: true       # Try without authentication as last resort
+  MAX_RETRIES_PER_BROWSER: 3      # Tarayıcı başına deneme sayısı
+  FALLBACK_TO_NO_AUTH: true       # Son çare olarak kimlik doğrulama olmadan dene
 ```
 
-## 📊 **Generated Outputs**
+## 📊 **Üretilen Çıktılar**
 
-### **Report Files**
-- `summary/summary_<VIDEO_ID>_<TIMESTAMP>.txt` - Human-readable report
-- `summary/summary_<VIDEO_ID>_<TIMESTAMP>.json` - Machine-readable JSON
-- `summary/run.log` - Processing logs
+### **Rapor Dosyaları**
+- `summary/summary_<VIDEO_ID>_<ZAMAN>.txt` - İnsan tarafından okunabilir rapor
+- `summary/summary_<VIDEO_ID>_<ZAMAN>.json` - Makine tarafından okunabilir JSON
+- `summary/run.log` - İşleme günlükleri
 
-### **Report Structure**
+### **Rapor Yapısı**
 ```
---- EXECUTIVE TRADE SUMMARY REPORT ---
-Generated on: 2025-01-08 22:30:00
-Source Video: https://youtube.com/watch?v=VIDEO_ID
-Video Title: Finance Video Title
-Video Creator: Channel Name
-Report File: summary_VIDEO_ID_TIMESTAMP.txt
+--- YÖNETİCİ TRADE ÖZET RAPORU ---
+Oluşturulma Tarihi: 2025-01-08 22:30:00
+Kaynak Video: https://youtube.com/watch?v=VIDEO_ID
+Video Başlığı: Finans Video Başlığı
+Video Üreticisi: Kanal Adı
+Rapor Dosyası: summary_VIDEO_ID_ZAMAN.txt
 -------------------------------------
 
-=== TRADE IDEA 1: Equity | AAPL (Starts at 00:02:15) ===
-  Action:        Long
-  Sentiment:     BULLISH
-  Horizon:       Long-Term
-  Risk:          Medium
-  Market:        NASDAQ
-  Support:       $150.00
-  Resistance:    $200.00
-  Target Price:  $180.00
+=== TRADE FİKRİ 1: Hisse Senedi | AAPL (00:02:15'te başlar) ===
+  Aksiyon:        Long
+  Sentiment:      BULLISH
+  Ufuk:          Uzun Vadeli
+  Risk:          Orta
+  Piyasa:        NASDAQ
+  Destek:        $150.00
+  Direnç:        $200.00
+  Hedef Fiyat:   $180.00
   Stop Loss:     $140.00
 -------------------------------------
-  Key Thesis (TR Original) - AAPL (Equity):
+  Ana Tez (TR Orijinal) - AAPL (Hisse Senedi):
   Apple'ın yeni ürün lansmanları ve güçlü finansal performansı...
 -------------------------------------
 ```
 
-## 🔧 **Advanced Features**
+## 🔧 **Gelişmiş Özellikler**
 
-### **Enhanced Authentication System**
-The system automatically tries multiple authentication strategies:
+### **Gelişmiş Kimlik Doğrulama Sistemi**
+Sistem otomatik olarak birden fazla kimlik doğrulama stratejisi dener:
 
-1. **Manual Cookies** (most reliable)
-2. **Browser Cookies** (Firefox, Chrome, Edge)
-3. **Enhanced Headers** (mimics real browser)
-4. **Minimal Options** (fallback for public videos)
+1. **Manuel Çerezler** (en güvenilir)
+2. **Tarayıcı Çerezleri** (Firefox, Chrome, Edge)
+3. **Gelişmiş Başlıklar** (gerçek tarayıcıyı taklit eder)
+4. **Minimal Seçenekler** (genel videolar için yedek)
 
-### **Dynamic Ticker Resolution**
-- Uses `yfinance` API for real-time ticker resolution
-- No hardcoded company mappings
-- Falls back to original name if resolution fails
-- Supports all asset types: Equities, ETFs, Crypto, Commodities
+### **Dinamik Ticker Çözümleme**
+- Gerçek zamanlı ticker çözümleme için `yfinance` API kullanır
+- Hardcoded şirket eşleştirmeleri yok
+- Çözümleme başarısız olursa orijinal isme geri döner
+- Tüm varlık türlerini destekler: Hisse senetleri, ETF'ler, Kripto, Emtialar
 
-### **Smart Caching System**
-- **Audio cache**: Downloaded MP3 files
-- **Transcript cache**: Generated transcripts
-- **AI cache**: Auto-deleted for fresh analysis
-- **Model cache**: Whisper model kept in memory
+### **Akıllı Önbellekleme Sistemi**
+- **Ses önbelleği**: İndirilen MP3 dosyaları
+- **Transkript önbelleği**: Oluşturulan transkriptler
+- **AI önbelleği**: Taze analiz için otomatik silinir
+- **Model önbelleği**: Whisper modeli bellekte tutulur
 
-## 🛠️ **Troubleshooting**
+## 🛠️ **Sorun Giderme**
 
-### **Common Issues**
+### **Yaygın Sorunlar**
 
-**"FFmpeg not found"**
+**"FFmpeg bulunamadı"**
 ```bash
-# Windows: Download from https://www.gyan.dev/ffmpeg/builds/
-# Add to PATH, then verify:
+# Windows: https://www.gyan.dev/ffmpeg/builds/ adresinden indirin
+# PATH'e ekleyin, sonra doğrulayın:
 ffmpeg -version
 ```
 
-**"yt-dlp/Whisper/Google import error"**
+**"yt-dlp/Whisper/Google import hatası"**
 ```bash
-# Ensure you're in the right environment:
+# Doğru ortamda olduğunuzdan emin olun:
 pip install -r requirements.txt
 ```
 
-**"Sign in to confirm you're not a bot"**
-- The system will automatically try multiple authentication methods
-- If all fail, follow the manual cookie extraction guide in `cookies_template.txt`
+**"Bot olmadığınızı doğrulamak için giriş yapın"**
+- Sistem otomatik olarak birden fazla kimlik doğrulama yöntemi deneyecek
+- Hepsi başarısız olursa, `cookies_template.txt` dosyasındaki manuel çerez çıkarma rehberini takip edin
 
-**"Invalid or unsupported YouTube URL"**
-- Supported formats: `youtube.com/watch?v=`, `youtu.be/`, `/shorts/`, `/live/`
-- Check your URL format
+**"Geçersiz veya desteklenmeyen YouTube URL"**
+- Desteklenen formatlar: `youtube.com/watch?v=`, `youtu.be/`, `/shorts/`, `/live/`
+- URL formatınızı kontrol edin
 
-### **Performance Optimization**
-- Use `WHISPER_MODEL: "small"` for faster processing
-- Enable `ENABLE_MODEL_CACHING: true` for multiple videos
-- Adjust `CHUNK_SIZE` based on your transcript length
+### **Performans Optimizasyonu**
+- Daha hızlı işleme için `WHISPER_MODEL: "small"` kullanın
+- Birden fazla video için `ENABLE_MODEL_CACHING: true` etkinleştirin
+- Transkript uzunluğunuza göre `CHUNK_SIZE` ayarlayın
 
-## 🔒 **Security & Privacy**
+## 🔒 **Güvenlik ve Gizlilik**
 
-### **What's Safe to Upload to GitHub**
-- ✅ Source code files (`.py`, `.ipynb`)
-- ✅ Configuration templates (`config.yaml`)
-- ✅ Documentation files (`README.md`)
-- ✅ Template files (`cookies_template.txt`)
+### **GitHub'a Yüklenmesi Güvenli Olanlar**
+- ✅ Kaynak kod dosyaları (`.py`, `.ipynb`)
+- ✅ Yapılandırma şablonları (`config.yaml`)
+- ✅ Dokümantasyon dosyaları (`README.md`)
+- ✅ Şablon dosyaları (`cookies_template.txt`)
 
-### **What's NOT Safe to Upload**
-- ❌ `cookies.txt` (your personal authentication)
-- ❌ `.env` (your API keys)
-- ❌ `video_cache/` (downloaded audio files)
-- ❌ `summary/` (your analysis reports)
-- ❌ `logs/` (detailed logs)
+### **Yüklenmesi Güvenli OLMAYANlar**
+- ❌ `cookies.txt` (kişisel kimlik doğrulamanız)
+- ❌ `.env` (API anahtarlarınız)
+- ❌ `video_cache/` (indirilen ses dosyaları)
+- ❌ `summary/` (analiz raporlarınız)
+- ❌ `logs/` (ayrıntılı günlükler)
 
-## 📈 **Performance Metrics**
+## 📈 **Performans Metrikleri**
 
-### **Typical Processing Times**
-- **Audio Download**: 30-60 seconds
-- **Transcription**: 2-5 minutes (depends on video length)
-- **AI Analysis**: 1-3 minutes
-- **Report Generation**: 10-30 seconds
+### **Tipik İşleme Süreleri**
+- **Ses İndirme**: 30-60 saniye
+- **Transkripsiyon**: 2-5 dakika (video uzunluğuna bağlı)
+- **AI Analizi**: 1-3 dakika
+- **Rapor Oluşturma**: 10-30 saniye
 
-### **Resource Usage**
-- **RAM**: 2-4 GB (with model caching)
-- **Storage**: 50-200 MB per video (audio + cache)
-- **API Calls**: 1-3 Gemini API calls per video
+### **Kaynak Kullanımı**
+- **RAM**: 2-4 GB (model önbellekleme ile)
+- **Depolama**: Video başına 50-200 MB (ses + önbellek)
+- **API Çağrıları**: Video başına 1-3 Gemini API çağrısı
 
-## 🤝 **Contributing**
+## 🤝 **Katkıda Bulunma**
 
-### **How to Contribute**
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Test thoroughly
-5. Submit a pull request
+### **Nasıl Katkıda Bulunulur**
+1. Depoyu fork edin
+2. Özellik dalı oluşturun
+3. Değişikliklerinizi yapın
+4. Kapsamlı test edin
+5. Pull request gönderin
 
-### **Reporting Issues**
-- Use GitHub Issues for bug reports
-- Include error logs and system information
-- Provide steps to reproduce the issue
+### **Sorun Bildirme**
+- Hata raporları için GitHub Issues kullanın
+- Hata günlükleri ve sistem bilgilerini dahil edin
+- Sorunu yeniden üretme adımlarını sağlayın
 
-## 📄 **License**
+## 📄 **Lisans**
 
-This project is open source and available under the MIT License.
+Bu proje açık kaynaklıdır ve MIT Lisansı altında kullanılabilir.
 
-## 🙏 **Acknowledgments**
+## 🙏 **Teşekkürler**
 
-- **OpenAI Whisper** for speech-to-text transcription
-- **Google Gemini** for AI-powered analysis
-- **yt-dlp** for YouTube video downloading
-- **yfinance** for dynamic ticker resolution
+- **OpenAI Whisper** - konuşmadan metne transkripsiyon için
+- **Google Gemini** - AI destekli analiz için
+- **yt-dlp** - YouTube video indirme için
+- **yfinance** - dinamik ticker çözümleme için
 
 ---
 
-**🚀 Ready to analyze your finance videos? Start with the Quick Start guide above!**
+**🚀 Finans videolarınızı analiz etmeye hazır mısınız? Yukarıdaki Hızlı Başlangıç rehberiyle başlayın!**
