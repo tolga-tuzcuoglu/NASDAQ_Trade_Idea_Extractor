@@ -285,7 +285,11 @@ def parse_youtube_url(url: str) -> Tuple[str, Optional[int]]:
             if m3:
                 video_id = m3.group(1)
             else:
-                raise ValueError(f"Invalid or unsupported YouTube URL: {url}")
+                m4 = re.search(r"/live/([\w-]{6,})", url)
+                if m4:
+                    video_id = m4.group(1)
+                else:
+                    raise ValueError(f"Invalid or unsupported YouTube URL: {url}")
 
     start_seconds: Optional[int] = None
     ts = re.search(r"[?&](?:t|start)=([0-9hms]+)", url)
