@@ -907,6 +907,12 @@ def module_prepare_trade_summary(transcript_text: str, video_id: Optional[str], 
             attempt_summary: Optional[TradeSummaryList] = None
             for attempt in range(MAX_LLM_RETRIES):
                 try:
+                    # Add retry delay for network issues
+                    if attempt > 0:
+                        retry_delay = 2 ** attempt  # Exponential backoff: 2, 4, 8 seconds
+                        logger.info("Retrying API call after %d seconds (attempt %d/%d)", retry_delay, attempt + 1, MAX_LLM_RETRIES)
+                        time.sleep(retry_delay)
+                    
                     response = client.models.generate_content(
                         model=GEMINI_MODEL,
                     contents=(
@@ -942,7 +948,14 @@ def module_prepare_trade_summary(transcript_text: str, video_id: Optional[str], 
                         raise ValueError(f"Validation error: {e}")
                     time.sleep(1)
                 except Exception as e:
-                    raise e
+                    error_msg = str(e)
+                    if "Server disconnected" in error_msg or "RemoteProtocolError" in error_msg:
+                        logger.warning("Network error on attempt %d/%d: %s", attempt + 1, MAX_LLM_RETRIES, error_msg)
+                        if attempt == MAX_LLM_RETRIES - 1:
+                            logger.error("All retry attempts failed due to network issues")
+                            raise RuntimeError(f"Network connectivity issue: {error_msg}")
+                    else:
+                        raise e
 
         if attempt_summary and attempt_summary.trade_ideas:
             for idea in attempt_summary.trade_ideas:
@@ -1003,8 +1016,10 @@ def _load_metadata(video_id: str) -> Dict[str, Any]:
     return {}
 
 
-def process_single_video(video_url: str, progress_tracker: Optional[ProgressTracker] = None):
-    """Process one video end-to-end and write both text and JSON reports."""
+def process_single_video(video_url: str, progress_tracker: Optional[ProgressTracker] = None) -> bool:
+    """Process one video end-to-end and write both text and JSON reports.
+    Returns True if successful, False if failed.
+    """
     print(f"\n🎬 Starting analysis for: {video_url}")
 
     try:
@@ -1082,11 +1097,15 @@ def process_single_video(video_url: str, progress_tracker: Optional[ProgressTrac
         print("\n--- REPORT PREVIEW (Console) ---")
         print(report_content)
         print("---------------------------------\n")
+        
+        return True  # ✅ Başarılı işleme
 
     except ValueError as ve:
         print(f"\n❌ Error with Input/Validation for {video_url}: {ve}")
+        return False  # ✅ Hata durumu
     except Exception as e:
         print(f"\n❌ An unexpected error occurred for {video_url}: {e}")
+        return False  # ✅ Hata durumu
 
 
 def main():

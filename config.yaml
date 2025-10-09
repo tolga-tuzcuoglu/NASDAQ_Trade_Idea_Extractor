@@ -21,9 +21,10 @@ PROCESSING:
   
 API_OPTIMIZATION:
   YFINANCE_TIMEOUT: 10 # Seconds to wait for ticker resolution
-  GEMINI_TIMEOUT: 60 # Seconds to wait for AI responses
+  GEMINI_TIMEOUT: 120 # Seconds to wait for AI responses (increased for network issues)
   ENABLE_RATE_LIMITING: true # Respect API rate limits
-  RETRY_DELAY_SECONDS: 2 # Base delay between retries
+  RETRY_DELAY_SECONDS: 5 # Base delay between retries (increased for stability)
+  MAX_NETWORK_RETRIES: 5 # Additional retries for network connectivity issues
 
 YOUTUBE_AUTHENTICATION:
   ENABLE_BROWSER_COOKIES: true # Use browser cookies for authentication
