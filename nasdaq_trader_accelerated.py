@@ -247,10 +247,14 @@ class AcceleratedNasdaqTrader:
             # Create output directory
             os.makedirs('video_cache', exist_ok=True)
             
+            # Get current date for cache filename
+            from datetime import datetime
+            date_str = datetime.now().strftime('%Y%m%d')
+            
             # Configure yt-dlp
             ydl_opts = {
                 'format': 'bestaudio[ext=m4a]/bestaudio/best',
-                'outtmpl': 'video_cache/%(id)s.%(ext)s',
+                'outtmpl': f'video_cache/%(id)s_{date_str}.%(ext)s',
                 'extractaudio': True,
                 'audioformat': 'wav',
                 'noplaylist': True,
@@ -264,7 +268,7 @@ class AcceleratedNasdaqTrader:
                 
                 # Find the downloaded file
                 for ext in ['m4a', 'wav', 'mp3', 'webm']:
-                    audio_path = f'video_cache/{video_id}.{ext}'
+                    audio_path = f'video_cache/{video_id}_{date_str}.{ext}'
                     if os.path.exists(audio_path):
                         return audio_path
                 
@@ -280,9 +284,11 @@ class AcceleratedNasdaqTrader:
             # Create transcript cache directory
             os.makedirs('transcript_cache', exist_ok=True)
             
-            # Generate cache filename
-            video_id = os.path.basename(audio_path).split('.')[0]
-            transcript_cache_path = f'transcript_cache/{video_id}.txt'
+            # Generate cache filename with date
+            from datetime import datetime
+            date_str = datetime.now().strftime('%Y%m%d')
+            video_id = os.path.basename(audio_path).split('.')[0].split('_')[0]  # Remove date suffix
+            transcript_cache_path = f'transcript_cache/{video_id}_{date_str}.txt'
             
             # Check if transcript is already cached
             if os.path.exists(transcript_cache_path):
