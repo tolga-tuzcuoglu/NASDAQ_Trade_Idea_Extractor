@@ -245,12 +245,12 @@ class AcceleratedNasdaqTrader:
         """Download video and extract audio"""
         try:
             # Create output directory
-            os.makedirs('cache', exist_ok=True)
+            os.makedirs('video_cache', exist_ok=True)
             
             # Configure yt-dlp
             ydl_opts = {
                 'format': 'bestaudio[ext=m4a]/bestaudio/best',
-                'outtmpl': 'cache/%(id)s.%(ext)s',
+                'outtmpl': 'video_cache/%(id)s.%(ext)s',
                 'extractaudio': True,
                 'audioformat': 'wav',
                 'noplaylist': True,
@@ -264,7 +264,7 @@ class AcceleratedNasdaqTrader:
                 
                 # Find the downloaded file
                 for ext in ['m4a', 'wav', 'mp3', 'webm']:
-                    audio_path = f'cache/{video_id}.{ext}'
+                    audio_path = f'video_cache/{video_id}.{ext}'
                     if os.path.exists(audio_path):
                         return audio_path
                 
@@ -275,11 +275,33 @@ class AcceleratedNasdaqTrader:
             return None
     
     def transcribe_audio(self, audio_path):
-        """Transcribe audio using Whisper"""
+        """Transcribe audio using Whisper with caching"""
         try:
+            # Create transcript cache directory
+            os.makedirs('transcript_cache', exist_ok=True)
+            
+            # Generate cache filename
+            video_id = os.path.basename(audio_path).split('.')[0]
+            transcript_cache_path = f'transcript_cache/{video_id}.txt'
+            
+            # Check if transcript is already cached
+            if os.path.exists(transcript_cache_path):
+                self.logger.info(f"Using cached transcript for {video_id}")
+                with open(transcript_cache_path, 'r', encoding='utf-8') as f:
+                    return f.read()
+            
+            # Transcribe if not cached
+            self.logger.info(f"Transcribing audio: {audio_path}")
             model = whisper.load_model(self.config.get('MODELS', {}).get('whisper_model', 'small'))
             result = model.transcribe(audio_path, language='tr')
-            return result['text']
+            transcript_text = result['text']
+            
+            # Cache the transcript
+            with open(transcript_cache_path, 'w', encoding='utf-8') as f:
+                f.write(transcript_text)
+            self.logger.info(f"Transcript cached: {transcript_cache_path}")
+            
+            return transcript_text
         except Exception as e:
             self.logger.error(f"Transcription failed: {e}")
             return None
@@ -295,19 +317,36 @@ class AcceleratedNasdaqTrader:
             genai.configure(api_key=api_key)
             model = genai.GenerativeModel(self.config.get('MODELS', {}).get('gemini_model', 'gemini-2.5-flash'))
             
-            # Create prompt
+            # Create prompt for structured trading analysis
             prompt = f"""
-            Analyze this Turkish trading video transcript and extract trading ideas:
+            Analyze this Turkish trading video transcript and extract trading ideas in the following structured format:
             
+            TRANSCRIPT:
             {transcript}
             
-            Please provide:
-            1. Trading ideas mentioned
-            2. Stock symbols/tickers discussed
-            3. Market analysis points
-            4. Investment recommendations
+            Please provide a detailed analysis in this exact format:
             
-            Format as a structured report.
+            # TRADING ANALYSIS REPORT
+            
+            ## 📈 TRADING IDEAS
+            [List specific trading ideas mentioned with entry/exit points if given]
+            
+            ## 🏢 STOCK SYMBOLS & TICKERS
+            [List all stock symbols, tickers, and company names mentioned]
+            
+            ## 📊 MARKET ANALYSIS
+            [Extract market analysis points, trends, and technical analysis mentioned]
+            
+            ## 💡 INVESTMENT RECOMMENDATIONS
+            [List specific investment recommendations and strategies]
+            
+            ## ⏰ TIMING & DURATION
+            [Mention any specific timeframes or duration recommendations]
+            
+            ## 🎯 KEY TAKEAWAYS
+            [Summarize the most important points for traders]
+            
+            Format the response exactly as shown above with proper markdown formatting.
             """
             
             response = model.generate_content(prompt)
