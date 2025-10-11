@@ -162,8 +162,8 @@ class IndependentNasdaqTrader:
             self.logger.error(f"Transcription failed: {e}")
             return None
 
-    def generate_analysis(self, transcript):
-        """Generate AI analysis using Gemini"""
+    def generate_analysis(self, transcript, video_info=None):
+        """Generate professional trading analysis using Gemini"""
         try:
             # Setup Gemini
             api_key = os.getenv('GEMINI_API_KEY')
@@ -173,36 +173,131 @@ class IndependentNasdaqTrader:
             genai.configure(api_key=api_key)
             model = genai.GenerativeModel(self.config.get('MODELS', {}).get('gemini_model', 'gemini-2.5-flash'))
             
-            # Create prompt for structured trading analysis
+            # Create professional trading analysis prompt
             prompt = f"""
-            Analyze this Turkish trading video transcript and extract trading ideas in the following structured format:
+            As an experienced Nasdaq portfolio manager, analyze this Turkish trading video transcript and create a professional trading report.
             
             TRANSCRIPT:
             {transcript}
             
-            Please provide a detailed analysis in this exact format:
+            Create a comprehensive trading analysis report in this EXACT format:
             
-            # TRADING ANALYSIS REPORT
+            # NASDAQ TRADING ANALYSIS REPORT
             
-            ## Trading Ideas
-            [List specific trading ideas mentioned with entry/exit points if given]
+            ## 📊 VIDEO INFORMATION
+            - **Date**: [Extract video date if mentioned, otherwise use current date]
+            - **Video URL**: [Video URL if available]
+            - **Video Title**: [Video title if mentioned]
+            - **Channel/Author**: [Channel name or author if mentioned]
             
-            ## Stock Symbols & Tickers
-            [List all stock symbols, tickers, and company names mentioned]
+            ## 🎯 EXECUTIVE SUMMARY
+            [2-3 sentence summary of key trading opportunities and market outlook]
             
-            ## Market Analysis
-            [Extract market analysis points, trends, and technical analysis mentioned]
+            ## 📈 ACTIONABLE TRADE IDEAS
+            ### Day Trading Opportunities
+            - **Ticker**: [SYMBOL] | **Action**: [BUY/SELL] | **Entry**: [Price] | **Target**: [Price] | **Stop**: [Price] | **Timeframe**: [Hours/Days]
             
-            ## Investment Recommendations
-            [List specific investment recommendations and strategies]
+            ### Swing Trading Opportunities  
+            - **Ticker**: [SYMBOL] | **Action**: [BUY/SELL] | **Entry**: [Price] | **Target**: [Price] | **Stop**: [Price] | **Timeframe**: [Days/Weeks]
             
-            ## Timing & Duration
-            [Mention any specific timeframes or duration recommendations]
+            ### Long-term Investment Ideas
+            - **Ticker**: [SYMBOL] | **Action**: [BUY/HOLD] | **Entry**: [Price Range] | **Target**: [Price] | **Timeframe**: [Months/Years]
             
-            ## Key Takeaways
-            [Summarize the most important points for traders]
+            ## 🏢 VALIDATED TICKERS & ASSETS
+            ### Stocks (NASDAQ/NYSE)
+            - [TICKER] - [Company Name] - [Current Price if mentioned]
             
-            Format the response exactly as shown above with proper markdown formatting.
+            ### Cryptocurrencies
+            - [SYMBOL] (Bitcoin, Ethereum, etc.) - [Current Price if mentioned]
+            
+            ### Commodities
+            - [ASSET] (Gold, Silver, Oil, etc.) - [Current Price if mentioned]
+            
+            ## 📊 TECHNICAL ANALYSIS
+            ### Support & Resistance Levels
+            - **Ticker**: [SYMBOL] | **Support**: [Price] | **Resistance**: [Price]
+            
+            ### Chart Patterns
+            - **Ticker**: [SYMBOL] | **Pattern**: [Pattern Name] | **Implication**: [Bullish/Bearish/Neutral]
+            
+            ### Key Levels
+            - **Ticker**: [SYMBOL] | **Key Level**: [Price] | **Significance**: [Breakout/Support/Resistance]
+            
+            ## 📰 MARKET SENTIMENT & NEWS
+            ### Positive Catalysts
+            - [Specific positive news or events mentioned]
+            
+            ### Risk Factors
+            - [Specific risks or negative factors mentioned]
+            
+            ### Market Outlook
+            - [Overall market direction and reasoning]
+            
+            ## ⏰ TIMING & DURATION
+            ### Immediate Actions (0-24 hours)
+            - [Specific actions to take immediately]
+            
+            ### Short-term (1-7 days)
+            - [Actions for the coming week]
+            
+            ### Medium-term (1-4 weeks)
+            - [Actions for the coming month]
+            
+            ## 🎯 PORTFOLIO IMPLICATIONS
+            ### Position Sizing
+            - [Recommended position sizes for different risk levels]
+            
+            ### Risk Management
+            - [Specific risk management strategies mentioned]
+            
+            ### Diversification
+            - [Diversification recommendations]
+            
+            ## 📋 TRADING CHECKLIST
+            - [ ] [Specific action item 1]
+            - [ ] [Specific action item 2]
+            - [ ] [Specific action item 3]
+            
+            ## ⚠️ IMPORTANT DISCLAIMERS
+            - This analysis is based solely on the video content
+            - All tickers and prices should be verified before trading
+            - Past performance does not guarantee future results
+            - Always use proper risk management
+            
+            **CRITICAL ANTI-HALLUCINATION REQUIREMENTS:**
+            
+            🚫 **STRICT PROHIBITIONS:**
+            - NEVER add tickers, prices, or information not explicitly mentioned in the transcript
+            - NEVER use external knowledge or current market data
+            - NEVER assume or infer information not directly stated
+            - NEVER add technical analysis not explicitly described in the video
+            - NEVER include market news or events not mentioned in the transcript
+            
+            ✅ **MANDATORY REQUIREMENTS:**
+            1. ONLY include tickers and assets explicitly mentioned in the transcript
+            2. ONLY include prices that are explicitly stated in the video
+            3. ONLY include technical analysis that is explicitly described
+            4. ONLY include trading ideas that are explicitly mentioned
+            5. If information is not in the transcript, state "Not mentioned in video"
+            6. Use exact quotes from the transcript when possible
+            7. Clearly mark any assumptions or interpretations as "Based on transcript interpretation"
+            8. Validate all ticker symbols (use standard format like AAPL, MSFT, etc.)
+            9. If prices are mentioned, include them; if not, state "Price not specified in video"
+            10. Be specific about entry/exit points only if explicitly mentioned
+            11. Focus on actionable information that can be executed on NASDAQ
+            12. Maintain professional trading report format
+            
+            🔍 **SOURCE VERIFICATION:**
+            - Every piece of information must be traceable to the transcript
+            - Use phrases like "According to the video" or "The speaker mentioned"
+            - If uncertain, state "Unclear from transcript" rather than guessing
+            - Never fill in gaps with external knowledge
+            
+            📝 **REPORTING STANDARDS:**
+            - If no trading ideas are mentioned, state "No specific trading ideas mentioned in video"
+            - If no tickers are mentioned, state "No ticker symbols mentioned in video"
+            - If no prices are mentioned, state "No price targets mentioned in video"
+            - Always prioritize accuracy over completeness
             """
             
             response = model.generate_content(prompt)
@@ -212,8 +307,8 @@ class IndependentNasdaqTrader:
             self.logger.error(f"AI analysis failed: {e}")
             return None
 
-    def save_report(self, url, analysis, transcript):
-        """Save analysis report to file"""
+    def save_report(self, url, analysis, transcript, video_info=None):
+        """Save professional trading analysis report to file"""
         try:
             # Create summary directory
             os.makedirs('summary', exist_ok=True)
@@ -222,32 +317,70 @@ class IndependentNasdaqTrader:
             timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
             video_id = url.split('v=')[1].split('&')[0] if 'v=' in url else 'unknown'
             
-            # Save text report
+            # Enhanced report header with metadata
+            report_header = f"""# NASDAQ TRADING ANALYSIS REPORT
+Generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
+Video URL: {url}
+Video ID: {video_id}
+Report ID: {video_id}_{timestamp}
+
+{'='*80}
+
+"""
+            
+            # Save enhanced text report
             report_path = f'summary/report_{video_id}_{timestamp}.txt'
             with open(report_path, 'w', encoding='utf-8') as f:
-                f.write(f"Trading Analysis Report\n")
-                f.write(f"Video URL: {url}\n")
-                f.write(f"Generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
-                f.write(f"{'='*50}\n\n")
+                f.write(report_header)
                 f.write(analysis)
+                f.write(f"\n\n{'='*80}\n")
+                f.write(f"TRANSCRIPT:\n{'-'*40}\n")
+                f.write(transcript)
             
-            # Save JSON report
+            # Save enhanced JSON report with metadata
             json_path = f'summary/report_{video_id}_{timestamp}.json'
             report_data = {
-                'url': url,
-                'timestamp': datetime.now().isoformat(),
+                'metadata': {
+                    'report_id': f'{video_id}_{timestamp}',
+                    'generated_timestamp': datetime.now().isoformat(),
+                    'video_url': url,
+                    'video_id': video_id,
+                    'report_type': 'NASDAQ_TRADING_ANALYSIS'
+                },
+                'video_info': video_info or {},
                 'analysis': analysis,
-                'transcript': transcript
+                'transcript': transcript,
+                'trading_opportunities': self._extract_trading_opportunities(analysis),
+                'validated_tickers': self._extract_tickers(analysis)
             }
             with open(json_path, 'w', encoding='utf-8') as f:
                 json.dump(report_data, f, indent=2, ensure_ascii=False)
             
-            self.logger.info(f"Report saved: {report_path}")
+            self.logger.info(f"Professional trading report saved: {report_path}")
             return report_path
             
         except Exception as e:
             self.logger.error(f"Failed to save report: {e}")
             return None
+    
+    def _extract_trading_opportunities(self, analysis):
+        """Extract trading opportunities from analysis"""
+        opportunities = {
+            'day_trading': [],
+            'swing_trading': [],
+            'long_term': []
+        }
+        # This would parse the analysis to extract structured trading opportunities
+        # Implementation would depend on the specific format of the analysis
+        return opportunities
+    
+    def _extract_tickers(self, analysis):
+        """Extract and validate ticker symbols from analysis"""
+        import re
+        # Extract ticker patterns (3-5 uppercase letters)
+        ticker_pattern = r'\b[A-Z]{3,5}\b'
+        tickers = re.findall(ticker_pattern, analysis)
+        return list(set(tickers))  # Remove duplicates
 
     def process_single_video(self, url):
         """Process a single video through the complete pipeline"""

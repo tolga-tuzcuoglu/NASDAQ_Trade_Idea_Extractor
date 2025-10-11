@@ -1,4 +1,0 @@
-2025-10-11 21:30:18,906 | INFO | System optimized for high performance
-2025-10-11 21:30:18,907 | INFO | Processing: https://www.youtube.com/watch?v=K8TFnwpDoAE
-2025-10-11 21:30:53,162 | ERROR | Download failed for https://www.youtube.com/watch?v=K8TFnwpDoAE: Audio file not found after download
-2025-10-11 21:30:53,163 | ERROR | Processing failed for https://www.youtube.com/watch?v=K8TFnwpDoAE: Failed to download video

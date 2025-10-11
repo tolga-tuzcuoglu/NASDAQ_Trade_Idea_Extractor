@@ -1,0 +1,43 @@
+# Logs
+logs/
+*.log
+
+# Cache directories
+video_cache/
+transcript_cache/
+__pycache__/
+*.pyc
+*.pyo
+
+# Summary reports (optional - uncomment to ignore)
+# summary/
+
+# Environment variables
+.env
+.env.local
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
+
+# Large media files
+*.mp4
+*.avi
+*.mov
+*.mkv
+
+# Jupyter notebook checkpoints
+.ipynb_checkpoints/
+
+# Conda environment
+.conda/
