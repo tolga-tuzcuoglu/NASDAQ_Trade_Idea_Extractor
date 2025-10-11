@@ -1,0 +1,38 @@
+# Production-optimized configuration
+
+INPUTS:
+  VIDEO_LIST_PATH: "video_list.txt" # Path to the file containing all URLs
+  MAX_LLM_RETRIES: 3
+  TARGET_LANGUAGE: "Turkish" # Turkish|English|auto
+  PARALLEL_VIDEOS: 1 # Number of videos to process simultaneously (1-4 recommended)
+  QUALITY_MODE: "fast" # fast|balanced|accurate - optimized for production
+
+MODEL_PERFORMANCE:
+  WHISPER_MODEL: "small" # tiny|small|medium|large|large-v2|large-v3 - optimized for production
+  GEMINI_MODEL: "gemini-2.5-flash" # gemini-2.5-flash|gemini-1.5-pro
+  CHUNK_SIZE: 8000 # Characters per chunk for long transcripts - optimized for speed
+  ENABLE_MODEL_CACHING: true # Keep Whisper model in memory between videos
+
+PROCESSING:
+  ENABLE_PROGRESS_TRACKING: true # Show progress bars and ETA
+  ENABLE_DETAILED_LOGGING: true # More verbose logging
+  MAX_VIDEO_LENGTH_MINUTES: 120 # Skip videos longer than this
+  MIN_VIDEO_LENGTH_MINUTES: 1 # Skip videos shorter than this
+  
+API_OPTIMIZATION:
+  YFINANCE_TIMEOUT: 10 # Seconds to wait for ticker resolution
+  GEMINI_TIMEOUT: 120 # Seconds to wait for AI responses (increased for network issues)
+  ENABLE_RATE_LIMITING: true # Respect API rate limits
+  RETRY_DELAY_SECONDS: 5 # Base delay between retries (increased for stability)
+  MAX_NETWORK_RETRIES: 5 # Additional retries for network connectivity issues
+
+YOUTUBE_AUTHENTICATION:
+  ENABLE_BROWSER_COOKIES: true # Use browser cookies for authentication
+  PREFERRED_BROWSERS: ["chrome", "firefox", "edge", "safari"] # Order of browsers to try
+  MAX_RETRIES_PER_BROWSER: 3 # Number of retries per browser
+  FALLBACK_TO_NO_AUTH: true # Try without authentication as last resort
+
+DIRECTORIES:
+  CACHE_DIR: "video_cache"
+  SUMMARY_DIR: "summary"
+  LOGS_DIR: "logs" # Separate directory for detailed logs

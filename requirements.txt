@@ -1,0 +1,30 @@
+# Accelerated Nasdaq Trader Requirements
+# Enhanced for maximum performance
+
+# Core dependencies
+openai-whisper>=20231117
+google-generativeai>=0.3.0
+yfinance>=0.2.18
+yt-dlp>=2024.1.1
+PyYAML>=6.0
+flask>=2.3.0
+flask-cors>=4.0.0
+
+# Acceleration dependencies
+psutil>=5.9.0
+concurrent-futures>=3.1.1
+pathlib>=1.0.1
+
+# Optional GPU acceleration
+torch>=2.0.0
+torchaudio>=2.0.0
+
+# Optional performance monitoring
+memory-profiler>=0.61.0
+line-profiler>=4.1.1
+
+# Development and debugging
+jupyter>=1.0.0
+ipykernel>=6.25.0
+matplotlib>=3.7.0
+seaborn>=0.12.0
