@@ -145,9 +145,9 @@ class AcceleratedNasdaqTrader:
             # Set process priority to high
             p = psutil.Process()
             p.nice(psutil.HIGH_PRIORITY_CLASS)
-            self.logger.info("✅ System optimized for high performance")
+            self.logger.info("System optimized for high performance")
         except Exception as e:
-            self.logger.warning(f"⚠️  Could not optimize system: {e}")
+            self.logger.warning(f"Could not optimize system: {e}")
     
     def load_video_urls(self):
         """Load video URLs from various sources"""
@@ -168,7 +168,7 @@ class AcceleratedNasdaqTrader:
                 with open('video_list.txt', 'r', encoding='utf-8') as f:
                     urls = [line.strip() for line in f if line.strip() and not line.startswith('#')]
             except Exception as e:
-                self.logger.error(f"❌ Error reading video_list.txt: {e}")
+                self.logger.error(f"Error reading video_list.txt: {e}")
         
         return urls
     
@@ -190,7 +190,7 @@ class AcceleratedNasdaqTrader:
                     result = future.result()
                     results.append(result)
                 except Exception as e:
-                    self.logger.error(f"❌ Error processing {url}: {e}")
+                    self.logger.error(f"Error processing {url}: {e}")
                     results.append({
                         'url': url,
                         'success': False,
@@ -205,7 +205,7 @@ class AcceleratedNasdaqTrader:
         start_time = time.time()
         
         try:
-            self.logger.info(f"🎬 Processing: {url}")
+            self.logger.info(f"Processing: {url}")
             
             # Download video
             audio_path = self.download_video(url)
@@ -233,7 +233,7 @@ class AcceleratedNasdaqTrader:
             
         except Exception as e:
             processing_time = time.time() - start_time
-            self.logger.error(f"❌ Failed to process {url}: {e}")
+            self.logger.error(f"Failed to process {url}: {e}")
             return {
                 'url': url,
                 'success': False,
@@ -271,7 +271,7 @@ class AcceleratedNasdaqTrader:
                 raise Exception("Audio file not found after download")
                 
         except Exception as e:
-            self.logger.error(f"❌ Download failed for {url}: {e}")
+            self.logger.error(f"Download failed for {url}: {e}")
             return None
     
     def transcribe_audio(self, audio_path):
@@ -281,7 +281,7 @@ class AcceleratedNasdaqTrader:
             result = model.transcribe(audio_path, language='tr')
             return result['text']
         except Exception as e:
-            self.logger.error(f"❌ Transcription failed: {e}")
+            self.logger.error(f"Transcription failed: {e}")
             return None
     
     def generate_analysis(self, transcript):
@@ -314,12 +314,12 @@ class AcceleratedNasdaqTrader:
             return response.text
             
         except Exception as e:
-            self.logger.error(f"❌ AI analysis failed: {e}")
+            self.logger.error(f"AI analysis failed: {e}")
             return None
     
     def run_accelerated_pipeline(self):
         """Run the accelerated pipeline"""
-        self.logger.info("🚀 Starting Accelerated Nasdaq Trader Pipeline")
+        self.logger.info("Starting Accelerated Nasdaq Trader Pipeline")
         
         # Optimize system
         self.optimize_system()
@@ -327,10 +327,10 @@ class AcceleratedNasdaqTrader:
         # Load video URLs
         video_urls = self.load_video_urls()
         if not video_urls:
-            self.logger.error("❌ No video URLs found")
+            self.logger.error("No video URLs found")
             return
         
-        self.logger.info(f"📹 Found {len(video_urls)} videos to process")
+        self.logger.info(f"Found {len(video_urls)} videos to process")
         
         # Process videos in parallel
         results = self.process_videos_parallel(video_urls)
@@ -338,7 +338,7 @@ class AcceleratedNasdaqTrader:
         # Save results
         self.save_results(results)
         
-        self.logger.info("✅ Accelerated pipeline complete!")
+        self.logger.info("Accelerated pipeline complete!")
         return results
     
     def save_results(self, results):
@@ -346,16 +346,16 @@ class AcceleratedNasdaqTrader:
         successful_results = [r for r in results if r['success']]
         
         if successful_results:
-            self.logger.info(f"💾 Saving {len(successful_results)} successful results...")
+            self.logger.info(f"Saving {len(successful_results)} successful results...")
             
             for result in successful_results:
                 try:
                     save_report(result['result'], result['url'])
-                    self.logger.info(f"✅ Saved report for {result['url']}")
+                    self.logger.info(f"Saved report for {result['url']}")
                 except Exception as e:
-                    self.logger.error(f"❌ Failed to save report for {result['url']}: {e}")
+                    self.logger.error(f"Failed to save report for {result['url']}: {e}")
         else:
-            self.logger.warning("⚠️  No successful results to save")
+            self.logger.warning("No successful results to save")
 
 def save_report(analysis, url):
     """Save analysis report to file"""
@@ -389,14 +389,14 @@ def save_report(analysis, url):
         with open(json_filename, 'w', encoding='utf-8') as f:
             json.dump(report_data, f, indent=2, ensure_ascii=False)
         
-        print(f"✅ Report saved: {txt_filename}")
+        print(f"Report saved: {txt_filename}")
         
     except Exception as e:
-        print(f"❌ Failed to save report: {e}")
+        print(f"Failed to save report: {e}")
 
 def main():
     """Main function for accelerated processing"""
-    print("🚀 Accelerated Nasdaq Trader - Local Version")
+    print("Accelerated Nasdaq Trader - Local Version")
     print("=" * 50)
     
     try:
@@ -411,17 +411,17 @@ def main():
             successful = sum(1 for r in results if r['success'])
             total_time = sum(r['processing_time'] for r in results)
             
-            print(f"\n📊 Processing Summary:")
+            print(f"\nProcessing Summary:")
             print(f"   Videos processed: {len(results)}")
             print(f"   Successful: {successful}")
             print(f"   Failed: {len(results) - successful}")
             print(f"   Total time: {total_time:.2f}s")
             print(f"   Average per video: {total_time/len(results):.2f}s")
         
-        print("\n✅ Accelerated processing complete!")
+        print("\nAccelerated processing complete!")
         
     except Exception as e:
-        print(f"❌ Error in accelerated processing: {e}")
+        print(f"Error in accelerated processing: {e}")
         return 1
     
     return 0
