@@ -52,8 +52,10 @@ class LocalAccelerator:
         return {
             "parallel_videos": parallel_videos,
             "parallel_workers": parallel_workers,
+            "max_workers": parallel_workers,  # Alias for compatibility
             "batch_size": batch_size,
             "cache_size": cache_size,
+            "quality_mode": "fast" if self.available_memory_gb < 8 else "balanced",
             "use_gpu": self.check_gpu_availability(),
             "optimize_memory": self.available_memory_gb < 8
         }
