@@ -12,8 +12,6 @@ flask-cors>=4.0.0
 
 # Acceleration dependencies
 psutil>=5.9.0
-concurrent-futures>=3.1.1
-pathlib>=1.0.1
 
 # Optional GPU acceleration
 torch>=2.0.0

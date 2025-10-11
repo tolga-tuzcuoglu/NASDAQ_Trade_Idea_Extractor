@@ -18,16 +18,17 @@ from datetime import datetime
 # Add current directory to path for imports
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
-# Import your existing modules
-try:
-    from nasdaq_trader import (
-        load_config, setup_logging, load_video_urls, 
-        process_video, save_report, setup_models
-    )
-except ImportError:
-    print("❌ Could not import nasdaq_trader module")
-    print("   Make sure nasdaq_trader.py is in the same directory")
-    sys.exit(1)
+# Import required modules directly
+import whisper
+import google.generativeai as genai
+from yt_dlp import YoutubeDL
+import yfinance as yf
+from dotenv import load_dotenv
+import warnings
+
+# Load environment variables
+load_dotenv()
+warnings.filterwarnings("ignore")
 
 class AcceleratedNasdaqTrader:
     def __init__(self, config_path="config.yaml"):
