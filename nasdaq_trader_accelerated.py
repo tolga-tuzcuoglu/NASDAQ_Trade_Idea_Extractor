@@ -30,6 +30,40 @@ import warnings
 load_dotenv()
 warnings.filterwarnings("ignore")
 
+def load_config(config_path="config.yaml"):
+    """Load configuration from YAML file"""
+    try:
+        with open(config_path, 'r', encoding='utf-8') as f:
+            return yaml.safe_load(f)
+    except FileNotFoundError:
+        print(f"⚠️  Config file {config_path} not found, using defaults")
+        return {
+            "ACCELERATION": {
+                "parallel_videos": 2,
+                "max_workers": 4,
+                "use_gpu": False,
+                "optimize_memory": True
+            },
+            "MODELS": {
+                "whisper_model": "small",
+                "gemini_model": "gemini-2.5-flash"
+            }
+        }
+    except Exception as e:
+        print(f"⚠️  Error loading config: {e}, using defaults")
+        return {
+            "ACCELERATION": {
+                "parallel_videos": 2,
+                "max_workers": 4,
+                "use_gpu": False,
+                "optimize_memory": True
+            },
+            "MODELS": {
+                "whisper_model": "small",
+                "gemini_model": "gemini-2.5-flash"
+            }
+        }
+
 class AcceleratedNasdaqTrader:
     def __init__(self, config_path="config.yaml"):
         self.config = load_config(config_path)
@@ -86,7 +120,7 @@ class AcceleratedNasdaqTrader:
         }
     
     def check_gpu_availability(self):
-        """Check if GPU is available for acceleration"""
+        """Check if GPU is available for processing"""
         try:
             import torch
             return torch.cuda.is_available()
@@ -94,11 +128,10 @@ class AcceleratedNasdaqTrader:
             return False
     
     def setup_logging(self):
-        """Setup enhanced logging for acceleration"""
-        log_format = "%(asctime)s | %(levelname)s | %(message)s"
+        """Setup logging configuration"""
         logging.basicConfig(
             level=logging.INFO,
-            format=log_format,
+            format="%(asctime)s | %(levelname)s | %(message)s",
             handlers=[
                 logging.StreamHandler(),
                 logging.FileHandler("accelerated_trader.log")
@@ -107,43 +140,46 @@ class AcceleratedNasdaqTrader:
         self.logger = logging.getLogger(__name__)
     
     def optimize_system(self):
-        """Optimize system for maximum performance"""
-        self.logger.info("🔧 Optimizing system for acceleration...")
-        
-        # Set high process priority
+        """Optimize system for better performance"""
         try:
-            current_process = psutil.Process()
-            current_process.nice(psutil.HIGH_PRIORITY_CLASS)
-            self.logger.info("✅ Process priority set to high")
+            # Set process priority to high
+            p = psutil.Process()
+            p.nice(psutil.HIGH_PRIORITY_CLASS)
+            self.logger.info("✅ System optimized for high performance")
         except Exception as e:
-            self.logger.warning(f"⚠️  Could not set process priority: {e}")
+            self.logger.warning(f"⚠️  Could not optimize system: {e}")
+    
+    def load_video_urls(self):
+        """Load video URLs from various sources"""
+        urls = []
         
-        # Check system resources
-        cpu_usage = psutil.cpu_percent(interval=1)
-        if cpu_usage > 80:
-            self.logger.warning(f"⚠️  High CPU usage detected: {cpu_usage}%")
+        # Try environment variables first
+        env_url = os.getenv('VIDEO_URL')
+        env_urls = os.getenv('VIDEO_URLS')
         
-        memory_usage = psutil.virtual_memory().percent
-        if memory_usage > 85:
-            self.logger.warning(f"⚠️  High memory usage detected: {memory_usage}%")
+        if env_url:
+            urls.append(env_url)
+        elif env_urls:
+            urls.extend([url.strip() for url in env_urls.split(',') if url.strip()])
         
-        self.logger.info("✅ System optimization complete")
+        # Fall back to video_list.txt
+        if not urls and os.path.exists('video_list.txt'):
+            try:
+                with open('video_list.txt', 'r', encoding='utf-8') as f:
+                    urls = [line.strip() for line in f if line.strip() and not line.startswith('#')]
+            except Exception as e:
+                self.logger.error(f"❌ Error reading video_list.txt: {e}")
+        
+        return urls
     
     def process_videos_parallel(self, video_urls):
-        """Process videos in parallel for maximum speed"""
-        self.logger.info(f"🚀 Starting parallel processing of {len(video_urls)} videos")
-        
-        # Setup models once
-        whisper_model, gemini_model = setup_models(self.config)
-        
-        # Process videos in parallel batches
+        """Process videos in parallel for maximum performance"""
         results = []
-        start_time = time.time()
         
-        with concurrent.futures.ThreadPoolExecutor(max_workers=self.optimal_settings['parallel_videos']) as executor:
+        with concurrent.futures.ThreadPoolExecutor(max_workers=self.optimal_settings['max_workers']) as executor:
             # Submit all video processing tasks
             future_to_url = {
-                executor.submit(self.process_single_video, url, whisper_model, gemini_model): url 
+                executor.submit(self.process_single_video, url): url 
                 for url in video_urls
             }
             
@@ -153,14 +189,8 @@ class AcceleratedNasdaqTrader:
                 try:
                     result = future.result()
                     results.append(result)
-                    
-                    if result['success']:
-                        self.logger.info(f"✅ {url} - {result['processing_time']:.2f}s")
-                    else:
-                        self.logger.error(f"❌ {url} - {result['error']}")
-                        
                 except Exception as e:
-                    self.logger.error(f"❌ {url} - Unexpected error: {e}")
+                    self.logger.error(f"❌ Error processing {url}: {e}")
                     results.append({
                         'url': url,
                         'success': False,
@@ -168,45 +198,124 @@ class AcceleratedNasdaqTrader:
                         'processing_time': 0
                     })
         
-        total_time = time.time() - start_time
-        successful = sum(1 for r in results if r['success'])
-        
-        self.logger.info(f"📊 Parallel processing complete:")
-        self.logger.info(f"   Total time: {total_time:.2f}s")
-        self.logger.info(f"   Successful: {successful}/{len(video_urls)}")
-        self.logger.info(f"   Average per video: {total_time/len(video_urls):.2f}s")
-        
         return results
     
-    def process_single_video(self, url, whisper_model, gemini_model):
-        """Process a single video with timing"""
+    def process_single_video(self, url):
+        """Process a single video with all steps"""
         start_time = time.time()
         
         try:
             self.logger.info(f"🎬 Processing: {url}")
             
-            # Use your existing process_video function
-            result = process_video(url, whisper_model, gemini_model, self.config)
+            # Download video
+            audio_path = self.download_video(url)
+            if not audio_path:
+                raise Exception("Failed to download video")
+            
+            # Transcribe audio
+            transcript = self.transcribe_audio(audio_path)
+            if not transcript:
+                raise Exception("Failed to transcribe audio")
+            
+            # Generate AI analysis
+            analysis = self.generate_analysis(transcript)
+            if not analysis:
+                raise Exception("Failed to generate analysis")
             
             processing_time = time.time() - start_time
             
             return {
                 'url': url,
                 'success': True,
-                'result': result,
+                'result': analysis,
                 'processing_time': processing_time
             }
             
         except Exception as e:
             processing_time = time.time() - start_time
             self.logger.error(f"❌ Failed to process {url}: {e}")
-            
             return {
                 'url': url,
                 'success': False,
                 'error': str(e),
                 'processing_time': processing_time
             }
+    
+    def download_video(self, url):
+        """Download video and extract audio"""
+        try:
+            # Create output directory
+            os.makedirs('cache', exist_ok=True)
+            
+            # Configure yt-dlp
+            ydl_opts = {
+                'format': 'bestaudio[ext=m4a]/bestaudio/best',
+                'outtmpl': 'cache/%(id)s.%(ext)s',
+                'extractaudio': True,
+                'audioformat': 'wav',
+                'noplaylist': True,
+                'quiet': True,
+                'no_warnings': True
+            }
+            
+            with YoutubeDL(ydl_opts) as ydl:
+                info = ydl.extract_info(url, download=True)
+                video_id = info.get('id', 'unknown')
+                
+                # Find the downloaded file
+                for ext in ['m4a', 'wav', 'mp3', 'webm']:
+                    audio_path = f'cache/{video_id}.{ext}'
+                    if os.path.exists(audio_path):
+                        return audio_path
+                
+                raise Exception("Audio file not found after download")
+                
+        except Exception as e:
+            self.logger.error(f"❌ Download failed for {url}: {e}")
+            return None
+    
+    def transcribe_audio(self, audio_path):
+        """Transcribe audio using Whisper"""
+        try:
+            model = whisper.load_model(self.config.get('MODELS', {}).get('whisper_model', 'small'))
+            result = model.transcribe(audio_path, language='tr')
+            return result['text']
+        except Exception as e:
+            self.logger.error(f"❌ Transcription failed: {e}")
+            return None
+    
+    def generate_analysis(self, transcript):
+        """Generate AI analysis using Gemini"""
+        try:
+            # Setup Gemini
+            api_key = os.getenv('GEMINI_API_KEY')
+            if not api_key:
+                raise Exception("GEMINI_API_KEY not found in environment")
+            
+            genai.configure(api_key=api_key)
+            model = genai.GenerativeModel(self.config.get('MODELS', {}).get('gemini_model', 'gemini-2.5-flash'))
+            
+            # Create prompt
+            prompt = f"""
+            Analyze this Turkish trading video transcript and extract trading ideas:
+            
+            {transcript}
+            
+            Please provide:
+            1. Trading ideas mentioned
+            2. Stock symbols/tickers discussed
+            3. Market analysis points
+            4. Investment recommendations
+            
+            Format as a structured report.
+            """
+            
+            response = model.generate_content(prompt)
+            return response.text
+            
+        except Exception as e:
+            self.logger.error(f"❌ AI analysis failed: {e}")
+            return None
     
     def run_accelerated_pipeline(self):
         """Run the accelerated pipeline"""
@@ -216,7 +325,7 @@ class AcceleratedNasdaqTrader:
         self.optimize_system()
         
         # Load video URLs
-        video_urls = load_video_urls(self.config)
+        video_urls = self.load_video_urls()
         if not video_urls:
             self.logger.error("❌ No video URLs found")
             return
@@ -247,6 +356,43 @@ class AcceleratedNasdaqTrader:
                     self.logger.error(f"❌ Failed to save report for {result['url']}: {e}")
         else:
             self.logger.warning("⚠️  No successful results to save")
+
+def save_report(analysis, url):
+    """Save analysis report to file"""
+    try:
+        # Create summary directory
+        os.makedirs('summary', exist_ok=True)
+        
+        # Generate filename
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        video_id = url.split('v=')[-1].split('&')[0] if 'v=' in url else 'unknown'
+        
+        # Save text report
+        txt_filename = f'summary/report_{video_id}_{timestamp}.txt'
+        with open(txt_filename, 'w', encoding='utf-8') as f:
+            f.write(f"Trading Analysis Report\n")
+            f.write(f"Video URL: {url}\n")
+            f.write(f"Generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
+            f.write(f"{'='*50}\n\n")
+            f.write(analysis)
+        
+        # Save JSON report
+        json_filename = f'summary/report_{video_id}_{timestamp}.json'
+        report_data = {
+            'url': url,
+            'timestamp': timestamp,
+            'analysis': analysis,
+            'generated_at': datetime.now().isoformat()
+        }
+        
+        import json
+        with open(json_filename, 'w', encoding='utf-8') as f:
+            json.dump(report_data, f, indent=2, ensure_ascii=False)
+        
+        print(f"✅ Report saved: {txt_filename}")
+        
+    except Exception as e:
+        print(f"❌ Failed to save report: {e}")
 
 def main():
     """Main function for accelerated processing"""
