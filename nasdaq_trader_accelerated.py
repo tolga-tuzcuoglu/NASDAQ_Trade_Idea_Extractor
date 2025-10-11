@@ -71,7 +71,7 @@ class AcceleratedNasdaqTrader:
         self.system_info = self.get_system_info()
         self.optimal_settings = self.calculate_optimal_settings()
         
-        print(f"🚀 Accelerated Nasdaq Trader Initialized")
+        print(f"Accelerated Nasdaq Trader Initialized")
         print(f"   System: {self.system_info['cpu_cores']} cores, {self.system_info['ram_gb']:.1f}GB RAM")
         print(f"   Optimal: {self.optimal_settings['parallel_videos']} parallel videos")
     
