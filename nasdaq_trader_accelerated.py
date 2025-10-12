@@ -512,7 +512,7 @@ class AcceleratedNasdaqTrader:
             video_id = os.path.basename(audio_path).split('.')[0].split('_')[0]  # Remove date suffix
             
             # Get whisper model for cache filename
-            whisper_model = self.config.get('MODELS', {}).get('whisper_model', 'small')
+            whisper_model = self.config.get('MODEL_PERFORMANCE', {}).get('WHISPER_MODEL', 'small')
             transcript_cache_path = f'transcript_cache/{video_id}_{date_str}_{whisper_model}.txt'
             
             # Check if transcript is already cached
