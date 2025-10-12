@@ -36,7 +36,7 @@ def install_requirements():
     try:
         # Install basic requirements
         subprocess.check_call([
-            sys.executable, "-m", "pip", "install", "-r", "requirements_accelerated.txt"
+            sys.executable, "-m", "pip", "install", "-r", "requirements.txt"
         ])
         print("✅ Requirements installed successfully")
         return True
