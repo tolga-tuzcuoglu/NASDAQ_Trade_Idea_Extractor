@@ -9,6 +9,9 @@ __pycache__/
 *.pyc
 *.pyo
 
+# Ticker validation cache
+ticker_cache.json
+
 # Summary reports (optional - uncomment to ignore)
 # summary/
 
