@@ -595,28 +595,22 @@ class AcceleratedNasdaqTrader:
             
             ## 🚀 HIZLI KAZANÇLAR
             
-            ### 🎯 ÖNCELİKLİ FIRSATLAR (Risk/Getiri Oranına Göre Sıralı)
+            ### 📋 ÖNCELİKLİ EYLEM LİSTESİ (En Yüksek Öncelikten En Düşüğe)
             
-            #### 🔥 YÜKSEK ÖNCELİK - HEMEN AL (0-24 saat)
-            - **[TICKER]**: [Giriş: $X.XX] [Stop: $X.XX] [Hedef: $X.XX] [Risk: X%] [Zamanlama: Hemen]
-              *[Gerekçe: Teknik kırılım + güçlü momentum + düşük risk + acil fırsat]*
-              
-            #### ⚡ ORTA ÖNCELİK - BU HAFTA (1-7 gün)
-            - **[TICKER]**: [Giriş: $X.XX] [Stop: $X.XX] [Hedef: $X.XX] [Risk: X%] [Zamanlama: Bu hafta]
-              *[Gerekçe: Teknik seviye + orta risk + iyi getiri potansiyeli]*
-              
-            #### 📈 DÜŞÜK ÖNCELİK - ORTA VADELİ (1-4 hafta)
-            - **[TICKER]**: [Giriş: $X.XX] [Stop: $X.XX] [Hedef: $X.XX] [Risk: X%] [Zamanlama: Orta vadeli]
-              *[Gerekçe: Spekülatif oyun veya uzun vadeli pozisyon + yüksek risk]*
+            1. **[TICKER]**: [AL/SAT/TUT] - [Giriş: $X.XX] [Stop: $X.XX] [Hedef: $X.XX] [Risk: X%] [Zamanlama: Hemen]
+               *[Gerekçe: En yüksek öncelik - acil fırsat veya risk yönetimi]*
             
-            #### 🚨 DİKKAT - KAR AL/ÇIKIŞ
-            - **[TICKER]**: [Mevcut fiyat: $X.XX] [Kar alma seviyesi: $X.XX] [Stop: $X.XX] [Zamanlama: Hemen]
-              *[Gerekçe: Hedef fiyata ulaşıldı / Risk artışı / Teknik bozulma]*
+            2. **[TICKER]**: [AL/SAT/TUT] - [Giriş: $X.XX] [Stop: $X.XX] [Hedef: $X.XX] [Risk: X%] [Zamanlama: Bu hafta]
+               *[Gerekçe: Yüksek öncelik - güçlü teknik sinyal veya momentum]*
             
-            #### ⏰ ZAMANLAMA REHBERİ
-            - **HEMEN (0-24 saat)**: [Market açılışında giriş] / [Piyasa kapanışından önce giriş] / [Belirli saatte giriş]
-            - **BU HAFTA (1-7 gün)**: [Bu hafta içinde giriş] / [Earnings öncesi giriş] / [Teknik seviye kırılımında giriş]
-            - **ORTA VADELİ (1-4 hafta)**: [Trend devamında giriş] / [Sektör rotasyonunda giriş] / [Uzun vadeli hedef için giriş]
+            3. **[TICKER]**: [AL/SAT/TUT] - [Giriş: $X.XX] [Stop: $X.XX] [Hedef: $X.XX] [Risk: X%] [Zamanlama: Bu hafta]
+               *[Gerekçe: Orta öncelik - iyi risk/getiri oranı]*
+            
+            4. **[TICKER]**: [AL/SAT/TUT] - [Giriş: $X.XX] [Stop: $X.XX] [Hedef: $X.XX] [Risk: X%] [Zamanlama: Orta vadeli]
+               *[Gerekçe: Düşük öncelik - spekülatif oyun veya uzun vadeli pozisyon]*
+            
+            5. **[TICKER]**: [KAR AL/ÇIKIŞ] - [Mevcut: $X.XX] [Kar alma: $X.XX] [Stop: $X.XX] [Zamanlama: Hemen]
+               *[Gerekçe: Risk yönetimi - hedef ulaşıldı veya risk artışı]*
             
             **CRITICAL ANTI-HALLUCINATION REQUIREMENTS:**
             
