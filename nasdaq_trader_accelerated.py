@@ -430,11 +430,12 @@ class AcceleratedNasdaqTrader:
             if not video_id:
                 raise Exception("Could not extract video ID from URL")
             
-            # Check for existing audio files (any date)
+            # Check for existing audio files with current whisper model
             import glob
+            whisper_model = self.config.get('MODELS', {}).get('whisper_model', 'small')
             existing_files = []
             for ext in ['m4a', 'wav', 'mp3', 'webm']:
-                pattern = f'video_cache/{video_id}_*.{ext}'
+                pattern = f'video_cache/{video_id}_*_{whisper_model}.{ext}'
                 existing_files.extend(glob.glob(pattern))
             
             if existing_files:
@@ -446,14 +447,15 @@ class AcceleratedNasdaqTrader:
             # Only download if no cached file exists
             self.logger.info(f"Downloading new video: {video_id}")
             
-            # Get current date for new cache filename
+            # Get current date and whisper model for cache filename
             from datetime import datetime
             date_str = datetime.now().strftime('%Y%m%d')
+            whisper_model = self.config.get('MODELS', {}).get('whisper_model', 'small')
             
             # Configure yt-dlp for audio-only download
             ydl_opts = {
                 'format': 'bestaudio[ext=m4a]/bestaudio/best',
-                'outtmpl': f'video_cache/%(id)s_{date_str}.%(ext)s',
+                'outtmpl': f'video_cache/%(id)s_{date_str}_{whisper_model}.%(ext)s',
                 'noplaylist': True,
                 'quiet': True,
                 'no_warnings': True,
@@ -470,7 +472,7 @@ class AcceleratedNasdaqTrader:
                 
                 # Find the downloaded file
                 for ext in ['m4a', 'wav', 'mp3', 'webm']:
-                    audio_path = f'video_cache/{downloaded_video_id}_{date_str}.{ext}'
+                    audio_path = f'video_cache/{downloaded_video_id}_{date_str}_{whisper_model}.{ext}'
                     if os.path.exists(audio_path):
                         self.logger.info(f"Downloaded and cached: {audio_path}")
                         return audio_path
@@ -510,17 +512,20 @@ class AcceleratedNasdaqTrader:
             from datetime import datetime
             date_str = datetime.now().strftime('%Y%m%d')
             video_id = os.path.basename(audio_path).split('.')[0].split('_')[0]  # Remove date suffix
-            transcript_cache_path = f'transcript_cache/{video_id}_{date_str}.txt'
+            
+            # Get whisper model for cache filename
+            whisper_model = self.config.get('MODELS', {}).get('whisper_model', 'small')
+            transcript_cache_path = f'transcript_cache/{video_id}_{date_str}_{whisper_model}.txt'
             
             # Check if transcript is already cached
             if os.path.exists(transcript_cache_path):
-                self.logger.info(f"Using cached transcript for {video_id}")
+                self.logger.info(f"Using cached transcript for {video_id} (model: {whisper_model})")
                 with open(transcript_cache_path, 'r', encoding='utf-8') as f:
                     return f.read()
             
             # Transcribe if not cached
-            self.logger.info(f"Transcribing audio: {audio_path}")
-            model = whisper.load_model(self.config.get('MODELS', {}).get('whisper_model', 'small'))
+            self.logger.info(f"Transcribing audio: {audio_path} (model: {whisper_model})")
+            model = whisper.load_model(whisper_model)
             result = model.transcribe(audio_path, language='tr')
             transcript_text = result['text']
             
