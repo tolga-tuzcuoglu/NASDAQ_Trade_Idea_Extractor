@@ -430,12 +430,11 @@ class AcceleratedNasdaqTrader:
             if not video_id:
                 raise Exception("Could not extract video ID from URL")
             
-            # Check for existing audio files with current whisper model
+            # Check for existing audio files (model-agnostic)
             import glob
-            whisper_model = self.config.get('MODELS', {}).get('whisper_model', 'small')
             existing_files = []
             for ext in ['m4a', 'wav', 'mp3', 'webm']:
-                pattern = f'video_cache/{video_id}_*_{whisper_model}.{ext}'
+                pattern = f'video_cache/{video_id}_*.{ext}'
                 existing_files.extend(glob.glob(pattern))
             
             if existing_files:
@@ -447,15 +446,14 @@ class AcceleratedNasdaqTrader:
             # Only download if no cached file exists
             self.logger.info(f"Downloading new video: {video_id}")
             
-            # Get current date and whisper model for cache filename
+            # Get current date for cache filename (audio files are model-agnostic)
             from datetime import datetime
             date_str = datetime.now().strftime('%Y%m%d')
-            whisper_model = self.config.get('MODELS', {}).get('whisper_model', 'small')
             
             # Configure yt-dlp for audio-only download
             ydl_opts = {
                 'format': 'bestaudio[ext=m4a]/bestaudio/best',
-                'outtmpl': f'video_cache/%(id)s_{date_str}_{whisper_model}.%(ext)s',
+                'outtmpl': f'video_cache/%(id)s_{date_str}.%(ext)s',
                 'noplaylist': True,
                 'quiet': True,
                 'no_warnings': True,
@@ -472,7 +470,7 @@ class AcceleratedNasdaqTrader:
                 
                 # Find the downloaded file
                 for ext in ['m4a', 'wav', 'mp3', 'webm']:
-                    audio_path = f'video_cache/{downloaded_video_id}_{date_str}_{whisper_model}.{ext}'
+                    audio_path = f'video_cache/{downloaded_video_id}_{date_str}.{ext}'
                     if os.path.exists(audio_path):
                         self.logger.info(f"Downloaded and cached: {audio_path}")
                         return audio_path
