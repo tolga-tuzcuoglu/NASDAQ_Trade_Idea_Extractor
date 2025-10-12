@@ -388,7 +388,7 @@ class AcceleratedNasdaqTrader:
             - **Tarih**: [Videoda belirtilen tarih, yoksa bugünün tarihi]
             - **Kanal**: [Kanal adı veya yayıncı]
             - **Video Başlığı**: [Video başlığı]
-            - **Rapor Oluşturulma**: [Şu anki tarih ve saat]
+            - **Rapor Oluşturulma**: {datetime.now().strftime('%d %B %Y, %H:%M')}
             - **Not**: Bu rapor sadece video içeriğine dayanmaktadır, tahmin içermez
             
             ## 🎯 ÖZET
@@ -460,6 +460,7 @@ class AcceleratedNasdaqTrader:
             📝 **REPORTING STANDARDS:**
             - NEVER use predicted values, estimates, or future dates (e.g., "06 Haziran 2024, 15:30 (Tahmini)")
             - NEVER write "Videoda belirtilmemiş" or any placeholder text
+            - NEVER generate fake dates - use the exact current date and time provided in the template
             - If no trading ideas are mentioned, leave the section completely blank
             - If no tickers are mentioned, leave the section completely blank
             - If no prices are mentioned, leave the price fields completely blank
@@ -468,6 +469,7 @@ class AcceleratedNasdaqTrader:
             - Only include information that is explicitly mentioned in the video
             - Include exact timestamps when tickers/assets are mentioned (e.g., "5:23", "12:45")
             - Use only current/past information from the video, no future predictions
+            - CRITICAL: Use the exact date format provided in the template - do not change or modify it
             """
             
             response = model.generate_content(prompt)
@@ -516,7 +518,7 @@ class AcceleratedNasdaqTrader:
                     self.logger.error(f"Failed to save report for {result['url']}: {e}")
         else:
             self.logger.warning("No successful results to save")
-    
+
     def save_report(self, analysis, url):
         """Save analysis report to file"""
         try:
@@ -558,7 +560,7 @@ class AcceleratedNasdaqTrader:
             
         except Exception as e:
             print(f"Failed to save report: {e}")
-    
+
     def save_html_report(self, analysis, url, filename):
         """Save HTML report for mobile viewing"""
         try:
