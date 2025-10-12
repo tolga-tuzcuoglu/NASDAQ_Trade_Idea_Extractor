@@ -444,10 +444,12 @@ class AcceleratedNasdaqTrader:
             🎯 **CRITICAL TICKER ORGANIZATION REQUIREMENTS:**
             13. Each ticker/asset must appear ONLY ONCE in the entire report
             14. Create ONE comprehensive section per ticker with ALL information about that ticker
-            15. Include "Mentioned at" timestamps/context for each ticker to help locate in video
+            15. Include exact timestamps when tickers/assets are mentioned (e.g., "5:23", "12:45")
             16. Consolidate all information about each ticker into its dedicated section
             17. Do NOT repeat the same ticker in multiple sections
             18. Group all related information (prices, analysis, recommendations) under each ticker's section
+            19. If a ticker is mentioned multiple times in the video, combine all information into ONE section
+            20. Use the "Videoda Bahsedilen" field to show ALL timestamps where the ticker was mentioned
             
             🔍 **SOURCE VERIFICATION:**
             - Every piece of information must be traceable to the transcript
@@ -547,10 +549,243 @@ def save_report(analysis, url):
         with open(json_filename, 'w', encoding='utf-8') as f:
             json.dump(report_data, f, indent=2, ensure_ascii=False)
         
+        # Save HTML report for mobile viewing
+        html_filename = f'summary/report_{video_id}_{timestamp}.html'
+        self.save_html_report(analysis, url, html_filename)
+        
         print(f"Report saved: {txt_filename}")
+        print(f"Mobile-friendly: {html_filename}")
         
     except Exception as e:
         print(f"Failed to save report: {e}")
+
+    def save_html_report(self, analysis, url, filename):
+        """Save HTML report for mobile viewing"""
+        try:
+            # Convert markdown-style analysis to HTML
+            html_content = self.convert_analysis_to_html(analysis, url)
+            
+            with open(filename, 'w', encoding='utf-8') as f:
+                f.write(html_content)
+                
+        except Exception as e:
+            self.logger.error(f"Failed to save HTML report: {e}")
+    
+    def convert_analysis_to_html(self, analysis, url):
+        """Convert analysis text to mobile-friendly HTML"""
+        # Basic HTML template with mobile-responsive design
+        html_template = f"""
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trading Analysis Report</title>
+    <style>
+        body {{
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 15px;
+            background-color: #f5f5f5;
+            color: #333;
+        }}
+        .container {{
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }}
+        .header {{
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }}
+        .content {{
+            padding: 20px;
+        }}
+        h1 {{
+            margin: 0;
+            font-size: 24px;
+            font-weight: 600;
+        }}
+        h2 {{
+            color: #667eea;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 5px;
+            margin-top: 25px;
+            font-size: 20px;
+        }}
+        h3 {{
+            color: #333;
+            margin-top: 20px;
+            font-size: 18px;
+            background: #f8f9fa;
+            padding: 10px;
+            border-left: 4px solid #667eea;
+        }}
+        .ticker-section {{
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+        }}
+        .ticker-title {{
+            font-weight: bold;
+            color: #667eea;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }}
+        .ticker-info {{
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin: 10px 0;
+        }}
+        .info-item {{
+            background: white;
+            padding: 8px;
+            border-radius: 4px;
+            border-left: 3px solid #667eea;
+        }}
+        .info-label {{
+            font-weight: bold;
+            color: #666;
+            font-size: 12px;
+        }}
+        .info-value {{
+            color: #333;
+            font-size: 14px;
+        }}
+        .quick-wins {{
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+        }}
+        .quick-wins h2 {{
+            color: #d63031;
+            border-bottom: 2px solid #d63031;
+        }}
+        ul {{
+            padding-left: 20px;
+        }}
+        li {{
+            margin: 8px 0;
+        }}
+        .timestamp {{
+            color: #666;
+            font-size: 12px;
+            text-align: center;
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+        }}
+        @media (max-width: 600px) {{
+            .ticker-info {{
+                grid-template-columns: 1fr;
+            }}
+            .container {{
+                margin: 0;
+                border-radius: 0;
+            }}
+            body {{
+                padding: 5px;
+            }}
+        }}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📊 Trading Analysis Report</h1>
+            <p>Video: {url}</p>
+            <p>Generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}</p>
+        </div>
+        <div class="content">
+            {self.format_analysis_html(analysis)}
+        </div>
+        <div class="timestamp">
+            Report generated by Nasdaq Trader AI
+        </div>
+    </div>
+</body>
+</html>
+"""
+        return html_template
+    
+    def format_analysis_html(self, analysis):
+        """Format the analysis text into HTML structure"""
+        lines = analysis.split('\n')
+        html_parts = []
+        current_ticker = None
+        ticker_data = {}
+        
+        for line in lines:
+            line = line.strip()
+            if not line:
+                continue
+                
+            # Handle main sections
+            if line.startswith('# '):
+                html_parts.append(f'<h1>{line[2:]}</h1>')
+            elif line.startswith('## '):
+                html_parts.append(f'<h2>{line[3:]}</h2>')
+            elif line.startswith('### '):
+                # This is a ticker section
+                ticker_name = line[4:]
+                current_ticker = ticker_name
+                ticker_data = {}
+                html_parts.append(f'<div class="ticker-section"><h3>{ticker_name}</h3>')
+            elif line.startswith('- **') and current_ticker:
+                # Parse ticker information
+                if '**:' in line:
+                    key = line.split('**:')[0].replace('- **', '').strip()
+                    value = line.split('**:')[1].strip()
+                    if value and value != 'yoksa boş bırak' and not value.startswith('['):
+                        ticker_data[key] = value
+            elif line == '[Her unique ticker/asset için bu bölümü tekrarla]':
+                # End of ticker section
+                if current_ticker and ticker_data:
+                    html_parts.append(self.format_ticker_html(ticker_data))
+                html_parts.append('</div>')
+                current_ticker = None
+            elif line.startswith('- ') and not line.startswith('- **'):
+                # Regular list item
+                html_parts.append(f'<li>{line[2:]}</li>')
+            elif line.startswith('## 🚀'):
+                # Quick wins section
+                html_parts.append(f'<div class="quick-wins"><h2>{line[3:]}</h2>')
+            elif line.startswith('### Hemen'):
+                html_parts.append(f'<h3>{line[4:]}</h3><ul>')
+            elif line == '[Bu hafta için öncelikli eylemler]':
+                html_parts.append('</ul></div>')
+            else:
+                # Regular paragraph
+                if line and not line.startswith('[') and not line.startswith('**'):
+                    html_parts.append(f'<p>{line}</p>')
+        
+        return '\n'.join(html_parts)
+    
+    def format_ticker_html(self, ticker_data):
+        """Format individual ticker data into HTML"""
+        html = '<div class="ticker-info">'
+        
+        for key, value in ticker_data.items():
+            if value and value != 'yoksa boş bırak':
+                html += f'''
+                <div class="info-item">
+                    <div class="info-label">{key}</div>
+                    <div class="info-value">{value}</div>
+                </div>
+                '''
+        
+        html += '</div>'
+        return html
 
 # This file contains the AcceleratedNasdaqTrader class
 # Use run_pipeline.py to execute the trading analysis pipeline
