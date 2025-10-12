@@ -298,16 +298,24 @@ class AcceleratedNasdaqTrader:
             return f"Validation summary formatting failed: {e}"
     
     def setup_logging(self):
-        """Setup logging configuration"""
+        """Setup logging configuration with organized log folder"""
+        # Create logs directory if it doesn't exist
+        os.makedirs('logs', exist_ok=True)
+        
+        # Create timestamped log file
+        timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+        log_file = f'logs/nasdaq_trader_{timestamp}.log'
+        
         logging.basicConfig(
             level=logging.INFO,
             format="%(asctime)s | %(levelname)s | %(message)s",
             handlers=[
                 logging.StreamHandler(),
-                logging.FileHandler("accelerated_trader.log")
+                logging.FileHandler(log_file)
             ]
         )
         self.logger = logging.getLogger(__name__)
+        self.logger.info(f"Logging initialized - Log file: {log_file}")
     
     def optimize_system(self):
         """Optimize system for better performance"""
