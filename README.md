@@ -10,12 +10,10 @@ This production-ready system analyzes Turkish trading videos to generate actiona
 
 ```
 Nasdaq_Trader_Local/
-├── 📓 Nasdaq_Trader_Local.ipynb          # Interactive Jupyter notebook for development
-├── 📓 Nasdaq_Trader_Production.ipynb    # Production-ready notebook for trading analysis
-├── 🚀 nasdaq_trader_independent.py      # Standalone script (RECOMMENDED for production)
-├── ⚡ nasdaq_trader_accelerated.py       # Accelerated version with parallel processing
-├── 🏃 run_pipeline.py                   # Simple runner script
-├── ⚙️ acceleration_utils.py            # System optimization utilities
+├── 📓 Nasdaq_Trader.ipynb                # Interactive Jupyter notebook
+├── 🏃 run_pipeline.py                   # Main execution script (RECOMMENDED)
+├── ⚡ nasdaq_trader_accelerated.py       # Core engine (library)
+├── ⚙️ acceleration_utils.py              # System optimization utilities
 ├── 🔧 setup.py                          # Environment setup script
 ├── 📋 video_list.txt                    # Input: YouTube video URLs
 ├── 📁 video_cache/                       # Cached audio files (with dates)
@@ -27,63 +25,38 @@ Nasdaq_Trader_Local/
 
 ## 🚀 Quick Start
 
-### Option 1: Independent Script (Recommended)
-```bash
-cd C:\Users\Tuzcuoglu\Documents\Python\Whisper\Nasdaq_Trader_Local
-conda activate nasdaq_trader
-python nasdaq_trader_independent.py
-```
-
-### Option 2: Accelerated Processing
-```bash
-python nasdaq_trader_accelerated.py
-```
-
-### Option 3: Simple Runner
+### Method 1: Python Script (Recommended)
 ```bash
 python run_pipeline.py
 ```
 
-### Option 4: Jupyter Notebook
-1. Open `Nasdaq_Trader_Production.ipynb`
-2. Select "Nasdaq Trader" kernel
-3. Run all cells
+### Method 2: Jupyter Notebook
+1. Open `Nasdaq_Trader.ipynb`
+2. Run all cells in sequence
 
 ## 📋 File Descriptions
 
-### **Core Processing Files**
+### **Main Execution Files**
 
-#### `nasdaq_trader_independent.py` ⭐ **RECOMMENDED**
-- **Purpose**: Complete standalone trading analysis pipeline
-- **Features**: No dependencies, professional reports, anti-hallucination measures
+#### `run_pipeline.py` ⭐ **RECOMMENDED**
+- **Purpose**: Main entry point for trading analysis
+- **Features**: User-friendly interface, maximum performance, professional output
 - **Use Case**: Production trading analysis
 - **Output**: Professional Nasdaq trading reports with actionable insights
 
+#### `Nasdaq_Trader.ipynb`
+- **Purpose**: Interactive Jupyter notebook for trading analysis
+- **Features**: Step-by-step execution, real-time monitoring, detailed results
+- **Use Case**: Interactive analysis, development, testing
+- **Output**: Same as Python script but with interactive interface
+
+### **Core Engine Files**
+
 #### `nasdaq_trader_accelerated.py`
-- **Purpose**: High-performance parallel processing version
-- **Features**: Multi-threading, system optimization, fast processing
-- **Use Case**: Batch processing multiple videos
-- **Output**: Same as independent version but faster
-
-#### `run_pipeline.py`
-- **Purpose**: Simple interface for running the pipeline
-- **Features**: User-friendly, minimal setup
-- **Use Case**: Quick analysis without complexity
-- **Output**: Basic trading analysis
-
-### **Jupyter Notebooks**
-
-#### `Nasdaq_Trader_Local.ipynb`
-- **Purpose**: Interactive development and testing
-- **Features**: Step-by-step execution, debugging, experimentation
-- **Use Case**: Development, testing, analysis
-- **Output**: Same as Python scripts but interactive
-
-#### `Nasdaq_Trader_Production.ipynb`
-- **Purpose**: Production-ready notebook for trading analysis
-- **Features**: Clean interface, professional output
-- **Use Case**: Production trading analysis in notebook format
-- **Output**: Professional trading reports
+- **Purpose**: Core processing engine (library)
+- **Features**: Maximum performance, parallel processing, system optimization
+- **Use Case**: Used by run_pipeline.py and Jupyter notebook
+- **Output**: Core functionality (not run directly)
 
 ### **Utility Files**
 
@@ -212,7 +185,7 @@ For issues or questions:
 
 ## 🎯 Best Practices
 
-1. **Use Independent Script**: `nasdaq_trader_independent.py` for production
+1. **Use Main Script**: `run_pipeline.py` for production trading analysis
 2. **Monitor Logs**: Check `logs/` folder for processing status
 3. **Validate Reports**: Always verify ticker symbols before trading
 4. **Cache Management**: Use date-based caching for efficiency

@@ -534,38 +534,5 @@ def save_report(analysis, url):
     except Exception as e:
         print(f"Failed to save report: {e}")
 
-def main():
-    """Main function for accelerated processing"""
-    print("Accelerated Nasdaq Trader - Local Version")
-    print("=" * 50)
-    
-    try:
-        # Initialize accelerated trader
-        trader = AcceleratedNasdaqTrader()
-        
-        # Run accelerated pipeline
-        results = trader.run_accelerated_pipeline()
-        
-        # Print summary
-        if results:
-            successful = sum(1 for r in results if r['success'])
-            total_time = sum(r['processing_time'] for r in results)
-            
-            print(f"\nProcessing Summary:")
-            print(f"   Videos processed: {len(results)}")
-            print(f"   Successful: {successful}")
-            print(f"   Failed: {len(results) - successful}")
-            print(f"   Total time: {total_time:.2f}s")
-            print(f"   Average per video: {total_time/len(results):.2f}s")
-        
-        print("\nAccelerated processing complete!")
-        
-    except Exception as e:
-        print(f"Error in accelerated processing: {e}")
-        return 1
-    
-    return 0
-
-if __name__ == "__main__":
-    exit_code = main()
-    sys.exit(exit_code)
+# This file contains the AcceleratedNasdaqTrader class
+# Use run_pipeline.py to execute the trading analysis pipeline
