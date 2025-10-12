@@ -386,53 +386,62 @@ class AcceleratedNasdaqTrader:
             
             ## 📈 ACTIONABLE TRADE IDEAS
             ### Day Trading Opportunities
-            - **Ticker**: [SYMBOL] | **Action**: [BUY/SELL] | **Entry**: [Price] | **Target**: [Price] | **Stop**: [Price] | **Timeframe**: [Hours/Days]
+            - **Ticker**: [SYMBOL] | **Action**: [BUY/SELL] | **Entry**: [Price] | **Target**: [Price] | **Stop**: [Price] | **Timeframe**: [Hours/Days] | **Mentioned at**: [Timestamp or context]
             
             ### Swing Trading Opportunities  
-            - **Ticker**: [SYMBOL] | **Action**: [BUY/SELL] | **Entry**: [Price] | **Target**: [Price] | **Stop**: [Price] | **Timeframe**: [Days/Weeks]
+            - **Ticker**: [SYMBOL] | **Action**: [BUY/SELL] | **Entry**: [Price] | **Target**: [Price] | **Stop**: [Price] | **Timeframe**: [Days/Weeks] | **Mentioned at**: [Timestamp or context]
             
             ### Long-term Investment Ideas
-            - **Ticker**: [SYMBOL] | **Action**: [BUY/HOLD] | **Entry**: [Price Range] | **Target**: [Price] | **Timeframe**: [Months/Years]
+            - **Ticker**: [SYMBOL] | **Action**: [BUY/HOLD] | **Entry**: [Price Range] | **Target**: [Price] | **Timeframe**: [Months/Years] | **Mentioned at**: [Timestamp or context]
             
-            ## 🏢 VALIDATED TICKERS & ASSETS
-            ### Stocks (NASDAQ/NYSE)
-            - [TICKER] - [Company Name] - [Current Price if mentioned]
+            ## 🏢 TICKER & ASSET ANALYSIS
+            [For each ticker/asset mentioned, create ONE comprehensive section with ALL information about that ticker]
             
-            ### Cryptocurrencies
-            - [SYMBOL] (Bitcoin, Ethereum, etc.) - [Current Price if mentioned]
+            ### [TICKER SYMBOL] - [Company/Asset Name]
+            - **Asset Type**: [Stock/Crypto/Commodity/etc.]
+            - **Current Price**: [Price if mentioned, otherwise "Not specified in video"]
+            - **Mentioned At**: [Timestamp or context where mentioned in video]
+            - **Trading Recommendation**: [BUY/SELL/HOLD with reasoning]
+            - **Entry Price**: [Price if mentioned]
+            - **Target Price**: [Price if mentioned]
+            - **Stop Loss**: [Price if mentioned]
+            - **Timeframe**: [Short/Medium/Long term]
+            - **Key Information**: [All relevant details about this ticker from the video]
+            - **Technical Analysis**: [Any technical analysis mentioned for this ticker]
+            - **Risk Factors**: [Any risks mentioned for this ticker]
+            - **Catalysts**: [Any positive/negative catalysts mentioned]
             
-            ### Commodities
-            - [ASSET] (Gold, Silver, Oil, etc.) - [Current Price if mentioned]
+            [Repeat this section for each unique ticker/asset mentioned]
             
-            ## 📊 TECHNICAL ANALYSIS
+            ## 📊 TECHNICAL ANALYSIS SUMMARY
             ### Support & Resistance Levels
-            - **Ticker**: [SYMBOL] | **Support**: [Price] | **Resistance**: [Price]
+            - **Ticker**: [SYMBOL] | **Support**: [Price] | **Resistance**: [Price] | **Mentioned at**: [Context]
             
             ### Chart Patterns
-            - **Ticker**: [SYMBOL] | **Pattern**: [Pattern Name] | **Implication**: [Bullish/Bearish/Neutral]
+            - **Ticker**: [SYMBOL] | **Pattern**: [Pattern Name] | **Implication**: [Bullish/Bearish/Neutral] | **Mentioned at**: [Context]
             
             ### Key Levels
-            - **Ticker**: [SYMBOL] | **Key Level**: [Price] | **Significance**: [Breakout/Support/Resistance]
+            - **Ticker**: [SYMBOL] | **Key Level**: [Price] | **Significance**: [Breakout/Support/Resistance] | **Mentioned at**: [Context]
             
             ## 📰 MARKET SENTIMENT & NEWS
             ### Positive Catalysts
-            - [Specific positive news or events mentioned]
+            - [Specific positive news or events mentioned with context]
             
             ### Risk Factors
-            - [Specific risks or negative factors mentioned]
+            - [Specific risks or negative factors mentioned with context]
             
             ### Market Outlook
-            - [Overall market direction and reasoning]
+            - [Overall market direction and reasoning with context]
             
             ## ⏰ TIMING & DURATION
             ### Immediate Actions (0-24 hours)
-            - [Specific actions to take immediately]
+            - [Specific actions to take immediately with context]
             
             ### Short-term (1-7 days)
-            - [Actions for the coming week]
+            - [Actions for the coming week with context]
             
             ### Medium-term (1-4 weeks)
-            - [Actions for the coming month]
+            - [Actions for the coming month with context]
             
             ## 🎯 PORTFOLIO IMPLICATIONS
             ### Position Sizing
@@ -477,6 +486,14 @@ class AcceleratedNasdaqTrader:
             10. Be specific about entry/exit points only if explicitly mentioned
             11. Focus on actionable information that can be executed on NASDAQ
             12. Maintain professional trading report format
+            
+            🎯 **CRITICAL TICKER ORGANIZATION REQUIREMENTS:**
+            13. Each ticker/asset must appear ONLY ONCE in the entire report
+            14. Create ONE comprehensive section per ticker with ALL information about that ticker
+            15. Include "Mentioned at" timestamps/context for each ticker to help locate in video
+            16. Consolidate all information about each ticker into its dedicated section
+            17. Do NOT repeat the same ticker in multiple sections
+            18. Group all related information (prices, analysis, recommendations) under each ticker's section
             
             🔍 **SOURCE VERIFICATION:**
             - Every piece of information must be traceable to the transcript
