@@ -12,8 +12,8 @@ __pycache__/
 # Ticker validation cache
 ticker_cache.json
 
-# Summary reports (optional - uncomment to ignore)
-# summary/
+# Summary reports (generated analysis reports - should not be public)
+summary/
 
 # Environment variables
 .env
