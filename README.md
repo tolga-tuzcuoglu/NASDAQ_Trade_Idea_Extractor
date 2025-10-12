@@ -58,15 +58,6 @@ python run_pipeline.py
 
 ### **Utility Files**
 
-#### `acceleration_utils.py`
-- **Purpose**: System optimization and performance utilities
-- **Features**: CPU optimization, memory management, parallel processing
-- **Use Case**: Performance enhancement for large-scale processing
-
-#### `setup.py`
-- **Purpose**: Environment setup and system configuration
-- **Features**: Dependency installation, system optimization
-- **Use Case**: Initial setup and configuration
 
 #### `config.yaml`
 - **Purpose**: Configuration settings for the pipeline
