@@ -376,6 +376,12 @@ class AcceleratedNasdaqTrader:
             
             Create a comprehensive trading analysis report in this EXACT format:
             
+            **IMPORTANT LANGUAGE REQUIREMENTS:**
+            - Keep the report template structure in English (headings, labels, format)
+            - Generate ALL content in the ORIGINAL LANGUAGE of the video (Turkish)
+            - This includes: ticker analysis, trading recommendations, market outlook, etc.
+            - Only the structural elements (headings, labels) should remain in English
+            
             # NASDAQ TRADING ANALYSIS REPORT
             
             ## 📊 VIDEO INFORMATION
@@ -385,34 +391,34 @@ class AcceleratedNasdaqTrader:
             - **Channel/Author**: [Channel name or author if mentioned]
             
             ## 🎯 EXECUTIVE SUMMARY
-            [2-3 sentence summary of key trading opportunities and market outlook]
+            [Write in Turkish: 2-3 sentence summary of key trading opportunities and market outlook]
             
             ## 📈 ACTIONABLE TRADE IDEAS
             ### Day Trading Opportunities
-            - **Ticker**: [SYMBOL] | **Action**: [BUY/SELL] | **Entry**: [Price] | **Target**: [Price] | **Stop**: [Price] | **Timeframe**: [Hours/Days] | **Mentioned at**: [Timestamp or context]
+            - **Ticker**: [SYMBOL] | **Action**: [BUY/SELL in Turkish] | **Entry**: [Price] | **Target**: [Price] | **Stop**: [Price] | **Timeframe**: [Hours/Days in Turkish] | **Mentioned at**: [Timestamp or context in Turkish]
             
             ### Swing Trading Opportunities  
-            - **Ticker**: [SYMBOL] | **Action**: [BUY/SELL] | **Entry**: [Price] | **Target**: [Price] | **Stop**: [Price] | **Timeframe**: [Days/Weeks] | **Mentioned at**: [Timestamp or context]
+            - **Ticker**: [SYMBOL] | **Action**: [BUY/SELL in Turkish] | **Entry**: [Price] | **Target**: [Price] | **Stop**: [Price] | **Timeframe**: [Days/Weeks in Turkish] | **Mentioned at**: [Timestamp or context in Turkish]
             
             ### Long-term Investment Ideas
-            - **Ticker**: [SYMBOL] | **Action**: [BUY/HOLD] | **Entry**: [Price Range] | **Target**: [Price] | **Timeframe**: [Months/Years] | **Mentioned at**: [Timestamp or context]
+            - **Ticker**: [SYMBOL] | **Action**: [BUY/HOLD in Turkish] | **Entry**: [Price Range] | **Target**: [Price] | **Timeframe**: [Months/Years in Turkish] | **Mentioned at**: [Timestamp or context in Turkish]
             
             ## 🏢 TICKER & ASSET ANALYSIS
             [For each ticker/asset mentioned, create ONE comprehensive section with ALL information about that ticker]
             
-            ### [TICKER SYMBOL] - [Company/Asset Name]
-            - **Asset Type**: [Stock/Crypto/Commodity/etc.]
-            - **Current Price**: [Price if mentioned, otherwise "Not specified in video"]
-            - **Mentioned At**: [Timestamp or context where mentioned in video]
-            - **Trading Recommendation**: [BUY/SELL/HOLD with reasoning]
+            ### [TICKER SYMBOL] - [Company/Asset Name in Turkish]
+            - **Asset Type**: [Stock/Crypto/Commodity/etc. in Turkish]
+            - **Current Price**: [Price if mentioned, otherwise "Videoda belirtilmedi"]
+            - **Mentioned At**: [Timestamp or context where mentioned in video in Turkish]
+            - **Trading Recommendation**: [BUY/SELL/HOLD with reasoning in Turkish]
             - **Entry Price**: [Price if mentioned]
             - **Target Price**: [Price if mentioned]
             - **Stop Loss**: [Price if mentioned]
-            - **Timeframe**: [Short/Medium/Long term]
-            - **Key Information**: [All relevant details about this ticker from the video]
-            - **Technical Analysis**: [Any technical analysis mentioned for this ticker]
-            - **Risk Factors**: [Any risks mentioned for this ticker]
-            - **Catalysts**: [Any positive/negative catalysts mentioned]
+            - **Timeframe**: [Short/Medium/Long term in Turkish]
+            - **Key Information**: [All relevant details about this ticker from the video in Turkish]
+            - **Technical Analysis**: [Any technical analysis mentioned for this ticker in Turkish]
+            - **Risk Factors**: [Any risks mentioned for this ticker in Turkish]
+            - **Catalysts**: [Any positive/negative catalysts mentioned in Turkish]
             
             [Repeat this section for each unique ticker/asset mentioned]
             
