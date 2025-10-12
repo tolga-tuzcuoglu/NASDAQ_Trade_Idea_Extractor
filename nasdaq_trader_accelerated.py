@@ -377,101 +377,63 @@ class AcceleratedNasdaqTrader:
             Create a comprehensive trading analysis report in this EXACT format:
             
             **IMPORTANT LANGUAGE REQUIREMENTS:**
-            - Keep the report template structure in English (headings, labels, format)
-            - Generate ALL content in the ORIGINAL LANGUAGE of the video (Turkish)
-            - This includes: ticker analysis, trading recommendations, market outlook, etc.
-            - Only the structural elements (headings, labels) should remain in English
+            - Generate ALL content in Turkish for Turkish day/swing traders
+            - Use Turkish trading terminology and expressions
+            - Keep the report concise and action-oriented
+            - Focus on practical trading information
             
-            # NASDAQ TRADING ANALYSIS REPORT
+            # TRADİNG ANALİZ RAPORU
             
-            ## 📊 VIDEO INFORMATION
-            - **Date**: [Extract video date if mentioned, otherwise use current date]
-            - **Video URL**: [Video URL if available]
-            - **Video Title**: [Video title if mentioned]
-            - **Channel/Author**: [Channel name or author if mentioned]
+            ## 📊 VİDEO BİLGİLERİ
+            - **Tarih**: [Videoda belirtilen tarih, yoksa bugünün tarihi]
+            - **Kanal**: [Kanal adı veya yayıncı]
+            - **Video Başlığı**: [Video başlığı]
             
-            ## 🎯 EXECUTIVE SUMMARY
-            [Write in Turkish: 2-3 sentence summary of key trading opportunities and market outlook]
+            ## 🎯 ÖZET
+            [2-3 cümle ile ana trading fırsatları ve piyasa görünümü]
             
-            ## 📈 ACTIONABLE TRADE IDEAS
-            ### Day Trading Opportunities
-            - **Ticker**: [SYMBOL] | **Action**: [BUY/SELL in Turkish] | **Entry**: [Price] | **Target**: [Price] | **Stop**: [Price] | **Timeframe**: [Hours/Days in Turkish] | **Mentioned at**: [Timestamp or context in Turkish]
+            ## 📈 TRADİNG FİRSATLARI
+            [Her ticker için tek kapsamlı bölüm oluştur - tüm bilgileri bir arada]
             
-            ### Swing Trading Opportunities  
-            - **Ticker**: [SYMBOL] | **Action**: [BUY/SELL in Turkish] | **Entry**: [Price] | **Target**: [Price] | **Stop**: [Price] | **Timeframe**: [Days/Weeks in Turkish] | **Mentioned at**: [Timestamp or context in Turkish]
+            ### [TICKER] - [Şirket/Asset Adı]
+            - **Fiyat**: [Mevcut fiyat, belirtilmişse]
+            - **Öneri**: [AL/SAT/TUT] - [Gerekçe]
+            - **Giriş**: [Fiyat, belirtilmişse]
+            - **Hedef**: [Fiyat, belirtilmişse]
+            - **Stop**: [Fiyat, belirtilmişse]
+            - **Süre**: [Kısa/Orta/Uzun vadeli]
+            - **Teknik**: [Teknik analiz, belirtilmişse]
+            - **Risk**: [Risk faktörleri, belirtilmişse]
+            - **Katalizör**: [Pozitif/negatif katalizörler, belirtilmişse]
+            - **Videoda Geçen**: [Hangi dakikada bahsedildi]
             
-            ### Long-term Investment Ideas
-            - **Ticker**: [SYMBOL] | **Action**: [BUY/HOLD in Turkish] | **Entry**: [Price Range] | **Target**: [Price] | **Timeframe**: [Months/Years in Turkish] | **Mentioned at**: [Timestamp or context in Turkish]
+            [Her unique ticker/asset için bu bölümü tekrarla]
             
-            ## 🏢 TICKER & ASSET ANALYSIS
-            [For each ticker/asset mentioned, create ONE comprehensive section with ALL information about that ticker]
+            ## 📊 TEKNİK ANALİZ
+            ### Destek/Direnç
+            - **[TICKER]**: Destek [Fiyat] | Direnç [Fiyat]
             
-            ### [TICKER SYMBOL] - [Company/Asset Name in Turkish]
-            - **Asset Type**: [Stock/Crypto/Commodity/etc. in Turkish]
-            - **Current Price**: [Price if mentioned, otherwise "Videoda belirtilmedi"]
-            - **Mentioned At**: [Timestamp or context where mentioned in video in Turkish]
-            - **Trading Recommendation**: [BUY/SELL/HOLD with reasoning in Turkish]
-            - **Entry Price**: [Price if mentioned]
-            - **Target Price**: [Price if mentioned]
-            - **Stop Loss**: [Price if mentioned]
-            - **Timeframe**: [Short/Medium/Long term in Turkish]
-            - **Key Information**: [All relevant details about this ticker from the video in Turkish]
-            - **Technical Analysis**: [Any technical analysis mentioned for this ticker in Turkish]
-            - **Risk Factors**: [Any risks mentioned for this ticker in Turkish]
-            - **Catalysts**: [Any positive/negative catalysts mentioned in Turkish]
+            ### Grafik Formasyonları
+            - **[TICKER]**: [Formasyon adı] | [Yorum]
             
-            [Repeat this section for each unique ticker/asset mentioned]
+            ## 📰 PİYASA HABERLERİ
+            ### Pozitif Katalizörler
+            - [Videoda bahsedilen pozitif haberler]
             
-            ## 📊 TECHNICAL ANALYSIS SUMMARY
-            ### Support & Resistance Levels
-            - **Ticker**: [SYMBOL] | **Support**: [Price] | **Resistance**: [Price] | **Mentioned at**: [Context]
+            ### Risk Faktörleri
+            - [Videoda bahsedilen riskler]
             
-            ### Chart Patterns
-            - **Ticker**: [SYMBOL] | **Pattern**: [Pattern Name] | **Implication**: [Bullish/Bearish/Neutral] | **Mentioned at**: [Context]
+            ## ⏰ ZAMANLAMA
+            ### Hemen (0-24 saat)
+            - [Acil eylemler]
             
-            ### Key Levels
-            - **Ticker**: [SYMBOL] | **Key Level**: [Price] | **Significance**: [Breakout/Support/Resistance] | **Mentioned at**: [Context]
+            ### Kısa Vadeli (1-7 gün)
+            - [Bu hafta için eylemler]
             
-            ## 📰 MARKET SENTIMENT & NEWS
-            ### Positive Catalysts
-            - [Specific positive news or events mentioned with context]
-            
-            ### Risk Factors
-            - [Specific risks or negative factors mentioned with context]
-            
-            ### Market Outlook
-            - [Overall market direction and reasoning with context]
-            
-            ## ⏰ TIMING & DURATION
-            ### Immediate Actions (0-24 hours)
-            - [Specific actions to take immediately with context]
-            
-            ### Short-term (1-7 days)
-            - [Actions for the coming week with context]
-            
-            ### Medium-term (1-4 weeks)
-            - [Actions for the coming month with context]
-            
-            ## 🎯 PORTFOLIO IMPLICATIONS
-            ### Position Sizing
-            - [Recommended position sizes for different risk levels]
-            
-            ### Risk Management
-            - [Specific risk management strategies mentioned]
-            
-            ### Diversification
-            - [Diversification recommendations]
-            
-            ## 📋 TRADING CHECKLIST
-            - [ ] [Specific action item 1]
-            - [ ] [Specific action item 2]
-            - [ ] [Specific action item 3]
-            
-            ## ⚠️ IMPORTANT DISCLAIMERS
-            - This analysis is based solely on the video content
-            - All tickers and prices should be verified before trading
-            - Past performance does not guarantee future results
-            - Always use proper risk management
+            ## ⚠️ UYARI
+            - Bu analiz sadece video içeriğine dayanmaktadır
+            - Tüm fiyatlar ve ticker'lar doğrulanmalıdır
+            - Risk yönetimi uygulanmalıdır
             
             **CRITICAL ANTI-HALLUCINATION REQUIREMENTS:**
             
