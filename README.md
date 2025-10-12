@@ -13,8 +13,6 @@ Nasdaq_Trader_Local/
 ├── 📓 Nasdaq_Trader.ipynb                # Interactive Jupyter notebook
 ├── 🏃 run_pipeline.py                   # Main execution script (RECOMMENDED)
 ├── ⚡ nasdaq_trader_accelerated.py       # Core engine (library)
-├── ⚙️ acceleration_utils.py              # System optimization utilities
-├── 🔧 setup.py                          # Environment setup script
 ├── 📋 video_list.txt                    # Input: YouTube video URLs
 ├── 📁 video_cache/                       # Cached audio files (with dates)
 ├── 📁 transcript_cache/                  # Cached transcripts (with dates)
