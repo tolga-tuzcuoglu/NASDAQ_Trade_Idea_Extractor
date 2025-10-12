@@ -583,10 +583,83 @@ class AcceleratedNasdaqTrader:
             [Her unique ticker/asset için bu bölümü tekrarla]
             
             ## 🚀 HIZLI KAZANÇLAR
-            ### Hemen Alınacak Aksiyonlar
-            - [Videoda bahsedilen acil trading aksiyonları]
-            - [0-24 saat içinde yapılması gerekenler]
-            - [Bu hafta için öncelikli eylemler]
+            
+            ### 🎯 ÖNCELİKLİ FIRSATLAR (Risk/Getiri Oranına Göre Sıralı)
+            
+            #### 🔥 YÜKSEK ÖNCELİK (Güçlü Teknik + Temel Analiz)
+            - **[TICKER]**: [Giriş: $X.XX] [Stop: $X.XX] [Hedef: $X.XX] [Risk: X%] [Zamanlama: X gün]
+              *[Gerekçe: Teknik kırılım + güçlü momentum + düşük risk]*
+              
+            #### ⚡ ORTA ÖNCELİK (İyi Risk/Getiri Oranı)
+            - **[TICKER]**: [Giriş: $X.XX] [Stop: $X.XX] [Hedef: $X.XX] [Risk: X%] [Zamanlama: X gün]
+              *[Gerekçe: Teknik seviye + orta risk]*
+              
+            #### 📈 DÜŞÜK ÖNCELİK (Spekülatif veya Uzun Vadeli)
+            - **[TICKER]**: [Giriş: $X.XX] [Stop: $X.XX] [Hedef: $X.XX] [Risk: X%] [Zamanlama: X gün]
+              *[Gerekçe: Spekülatif oyun veya uzun vadeli pozisyon]*
+            
+            ### ⏰ ZAMANLAMA REHBERİ
+            
+            #### 🚀 HEMEN (0-24 saat)
+            - **[TICKER]**: [Market açılışında giriş] / [Piyasa kapanışından önce giriş]
+            - **[TICKER]**: [Belirli saatte giriş] / [Haber öncesi/sonrası giriş]
+            
+            #### 📅 KISA VADELİ (1-7 gün)
+            - **[TICKER]**: [Bu hafta içinde giriş] / [Earnings öncesi giriş]
+            - **[TICKER]**: [Teknik seviye kırılımında giriş] / [Düzeltme sırasında giriş]
+            
+            #### 🎯 ORTA VADELİ (1-4 hafta)
+            - **[TICKER]**: [Trend devamında giriş] / [Sektör rotasyonunda giriş]
+            - **[TICKER]**: [Uzun vadeli hedef için giriş] / [Sezonluk faktörler için giriş]
+            
+            ### 💡 İMA EDİLEN FIRSATLAR (Videoda Açıkça Bahsedilmeyen Ama İmâ Edilen)
+            
+            #### 📊 PİYASA KOŞULLARI
+            - **[Genel Piyasa Durumu]**: [İmâ edilen fırsatlar]
+            - **[Sektör Rotasyonu]**: [Hangi sektörlere odaklanılmalı]
+            - **[Risk Algısı]**: [Yüksek/Düşük risk ortamında hangi stratejiler]
+            
+            #### 🔍 TEKNİK İPUÇLARI
+            - **[Genel Teknik Durum]**: [Destek/direnç seviyeleri, trend analizi]
+            - **[Momentum Göstergeleri]**: [RSI, MACD, hacim analizi ipuçları]
+            - **[Formasyon İpuçları]**: [Grafik formasyonları, kırılım noktaları]
+            
+            ### 🛡️ RİSK YÖNETİMİ VE PORTFOLYO BAĞLAMI
+            
+            #### 📊 POZİSYON BÜYÜKLÜĞÜ
+            - **Konservatif**: Her pozisyon portföyün %1-2'si
+            - **Orta Risk**: Her pozisyon portföyün %2-3'ü  
+            - **Agresif**: Her pozisyon portföyün %3-5'i
+            
+            #### 🔗 KORELASYON KONTROLÜ
+            - **Benzer Sektörlerden Kaçının**: [Teknoloji, finans, sağlık vb.]
+            - **Mevcut Pozisyonlarla Çakışma**: [Aynı sektörde birden fazla pozisyon almayın]
+            - **Piyasa Beta Maruziyeti**: [Yüksek beta hisselerle düşük beta hisseleri dengeleyin]
+            
+            #### ⚖️ PORTFOLYO ETKİSİ
+            - **Toplam Risk Maruziyeti**: [Tüm pozisyonların toplam riski %X'i geçmemeli]
+            - **Sektör Dağılımı**: [Tek sektörde %X'den fazla yoğunlaşma olmamalı]
+            - **Piyasa Değeri Dağılımı**: [Büyük/Orta/Küçük şirket dengesi]
+            
+            ### 🎯 HIZLI KARAR REHBERİ
+            
+            #### ✅ AL SİNYALLERİ
+            - [Teknik kırılım + hacim artışı]
+            - [Destek seviyesinde toparlanma]
+            - [Pozitif momentum + güçlü temel analiz]
+            - [Sektör liderliği + trend devamı]
+            
+            #### ❌ SAT SİNYALLERİ  
+            - [Direnç seviyesinde geri çekilme]
+            - [Hacim düşüşü + momentum kaybı]
+            - [Negatif haber + teknik bozulma]
+            - [Risk faktörlerinde artış]
+            
+            #### ⏸️ BEKLE SİNYALLERİ
+            - [Belirsizlik + yan trend]
+            - [Önemli haber öncesi]
+            - [Teknik seviyelerde kararsızlık]
+            - [Piyasa volatilitesinde artış]
             
             **CRITICAL ANTI-HALLUCINATION REQUIREMENTS:**
             
