@@ -403,37 +403,18 @@ class AcceleratedNasdaqTrader:
             - **Hedef**: [Fiyat, belirtilmişse - yoksa boş bırak]
             - **Stop**: [Fiyat, belirtilmişse - yoksa boş bırak]
             - **Süre**: [Kısa/Orta/Uzun vadeli, belirtilmişse - yoksa boş bırak]
-            - **Teknik**: [Teknik analiz, belirtilmişse - yoksa boş bırak]
-            - **Risk**: [Risk faktörleri, belirtilmişse - yoksa boş bırak]
-            - **Katalizör**: [Pozitif/negatif katalizörler, belirtilmişse - yoksa boş bırak]
+            - **Teknik Analiz**: [Destek/Direnç seviyeleri, grafik formasyonları, belirtilmişse - yoksa boş bırak]
+            - **Piyasa Haberleri**: [Pozitif/negatif katalizörler, belirtilmişse - yoksa boş bırak]
+            - **Risk Faktörleri**: [Riskler, belirtilmişse - yoksa boş bırak]
+            - **Zamanlama**: [Hemen (0-24 saat) ve Kısa vadeli (1-7 gün) eylemler, belirtilmişse - yoksa boş bırak]
             
             [Her unique ticker/asset için bu bölümü tekrarla]
             
-            ## 📊 TEKNİK ANALİZ
-            ### Destek/Direnç
-            - **[TICKER]**: Destek [Fiyat] | Direnç [Fiyat]
-            
-            ### Grafik Formasyonları
-            - **[TICKER]**: [Formasyon adı] | [Yorum]
-            
-            ## 📰 PİYASA HABERLERİ
-            ### Pozitif Katalizörler
-            - [Videoda bahsedilen pozitif haberler]
-            
-            ### Risk Faktörleri
-            - [Videoda bahsedilen riskler]
-            
-            ## ⏰ ZAMANLAMA
-            ### Hemen (0-24 saat)
-            - [Acil eylemler]
-            
-            ### Kısa Vadeli (1-7 gün)
-            - [Bu hafta için eylemler]
-            
-            ## ⚠️ UYARI
-            - Bu analiz sadece video içeriğine dayanmaktadır
-            - Tüm fiyatlar ve ticker'lar doğrulanmalıdır
-            - Risk yönetimi uygulanmalıdır
+            ## 🚀 HIZLI KAZANÇLAR
+            ### Hemen Alınacak Aksiyonlar
+            - [Videoda bahsedilen acil trading aksiyonları]
+            - [0-24 saat içinde yapılması gerekenler]
+            - [Bu hafta için öncelikli eylemler]
             
             **CRITICAL ANTI-HALLUCINATION REQUIREMENTS:**
             
