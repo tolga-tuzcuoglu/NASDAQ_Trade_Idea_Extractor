@@ -25,6 +25,7 @@ from yt_dlp import YoutubeDL
 import yfinance as yf
 from dotenv import load_dotenv
 import warnings
+from ticker_validator import get_ticker_validator, validate_ticker, validate_tickers
 
 # Load environment variables
 load_dotenv()
@@ -71,9 +72,13 @@ class AcceleratedNasdaqTrader:
         self.system_info = self.get_system_info()
         self.optimal_settings = self.calculate_optimal_settings()
         
+        # Initialize ticker validator
+        self.ticker_validator = get_ticker_validator()
+        
         print(f"Accelerated Nasdaq Trader Initialized")
         print(f"   System: {self.system_info['cpu_cores']} cores, {self.system_info['ram_gb']:.1f}GB RAM")
         print(f"   Optimal: {self.optimal_settings['parallel_videos']} parallel videos")
+        print(f"   Ticker Validation: Enabled with caching")
     
     def get_system_info(self):
         """Get system information for optimization"""
@@ -126,6 +131,170 @@ class AcceleratedNasdaqTrader:
             return torch.cuda.is_available()
         except ImportError:
             return False
+    
+    def validate_tickers_in_analysis(self, analysis_text: str) -> Dict[str, Any]:
+        """
+        Extract and validate tickers from analysis text
+        
+        Args:
+            analysis_text: The generated analysis text
+            
+        Returns:
+            Dictionary with validation results
+        """
+        try:
+            # Extract tickers from analysis text
+            tickers = self.extract_tickers_from_text(analysis_text)
+            
+            if not tickers:
+                self.logger.info("No tickers found in analysis")
+                return {
+                    'tickers_found': 0,
+                    'valid_tickers': [],
+                    'invalid_tickers': [],
+                    'validation_summary': {}
+                }
+            
+            self.logger.info(f"Found {len(tickers)} tickers to validate: {tickers}")
+            
+            # Validate tickers
+            validation_results = self.ticker_validator.validate_multiple_tickers(tickers)
+            
+            # Separate valid and invalid tickers
+            valid_tickers = []
+            invalid_tickers = []
+            
+            for ticker, result in validation_results.items():
+                if result['is_valid']:
+                    valid_tickers.append({
+                        'ticker': ticker,
+                        'company_name': result['company_name'],
+                        'info': result['ticker_info']
+                    })
+                else:
+                    invalid_tickers.append({
+                        'ticker': ticker,
+                        'error': result['error_message']
+                    })
+            
+            # Get validation summary
+            summary = self.ticker_validator.get_validation_summary(tickers)
+            
+            self.logger.info(f"Ticker validation complete: {len(valid_tickers)} valid, {len(invalid_tickers)} invalid")
+            
+            return {
+                'tickers_found': len(tickers),
+                'valid_tickers': valid_tickers,
+                'invalid_tickers': invalid_tickers,
+                'validation_summary': summary
+            }
+            
+        except Exception as e:
+            self.logger.error(f"Ticker validation failed: {e}")
+            return {
+                'tickers_found': 0,
+                'valid_tickers': [],
+                'invalid_tickers': [],
+                'validation_summary': {},
+                'error': str(e)
+            }
+    
+    def extract_tickers_from_text(self, text: str) -> list:
+        """
+        Extract ticker symbols from analysis text
+        
+        Args:
+            text: Analysis text to extract tickers from
+            
+        Returns:
+            List of potential ticker symbols
+        """
+        import re
+        
+        # Common ticker patterns
+        ticker_patterns = [
+            r'\b[A-Z]{1,5}\b',  # 1-5 uppercase letters
+            r'\$[A-Z]{1,5}\b',  # $ followed by 1-5 uppercase letters
+            r'\b[A-Z]{2,5}\.\w{1,2}\b',  # Ticker with exchange suffix (e.g., AAPL.NASDAQ)
+        ]
+        
+        tickers = set()
+        
+        for pattern in ticker_patterns:
+            matches = re.findall(pattern, text)
+            for match in matches:
+                # Clean up the match
+                ticker = match.replace('$', '').strip()
+                if len(ticker) >= 1 and len(ticker) <= 5:
+                    tickers.add(ticker.upper())
+        
+        # Filter out common false positives
+        false_positives = {
+            'THE', 'AND', 'FOR', 'ARE', 'BUT', 'NOT', 'YOU', 'ALL', 'CAN', 'HAD', 'HER', 'WAS', 'ONE', 'OUR',
+            'OUT', 'DAY', 'GET', 'HAS', 'HIM', 'HIS', 'HOW', 'ITS', 'MAY', 'NEW', 'NOW', 'OLD', 'SEE', 'TWO',
+            'WHO', 'BOY', 'DID', 'ITS', 'LET', 'PUT', 'SAY', 'SHE', 'TOO', 'USE', 'AL', 'AS', 'AT', 'BE', 'BY',
+            'DO', 'GO', 'IF', 'IN', 'IS', 'IT', 'ME', 'MY', 'NO', 'OF', 'ON', 'OR', 'SO', 'TO', 'UP', 'WE'
+        }
+        
+        # Filter out false positives and return list
+        filtered_tickers = [ticker for ticker in tickers if ticker not in false_positives]
+        
+        return filtered_tickers
+    
+    def format_validation_summary(self, validation_results: Dict[str, Any]) -> str:
+        """
+        Format ticker validation results for display
+        
+        Args:
+            validation_results: Results from validate_tickers_in_analysis
+            
+        Returns:
+            Formatted validation summary string
+        """
+        try:
+            summary_lines = []
+            
+            # Overall statistics
+            total_tickers = validation_results['tickers_found']
+            valid_count = len(validation_results['valid_tickers'])
+            invalid_count = len(validation_results['invalid_tickers'])
+            
+            summary_lines.append(f"**Toplam Ticker Sayısı**: {total_tickers}")
+            summary_lines.append(f"**Geçerli Ticker'lar**: {valid_count}")
+            summary_lines.append(f"**Geçersiz Ticker'lar**: {invalid_count}")
+            
+            if total_tickers > 0:
+                success_rate = (valid_count / total_tickers) * 100
+                summary_lines.append(f"**Başarı Oranı**: {success_rate:.1f}%")
+            
+            # Valid tickers
+            if validation_results['valid_tickers']:
+                summary_lines.append("\n### ✅ Geçerli Ticker'lar")
+                for ticker_info in validation_results['valid_tickers']:
+                    ticker = ticker_info['ticker']
+                    company_name = ticker_info.get('company_name', 'Bilinmeyen')
+                    summary_lines.append(f"- **{ticker}**: {company_name}")
+            
+            # Invalid tickers
+            if validation_results['invalid_tickers']:
+                summary_lines.append("\n### ❌ Geçersiz Ticker'lar")
+                for ticker_info in validation_results['invalid_tickers']:
+                    ticker = ticker_info['ticker']
+                    error = ticker_info.get('error', 'Bilinmeyen hata')
+                    summary_lines.append(f"- **{ticker}**: {error}")
+            
+            # Cache information
+            cache_stats = self.ticker_validator.get_cache_stats()
+            summary_lines.append(f"\n### 📊 Önbellek İstatistikleri")
+            summary_lines.append(f"- **Önbellekteki Ticker Sayısı**: {cache_stats['total_cached']}")
+            summary_lines.append(f"- **Geçerli Önbellek Girişleri**: {cache_stats['valid_entries']}")
+            summary_lines.append(f"- **Süresi Dolmuş Girişler**: {cache_stats['expired_entries']}")
+            
+            return "\n".join(summary_lines)
+            
+        except Exception as e:
+            self.logger.error(f"Failed to format validation summary: {e}")
+            return f"Validation summary formatting failed: {e}"
     
     def setup_logging(self):
         """Setup logging configuration"""
@@ -473,7 +642,17 @@ class AcceleratedNasdaqTrader:
             """
             
             response = model.generate_content(prompt)
-            return response.text
+            analysis_text = response.text
+            
+            # Validate tickers in the generated analysis
+            validation_results = self.validate_tickers_in_analysis(analysis_text)
+            
+            # Add validation results to the analysis
+            if validation_results['tickers_found'] > 0:
+                validation_summary = self.format_validation_summary(validation_results)
+                analysis_text += f"\n\n## 🔍 TICKER VALIDATION RESULTS\n{validation_summary}"
+            
+            return analysis_text
             
         except Exception as e:
             self.logger.error(f"AI analysis failed: {e}")
@@ -544,7 +723,8 @@ class AcceleratedNasdaqTrader:
                 'url': url,
                 'timestamp': timestamp,
                 'analysis': analysis,
-                'generated_at': datetime.now().isoformat()
+                'generated_at': datetime.now().isoformat(),
+                'ticker_validation': self.validate_tickers_in_analysis(analysis)
             }
             
             import json

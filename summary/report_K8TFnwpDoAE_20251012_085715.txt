@@ -1,0 +1,690 @@
+Trading Analysis Report
+Video URL: https://www.youtube.com/watch?v=K8TFnwpDoAE
+Generated: 2025-10-12 08:57:15
+==================================================
+
+# TRADİNG ANALİZ RAPORU
+
+## 📊 VİDEO BİLGİLERİ
+- **Tarih**: 10 Haziran 2024
+- **Kanal**:
+- **Video Başlığı**:
+- **Rapor Oluşturulma**: 10 Haziran 2024, 15:30
+- **Not**: Bu rapor sadece video içeriğine dayanmaktadır, tahmin içermez
+
+## 🎯 ÖZET
+Piyasa genelinde hafif geri çekilmeler yaşansa da bunlar genellikle alım fırsatı olarak değerlendirilmektedir. Özellikle belirli teknoloji ve kripto varlıklarda direnç seviyelerinin test edildiği, bazı hisselerde ise güçlü yükselişlerin konsolidasyon süreçlerine girdiği görülmektedir. Swing trade ve uzun vadeli yatırım fırsatları öne çıkarken, riskli varlıklarda temkinli olunması gerektiği vurgulanmıştır.
+
+## 📈 TRADİNG FİRSATLARI
+
+### NDX - Nasdaq Index
+- **Videoda Bahsedilen**: 0:35, 0:48, 1:05
+- **Fiyat**:
+- **Öneri**: AL (Geri çekilmeler alım fırsatı olarak görülüyor)
+- **Giriş**:
+- **Hedef**:
+- **Stop**:
+- **Süre**: Kısa vadeli
+- **Teknik Analiz**: Çok hafif bir geri çekilme (%0.10 bile değil), normal. Kapanışa doğru genelde toparlıyor. Direnç seviyelerine yakın. Kısa vadede çok ufak geri çekilmeler görülebilir ama genelde bu geri çekilmeler alım fırsatı olarak görünüyor.
+- **Piyasa Haberleri**: Powell konuştu, genel ekonomi ve piyasayla ilgili çok bir şey söylemedi.
+- **Risk Faktörleri**: Negatif uyumsuzluklarda bir şey düşüyor gibi görünüyor, yani biraz sıkıntılı yerde olabiliriz.
+- **Zamanlama**: Kapanışa doğru toparlama beklentisi.
+
+### Nasdaq
+- **Videoda Bahsedilen**: 0:59
+- **Fiyat**:
+- **Öneri**: TUT
+- **Giriş**:
+- **Hedef**:
+- **Stop**:
+- **Süre**:
+- **Teknik Analiz**: Direnç seviyesine geldi.
+- **Piyasa Haberleri**:
+- **Risk Faktörleri**:
+- **Zamanlama**:
+
+### S&P500
+- **Videoda Bahsedilen**: 1:05
+- **Fiyat**:
+- **Öneri**: TUT
+- **Giriş**:
+- **Hedef**:
+- **Stop**:
+- **Süre**:
+- **Teknik Analiz**: NDX ile benzer bir durum.
+- **Piyasa Haberleri**:
+- **Risk Faktörleri**:
+- **Zamanlama**:
+
+### VIX - VIX Index
+- **Videoda Bahsedilen**: 1:11
+- **Fiyat**:
+- **Öneri**: TUT
+- **Giriş**:
+- **Hedef**:
+- **Stop**:
+- **Süre**:
+- **Teknik Analiz**: Yüz günlük hareketliden sürekli geri dönüyor. Biraz geri çekilebilir. NDX çok fazla düşüş yapmazsa VIX'te güçlü bir spike beklenmiyor.
+- **Piyasa Haberleri**:
+- **Risk Faktörleri**:
+- **Zamanlama**:
+
+### Bitcoin (BTC)
+- **Videoda Bahsedilen**: 1:24
+- **Fiyat**: Tüm zamanların zirvesi 126.000'i gördü.
+- **Öneri**: TUT
+- **Giriş**:
+- **Hedef**: Tekrar yükselecektir.
+- **Stop**:
+- **Süre**: Orta vadeli (Kasım ayları Bitcoin için pozitif geçen aylar)
+- **Teknik Analiz**: Zirve sonrası bir konsolidasyon sürecinde, bir müddet yatay seyir olabilir, sonrasında tekrar yükselecektir.
+- **Piyasa Haberleri**:
+- **Risk Faktörleri**:
+- **Zamanlama**:
+
+### Ethereum (ETH)
+- **Videoda Bahsedilen**: 1:49
+- **Fiyat**:
+- **Öneri**: TUT
+- **Giriş**:
+- **Hedef**: Yukarı gidecektir.
+- **Stop**:
+- **Süre**:
+- **Teknik Analiz**: Yükseldi ama ara direnç seviyesini yukarı kıramadan geri döndü. Buralarda bir süre destek bulabilir, konsolide olabilir. Sonrasında tekrar yukarı gideceğini düşünüyorum.
+- **Piyasa Haberleri**:
+- **Risk Faktörleri**:
+- **Zamanlama**:
+
+### Solana (SOL)
+- **Videoda Bahsedilen**: 2:10
+- **Fiyat**:
+- **Öneri**: TUT
+- **Giriş**:
+- **Hedef**:
+- **Stop**:
+- **Süre**:
+- **Teknik Analiz**: Ethereum ile benzer bir hareket gösteriyor.
+- **Piyasa Haberleri**:
+- **Risk Faktörleri**:
+- **Zamanlama**:
+
+### MSTR - MicroStrategy
+- **Videoda Bahsedilen**: 2:13
+- **Fiyat**:
+- **Öneri**: İZLE
+- **Giriş**:
+- **Hedef**: Yukarı yönlü dönüş (destek bulunursa).
+- **Stop**:
+- **Süre**: Kısa vadeli
+- **Teknik Analiz**: Maalesef kötüydü. Bir düşüş trendi vardı, bunu yukarı kırmıştı. Şimdi bu düşüş trendini tekrar test ediyor. Buralarda bir destek bulursa tekrar yukarı yönlü dönüş.
+- **Piyasa Haberleri**: Saylor, hisse fiyatı biraz kafasını kaldırırsa hemen ATM satışı yaparak hisse satıyor ve bu şekilde MSTR tekrar geri çekiliyor.
+- **Risk Faktörleri**: Saylor'un satışları baskı yaratıyor.
+- **Zamanlama**: İzlemeye devam etmek lazım.
+
+### COIN - Coinbase
+- **Videoda Bahsedilen**: 2:50
+- **Fiyat**:
+- **Öneri**: TUT (Direncini kırması bekleniyor)
+- **Giriş**:
+- **Hedef**: 430 (388 direnci yukarı geçilirse)
+- **Stop**:
+- **Süre**: Kısa vadeli
+- **Teknik Analiz**: MSTR'a göre daha güçlü durdu, MSTR geri çekilmesine rağmen COIN'de geri çekilme olmadı. 388 direncini geçemedi, son 4 gün boyunca bu dirence takılmış görünüyor.
+- **Piyasa Haberleri**:
+- **Risk Faktörleri**:
+- **Zamanlama**: 388 direncini yukarı kırması bekleniyor.
+
+### AAPL - Apple
+- **Videoda Bahsedilen**: 3:20
+- **Fiyat**:
+- **Öneri**: TUT
+- **Giriş**: 250 (geri çekilme sonrası)
+- **Hedef**: 260 direncini geçmesi bekleniyor.
+- **Stop**:
+- **Süre**: Orta vadeli
+- **Teknik Analiz**: Bir türlü 260 direncini geçemedi, bir süre yatay seyretti. 260'ı geçeceği düşünülüyor. Öncesinde 250'lere bir geri çekilme gelebilir, sonrasında tekrar yukarı gidecektir.
+- **Piyasa Haberleri**:
+- **Risk Faktörleri**:
+- **Zamanlama**:
+
+### MSFT - Microsoft
+- **Videoda Bahsedilen**: 3:55
+- **Fiyat**:
+- **Öneri**: TUT
+- **Giriş**:
+- **Hedef**:
+- **Stop**:
+- **Süre**:
+- **Teknik Analiz**: Hiçbir şey yok. Ufak bir boğa bayrağı yapmış. Oldukça güzel duruyor. Destek ve direnç seviyeleri grafik üzerinde gösterildi (videoda bahsi geçiyor).
+- **Piyasa Haberleri**:
+- **Risk Faktörleri**:
+- **Zamanlama**:
+
+### NVDA - Nvidia
+- **Videoda Bahsedilen**: 4:26
+- **Fiyat**:
+- **Öneri**: AL/TUT
+- **Giriş**:
+- **Hedef**: 197 civarı (Fibonacci seviyesi), sonrasında 200 dolar (psikolojik direnç).
+- **Stop**:
+- **Süre**: Kısa vadeli
+- **Teknik Analiz**: 192 direncini kırdı, yükseliyor.
+- **Piyasa Haberleri**: Trump yönetimi Nvidia'nın Birleşik Arap Emirlikleri'ndeki Dubai gibi şehirlere çip satışına izin verdi.
+- **Risk Faktörleri**:
+- **Zamanlama**:
+
+### AMZN - Amazon
+- **Videoda Bahsedilen**: 5:07
+- **Fiyat**:
+- **Öneri**: İZLE
+- **Giriş**:
+- **Hedef**:
+- **Stop**:
+- **Süre**:
+- **Teknik Analiz**: Dün 100 günlük 50 günlük hareketli ortalamasını yukarı kırmayı denedi ama şimdilik başarılı olmamış gibi görünüyor. Biraz güçlü duruyor gibi ama tehlike geçmiş sayılmaz.
+- **Piyasa Haberleri**:
+- **Risk Faktörleri**:
+- **Zamanlama**: Birazcık daha izlemekte fayda var.
+
+### META - Meta
+- **Videoda Bahsedilen**: 5:35
+- **Fiyat**:
+- **Öneri**: TUT
+- **Giriş**:
+- **Hedef**:
+- **Stop**:
+- **Süre**:
+- **Teknik Analiz**: Maalesef iyi değil, bir değişiklik yok.
+- **Piyasa Haberleri**:
+- **Risk Faktörleri**:
+- **Zamanlama**:
+
+### GOOGL - Google
+- **Videoda Bahsedilen**: 5:44
+- **Fiyat**:
+- **Öneri**: İZLE
+- **Giriş**:
+- **Hedef**: Daha büyük bir bayrak yapması bekleniyor.
+- **Stop**:
+- **Süre**:
+- **Teknik Analiz**: Boğa bayrağına benzer bir oluşum hala geçerli sayılabilir. Belki daha büyük bir bayrak yapacaktır. Düşüşü hacim desteklemiyor, yani hacim küçükken geri çekiliyor.
+- **Piyasa Haberleri**: Büyük balinaların bu satışa eşlik etmiyor olması pozitif.
+- **Risk Faktörleri**:
+- **Zamanlama**: İzlemeye devam etmek lazım.
+
+### TSLA - Tesla
+- **Videoda Bahsedilen**: 6:19
+- **Fiyat**:
+- **Öneri**: TUT
+- **Giriş**:
+- **Hedef**: 488
+- **Stop**:
+- **Süre**:
+- **Teknik Analiz**: Benzer bir şekilde boğa bayrağı gibi bir şeyler yapıyor.
+- **Piyasa Haberleri**:
+- **Risk Faktörleri**:
+- **Zamanlama**: Görüşte değişiklik yok.
+
+### AMD - AMD
+- **Videoda Bahsedilen**: 6:40
+- **Fiyat**: Fibonacci seviyeleri olan 234, 233 seviyelerini gördü.
+- **Öneri**: TUT
+- **Giriş**:
+- **Hedef**: Önce 250, sonrasında 300 dolar.
+- **Stop**:
+- **Süre**: Orta-uzun vadeli
+- **Teknik Analiz**: Oldukça güçlü, gayet güzel. Sert yükseldiği için birkaç gün konsolide olabilir, yani bir dinlenme sürecine girebilir. Sonrasında tekrar yükseliş bekleniyor.
+- **Piyasa Haberleri**:
+- **Risk Faktörleri**:
+- **Zamanlama**: Konsolidasyon sürecini takip etmek lazım.
+
+### PLTR - Palantir
+- **Videoda Bahsedilen**: 7:22
+- **Fiyat**:
+- **Öneri**: TUT
+- **Giriş**:
+- **Hedef**:
+- **Stop**:
+- **Süre**:
+- **Teknik Analiz**: Oldukça güçlü duruyor. 190 direnci geçerli, bir değişiklik yok.
+- **Piyasa Haberleri**:
+- **Risk Faktörleri**:
+- **Zamanlama**:
+
+### CRWD - CrowdStrike
+- **Videoda Bahsedilen**: 7:38
+- **Fiyat**: Tekrar 500 doların üstünü gördü.
+- **Öneri**: TUT
+- **Giriş**:
+- **Hedef**:
+- **Stop**:
+- **Süre**:
+- **Teknik Analiz**: Dün gayet güzel yükseldi. Direnç seviyesi 518 dolar, destek seviyesi 176 dolar olabilir.
+- **Piyasa Haberleri**:
+- **Risk Faktörleri**:
+- **Zamanlama**:
+
+### AVGO - Broadcom
+- **Videoda Bahsedilen**: 8:01
+- **Fiyat**:
+- **Öneri**: AL (Swing trade için uygun)
+- **Giriş**:
+- **Hedef**:
+- **Stop**:
+- **Süre**: Swing trade, uzun vadeli (beğeniliyor)
+- **Teknik Analiz**: Swing trade için uygun yapı hala geçerli. Trade yapılabilir durumda.
+- **Piyasa Haberleri**:
+- **Risk Faktörleri**:
+- **Zamanlama**: İzlemekte fayda var.
+
+### HOOD - Robinhood
+- **Videoda Bahsedilen**: 8:25
+- **Fiyat**:
+- **Öneri**: TUT
+- **Giriş**:
+- **Hedef**:
+- **Stop**:
+- **Süre**:
+- **Teknik Analiz**: Gayet güçlü kalıyor, yükseliş devam ediyor. 164 dolar Fibonacci direnç seviyesi.
+- **Piyasa Haberleri**:
+- **Risk Faktörleri**:
+- **Zamanlama**:
+
+### imsen herste
+- **Videoda Bahsedilen**: 8:44
+- **Fiyat**: Şu an tekrar 59 dolarda.
+- **Öneri**: İZLE (Direncin kırılması durumunda AL)
+- **Giriş**:
+- **Hedef**: 64 dolar (59 dolar direnci kırılır ve üstünde kapanış yaparsa)
+- **Stop**:
+- **Süre**: Kısa vadeli
+- **Teknik Analiz**: 59 dolar direncine geliyor. Eylülün 19'undan beri bir türlü yukarı geçemiyor. Şu an tekrar 59 dolarda.
+- **Piyasa Haberleri**:
+- **Risk Faktörleri**: 59 doların üstünde kapanış yapıp yapmayacağı önemli, gün kapanışları takip edilmeli.
+- **Zamanlama**: Gün kapanışlarını takip etmek gerekiyor.
+
+### SOFI - SoFi
+- **Videoda Bahsedilen**: 9:36
+- **Fiyat**:
+- **Öneri**: TUT
+- **Giriş**:
+- **Hedef**: Tekrar 30 doları göreceği düşünülüyor.
+- **Stop**:
+- **Süre**:
+- **Teknik Analiz**: Swing trade denemesi yapılabilir demişti, onu yukarı kırdı. Gayet güzel, güçlü kalmaya devam ediyor.
+- **Piyasa Haberleri**:
+- **Risk Faktörleri**:
+- **Zamanlama**:
+
+### APP - AppLovin
+- **Videoda Bahsedilen**: 9:59
+- **Fiyat**:
+- **Öneri**: TEMKİNLİ OL
+- **Giriş**:
+- **Hedef**: Geri çekilme 475 dolar seviyelerine kadar gelebilir.
+- **Stop**:
+- **Süre**: Kısa vadeli
+- **Teknik Analiz**: Bir geri çekilme oldu, geri çekilme devam ediyor.
+- **Piyasa Haberleri**: SSC'nin AppLovin'e soruşturma açması geri çekilmenin devamına neden oldu.
+- **Risk Faktörleri**: Soruşturma nedeniyle bir süre geriye gelebilir. Biraz temkinli olmak lazım.
+- **Zamanlama**:
+
+### RKLB - Rocket Lab
+- **Videoda Bahsedilen**: 10:44
+- **Fiyat**: 45 dolardan beri yaklaşık %50 yükselmiş sadece bir haftada.
+- **Öneri**: KAR AL (Riskli pozisyonlar için)
+- **Giriş**:
+- **Hedef**: 63 dolar (Fibonacci seviyesi, önceden bahsedilen hedef).
+- **Stop**:
+- **Süre**: Kısa vadeli
+- **Teknik Analiz**: Oldukça güçlü. 63 dolar Fibonacci seviyesine gitmesi bekleniyordu. Şu an geldiği yer 68 dolar, önemli bir direnç seviyesi. Burayı kolay kolay yukarı kıramayabilir.
+- **Piyasa Haberleri**:
+- **Risk Faktörleri**: 68 dolar önemli bir direnç seviyesi, kolay kırılamayabilir. Kısa vadeli pozisyonlarda temkinli olmak, gerekirse kar almak iyi bir fikir olabilir.
+- **Zamanlama**: Kısa vadeli pozisyonlarda kar almak düşünülebilir.
+
+### EOS - EOS.IO
+- **Videoda Bahsedilen**: 11:47
+- **Fiyat**: Fibonacci seviyesi olan 13.30'u geçti.
+- **Öneri**: TUT (Alınacaksa stop yakın tutulmalı)
+- **Giriş**:
+- **Hedef**: 20 dolarlar.
+- **Stop**: Yakın tutulmalı (eğer alınıyorsa)
+- **Süre**:
+- **Teknik Analiz**: Yükselişini devam ettiriyor. Fibonacci seviyesi olan 13.30'u geçti. Oradan sonra 20 dolarlar gelir demişti, şu an oraya gidiyor gibi görünüyor, bir sorun görünmüyor. Teknik göstergeler aşırı alım bölgelerinde.
+- **Piyasa Haberleri**:
+- **Risk Faktörleri**: Teknik göstergeler aşırı alım bölgelerinde, biraz temkinli olmak lazım.
+- **Zamanlama**:
+
+### CEG - Constellation Energy
+- **Videoda Bahsedilen**: 12:28
+- **Fiyat**: 376 doları görmüş.
+- **Öneri**: AL/TUT
+- **Giriş**:
+- **Hedef**: İlk hedef 403 dolar, sonrasında 470 dolarlar.
+- **Stop**:
+- **Süre**: Orta vadeli
+- **Teknik Analiz**: Bir sorun yok.
+- **Piyasa Haberleri**: Amerika'nın enerjiye ihtiyacı var, Constellation Energy pozitif kalacaktır.
+- **Risk Faktörleri**:
+- **Zamanlama**:
+
+### AXON - Axon Enterprise
+- **Videoda Bahsedilen**: 13:20
+- **Fiyat**:
+- **Öneri**: AL
+- **Giriş**: Mevcut seviyeler, 642 dolar gelirse oradan da alınabilir.
+- **Hedef**:
+- **Stop**:
+- **Süre**: Uzun vadeli
+- **Teknik Analiz**: Bir değişiklik yok, geçerli.
+- **Piyasa Haberleri**:
+- **Risk Faktörleri**:
+- **Zamanlama**:
+
+### UNH - UnitedHealth
+- **Videoda Bahsedilen**: 13:50
+- **Fiyat**: 376 doları gördü.
+- **Öneri**: AL/TUT
+- **Giriş**:
+- **Hedef**: 500 dolarlar (376'nın üstüne geçerse). Uzun vadeli hedef 500 dolar.
+- **Stop**:
+- **Süre**: Uzun vadeli
+- **Teknik Analiz**: Gap doluyor demişti, 376 dolarda şu an 376 doları gördü, yani gap dolmuş oldu. Oldukça güçlü kalmaya devam ediyor.
+- **Piyasa Haberleri**:
+- **Risk Faktörleri**:
+- **Zamanlama**:
+
+### LLY - Eli Lilly
+- **Videoda Bahsedilen**: 14:38
+- **Fiyat**:
+- **Öneri**: TEMKİNLİ OL
+- **Giriş**:
+- **Hedef**: 902 dolar (858 ara direnci yukarı geçilirse).
+- **Stop**:
+- **Süre**:
+- **Teknik Analiz**: Oldukça güçlü ama 858 dolarda bir ara direnç var demişti. Şu an için buraya takılmış durumda.
+- **Piyasa Haberleri**:
+- **Risk Faktörleri**: 858 dolar ara direncine takıldığı için temkinli olmak lazım.
+- **Zamanlama**:
+
+### ANET - Arista Networks
+- **Videoda Bahsedilen**: 15:06
+- **Fiyat**:
+- **Öneri**: TUT (Swing trade potansiyeli gerçekleşmiş)
+- **Giriş**: (Üçgen yapı yukarı kırılınca)
+- **Hedef**: 179 dolar (Fibonacci altın oran seviyesi).
+- **Stop**:
+- **Süre**: Swing trade
+- **Teknik Analiz**: Üçgen yapı vardı, burası yukarı kırılırsa swing trade denemesi yapılabilir demişti, orayı yukarı kırdı (%10 civarı getiri bir haftada). Direnç seviyeyi yukarı geçiyor gibi.
+- **Piyasa Haberleri**:
+- **Risk Faktörleri**:
+- **Zamanlama**:
+
+### ASTR - Astra Space
+- **Videoda Bahsedilen**: 15:53
+- **Fiyat**:
+- **Öneri**: TUT
+- **Giriş**:
+- **Hedef**: 262 dolar seviyesi.
+- **Stop**:
+- **Süre**:
+- **Teknik Analiz**: Benzer bir oluşum vardı, düşeni yukarı kırdı ve 262 dolar seviyesine gidecek gibi görünüyor. Oldukça güçlü.
+- **Piyasa Haberleri**:
+- **Risk Faktörleri**:
+- **Zamanlama**:
+
+### CRM - Salesforce
+- **Videoda Bahsedilen**: 16:16
+- **Fiyat**:
+- **Öneri**: İZLE (Yükseliş trendine geçiş beklentisi)
+- **Giriş**:
+- **Hedef**: Yükseliş trendi.
+- **Stop**:
+- **Süre**:
+- **Teknik Analiz**: Değişiklik yok, hala düşeni yukarı kırmış değil ama zamanın yaklaştığı düşünülüyor. Düşeni muhakkak yukarı kıracak ve sonrasında yükseliş trendi tekrar başlayacak. Fiyat epey sıkıştı.
+- **Piyasa Haberleri**:
+- **Risk Faktörleri**:
+- **Zamanlama**: Yavaş yavaş zamanı yaklaşıyor.
+
+### SE - C Limited
+- **Videoda Bahsedilen**: 16:51
+- **Fiyat**:
+- **Öneri**: İZLE
+- **Giriş**:
+- **Hedef**:
+- **Stop**:
+- **Süre**: Uzun vadeli (beğenilen bir hisse)
+- **Teknik Analiz**: Düşen vardı, şimdi bu düşeni yukarı kırdı ve şu an tekrar geri çekilmiş ve test ediyor gibi düşeni. İçine geçerse fake breakout olmuş demektir.
+- **Piyasa Haberleri**:
+- **Risk Faktörleri**: Fake breakout ihtimaline karşı takip etmekte fayda var.
+- **Zamanlama**: Takip etmekte fayda var.
+
+### GRAB - Grab Holdings
+- **Videoda Bahsedilen**: 17:31
+- **Fiyat**: Tekrar 6.50 dolarları gördü.
+- **Öneri**: TUT (Uzun vadede)
+- **Giriş**:
+- **Hedef**: 6.50 dolarları görmüştü.
+- **Stop**:
+- **Süre**: Uzun vadeli (beğenilen bir hisse)
+- **Teknik Analiz**: Swing trade fırsatı vardı, tekrar 6.50 dolarları gördü, sonra tekrar geri çekildi.
+- **Piyasa Haberleri**:
+- **Risk Faktörleri**:
+- **Zamanlama**:
+
+### CLS - Celestica
+- **Videoda Bahsedilen**: 18:08
+- **Fiyat**:
+- **Öneri**: KAR AL (Swing pozisyonları için)
+- **Giriş**: (Düşen kırılınca)
+- **Hedef**: 283 dolarlar (%12 civarı getiri potansiyeli). Hedef fiyata geldi (iki haftada %20 civarı yükseliş).
+- **Stop**:
+- **Süre**: Swing trade
+- **Teknik Analiz**: Güzel bir grafik, oldukça güçlü duruyor. Swing trade pozisyonu alınabilir demişti, düşen vardı, şimdi bu da hedef fiyata geldi.
+- **Piyasa Haberleri**:
+- **Risk Faktörleri**:
+- **Zamanlama**: Swing amaçlı açılan pozisyonlardan kar alınabilir.
+
+### ZETA - Zeta Global
+- **Videoda Bahsedilen**: 19:12
+- **Fiyat**: Overnight markette %10'a yakın yükselmişti ama piyasa açılınca tekrar geri çekilmiş.
+- **Öneri**: TUT
+- **Giriş**:
+- **Hedef**: Eninde sonunda 30 küsur dolarları göreceği düşünülüyor.
+- **Stop**:
+- **Süre**: Uzun vadeli (beğenilen bir şirket)
+- **Teknik Analiz**: Bir sorun yok.
+- **Piyasa Haberleri**: CEO'su CNBC'de şirketin geleceğiyle ilgili röportaj verdi.
+- **Risk Faktörleri**:
+- **Zamanlama**:
+
+### En Bis
+- **Videoda Bahsedilen**: 20:00
+- **Fiyat**:
+- **Öneri**: TUT
+- **Giriş**:
+- **Hedef**: 130 küsur dolarlar ve sonrasında 150 dolar seviyeleri (boğa bayrağını yukarı geçerse).
+- **Stop**:
+- **Süre**:
+- **Teknik Analiz**: Bir sorun yok. Şuradakine benzer bir boğa bayrağı oluşturuyor.
+- **Piyasa Haberleri**:
+- **Risk Faktörleri**:
+- **Zamanlama**: Boğa bayrağının kırılması bekleniyor.
+
+### CRDO - Credo
+- **Videoda Bahsedilen**: 20:53
+- **Fiyat**:
+- **Öneri**: İZLE
+- **Giriş**:
+- **Hedef**: Yukarı yönlü trend (50 günlüğün altına geçmediği sürece)
+- **Stop**:
+- **Süre**:
+- **Teknik Analiz**: Ayı bayrağına benzer oluşum var demişti, hala tehlike geçmiş değil. 50 günlük hareketli ortalamadan destek bulmuş olması güzel.
+- **Piyasa Haberleri**:
+- **Risk Faktörleri**: Ayı bayrağına benzer oluşum var, tehlike geçmiş değil. 50 günlüğün altına geçmemesi önemli.
+- **Zamanlama**: 50 günlük hareketli ortalama takip edilmeli.
+
+### OSCR - Oscar Health
+- **Videoda Bahsedilen**: 21:39
+- **Fiyat**:
+- **Öneri**: AL/TUT
+- **Giriş**:
+- **Hedef**: 30 dolarları göreceği düşünülüyor.
+- **Stop**:
+- **Süre**:
+- **Teknik Analiz**: Oldukça güzel, ufak bir geri çekilme yapmış olmasına rağmen bir sorun yok.
+- **Piyasa Haberleri**: Pozitif haberler bekleniyor.
+- **Risk Faktörleri**:
+- **Zamanlama**:
+
+### Tempus
+- **Videoda Bahsedilen**: 22:15
+- **Fiyat**: 102 doları gördü.
+- **Öneri**: TEMKİNLİ OL
+- **Giriş**:
+- **Hedef**: 109 dolar (Fibonacci seviyesi).
+- **Stop**:
+- **Süre**:
+- **Teknik Analiz**: 109 dolarda Fibonacci seviyesi var, oralara gitmesi bekleniyor. 109 dolar gelirse orada bir direnç seviyesi var.
+- **Piyasa Haberleri**:
+- **Risk Faktörleri**: Oldukça riskli ve volatil bir şirket, henüz kâr etmeyen bir şirket. Dikkat etmek lazım, risk kaldırmayabilir.
+- **Zamanlama**: 109 dolar seviyesinde temkinli olmak lazım.
+
+### LMND - Lemonade
+- **Videoda Bahsedilen**: 23:09
+- **Fiyat**:
+- **Öneri**: TUT
+- **Giriş**:
+- **Hedef**:
+- **Stop**:
+- **Süre**:
+- **Teknik Analiz**: Değişiklik yok, yataylık devam ediyor.
+- **Piyasa Haberleri**:
+- **Risk Faktörleri**:
+- **Zamanlama**:
+
+### DUOL - Duolingo
+- **Videoda Bahsedilen**: 23:26
+- **Fiyat**:
+- **Öneri**: AL/TUT
+- **Giriş**: (Yükseliş trendi başlamış durumda)
+- **Hedef**: 400 küsur seviyelerine (100 günlük hareketli ortalama 350 dolar seviyesi kırılırsa).
+- **Stop**:
+- **Süre**:
+- **Teknik Analiz**: Bir hareketlenme olmuştu, şu tepeyi yukarı geçerse yükseliş trendi başlamış demektir, dediği gibi de oldu. 50 günlüğü de yukarı geçti. Şimdi 100 günlük hareketli ortalamayı (350 dolar seviyesini) yukarı kırmayı deniyor.
+- **Piyasa Haberleri**:
+- **Risk Faktörleri**:
+- **Zamanlama**: 100 günlük hareketli ortalamanın kırılması takip edilmeli.
+
+### MRVL - Marvell
+- **Videoda Bahsedilen**: 24:14
+- **Fiyat**:
+- **Öneri**: TUT
+- **Giriş**:
+- **Hedef**: 96 dolar (Fibonacci seviyesi).
+- **Stop**:
+- **Süre**:
+- **Teknik Analiz**: Güzel yükseliş devam ediyor, trendde bir bozulma yok.
+- **Piyasa Haberleri**:
+- **Risk Faktörleri**:
+- **Zamanlama**:
+
+### MU - Micron
+- **Videoda Bahsedilen**: 24:35
+- **Fiyat**:
+- **Öneri**: TUT
+- **Giriş**:
+- **Hedef**: 216 dolar seviyeleri.
+- **Stop**:
+- **Süre**:
+- **Teknik Analiz**: Onda da bir bozulma yok.
+- **Piyasa Haberleri**:
+- **Risk Faktörleri**:
+- **Zamanlama**:
+
+### IREN - Iris Energy
+- **Videoda Bahsedilen**: 24:55
+- **Fiyat**: O zaman 40 küsur dolarlardaydı (45 dolarlardaydı). Oradan beri %47 yükseldi 10 gün civarında.
+- **Öneri**: TUT (Hedefe ulaşınca kar alınabilir)
+- **Giriş**: 40-45 dolar (önceden bahsettiği fiyat seviyeleri)
+- **Hedef**: 74 dolar (Fibonacci seviyesi). Gelirse %72 yükselmiş olacak sadece 2 haftada.
+- **Stop**:
+- **Süre**: Kısa vadeli
+- **Teknik Analiz**: Bir sonraki Fibonacci seviyesi 74 dolar demişti. Oldukça güçlü kalmaya devam ediyor, bir sorun görünmüyor.
+- **Piyasa Haberleri**:
+- **Risk Faktörleri**:
+- **Zamanlama**: 74 dolar hedefine ulaşınca kar almak düşünülebilir.
+
+### TTD - Trade Desk
+- **Videoda Bahsedilen**: 25:52
+- **Fiyat**: 46 dolardı. Şu an %15 civarı bir yükseliş yaptı.
+- **Öneri**: TUT (Yukarı gitme potansiyeli devam ediyor)
+- **Giriş**: 46 dolar (dipten dönüş olarak yakalandı).
+- **Hedef**: Yukarı gitme potansiyeli devam ediyor.
+- **Stop**:
+- **Süre**:
+- **Teknik Analiz**: Dipten dönüş olabilir demişti, şuralarda yakalandı. Şu an geldiği yer 50 günlük hareketli ortalama. Burayı 2-3 gün önce test etti ve yukarı kıramadı. Şimdi buranın altında bir süre oluyor ama pozitif, hala yukarı gidebilir.
+- **Piyasa Haberleri**:
+- **Risk Faktörleri**: 50 günlük hareketli ortalamayı kıramaması kısa vadeli bir direnç oluşturuyor.
+- **Zamanlama**:
+
+### DLO - DLocal
+- **Videoda Bahsedilen**: 26:48
+- **Fiyat**:
+- **Öneri**: TUT
+- **Giriş**:
+- **Hedef**:
+- **Stop**:
+- **Süre**:
+- **Teknik Analiz**: Yataylık devam ediyor, daha önce anlatıldığı gibi bir değişiklik yok.
+- **Piyasa Haberleri**:
+- **Risk Faktörleri**:
+- **Zamanlama**:
+
+### LI - Li Auto
+- **Videoda Bahsedilen**: 27:00
+- **Fiyat**:
+- **Öneri**: TUT
+- **Giriş**:
+- **Hedef**: 430 dolarlar.
+- **Stop**:
+- **Süre**:
+- **Teknik Analiz**: Güzel yükseliş trendi devam ediyor.
+- **Piyasa Haberleri**:
+- **Risk Faktörleri**:
+- **Zamanlama**:
+
+### BMN
+- **Videoda Bahsedilen**: 27:21
+- **Fiyat**:
+- **Öneri**: DİKKAT (Geri çekilme beklentisi)
+- **Giriş**:
+- **Hedef**: Geri çekilme 50 günlüğe yani 49 dolar seviyelerine.
+- **Stop**:
+- **Süre**: Kısa vadeli
+- **Teknik Analiz**: Üçgen yapı vardı, bunu yukarı kırıyor gibi oldu ama altına geçmiş, yani fake breakout oldu.
+- **Piyasa Haberleri**: Ethereum fiyatı biraz geri çekildi. Üstüne bir de bir short seller şirketi BMN için kötü bir rapor yayınladı.
+- **Risk Faktörleri**: Short seller raporu ve Ethereum fiyatındaki geri çekilme nedeniyle geri çekilme yaşayabilir. Tekrar 50 günlüğe (49 dolar seviyelerine) geri çekilme yapabilir.
+- **Zamanlama**: Geri çekilme beklentisi var.
+
+### CoreWeave
+- **Videoda Bahsedilen**: 28:22
+- **Fiyat**:
+- **Öneri**: TUT
+- **Giriş**:
+- **Hedef**: 187 dolar seviyeleri (orta-uzun vadeli hedef).
+- **Stop**:
+- **Süre**: Orta-uzun vadeli
+- **Teknik Analiz**: Grafiği oldukça güçlü, hala yükseliş devam ediyor. 148 dolarda ara direnç seviyesi var.
+- **Piyasa Haberleri**:
+- **Risk Faktörleri**: 148 dolar ara direncini kolay kolay yukarı geçemeyebilir.
+- **Zamanlama**:
+
+## 🚀 HIZLI KAZANÇLAR
+### Hemen Alınacak Aksiyonlar
+- **Celestica (CLS)**: Swing trade pozisyonu açanlar için kar alınması iyi bir fikir olabilir, hedef fiyata ulaşıldı.
+- **Rocket Lab (RKLB)**: 68 dolar önemli bir direnç seviyesi olduğu ve sert yükseldiği için, kısa vadeli ve riskli pozisyonlarda temkinli olmak ve kar almak düşünülebilir.
+- **EOS (EOS)**: Teknik göstergeler aşırı alım bölgelerinde olduğundan, yeni pozisyon alınacaksa stop seviyelerinin yakın tutulması önerilir.
+- **imsen herste**: 59 dolar direncinin üzerinde günlük kapanış yapıp yapmayacağı kritik, kapanışlar takip edilmeli.
+- **AppLovin (APP)**: SSC soruşturması nedeniyle düşüş riski taşıyor, temkinli olmakta fayda var.
+- **Tempus**: Şirket riskli ve volatil olduğundan, 109 dolar direncine yaklaşırken dikkatli olunmalı ve risk toleransı yüksek olmayan yatırımcılar için uygun olmayabilir.
