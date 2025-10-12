@@ -272,15 +272,18 @@ class AcceleratedNasdaqTrader:
             from datetime import datetime
             date_str = datetime.now().strftime('%Y%m%d')
             
-            # Configure yt-dlp
+            # Configure yt-dlp for audio-only download
             ydl_opts = {
                 'format': 'bestaudio[ext=m4a]/bestaudio/best',
                 'outtmpl': f'video_cache/%(id)s_{date_str}.%(ext)s',
-                'extractaudio': True,
-                'audioformat': 'wav',
                 'noplaylist': True,
                 'quiet': True,
-                'no_warnings': True
+                'no_warnings': True,
+                'postprocessors': [{
+                    'key': 'FFmpegExtractAudio',
+                    'preferredcodec': 'm4a',
+                    'preferredquality': '192',
+                }]
             }
             
             with YoutubeDL(ydl_opts) as ydl:
