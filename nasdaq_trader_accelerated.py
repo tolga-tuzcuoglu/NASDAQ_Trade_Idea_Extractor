@@ -389,6 +389,7 @@ class AcceleratedNasdaqTrader:
             - **Kanal**: [Kanal adı veya yayıncı]
             - **Video Başlığı**: [Video başlığı]
             - **Rapor Oluşturulma**: [Şu anki tarih ve saat]
+            - **Not**: Bu rapor sadece video içeriğine dayanmaktadır, tahmin içermez
             
             ## 🎯 ÖZET
             [2-3 cümle ile ana trading fırsatları ve piyasa görünümü]
@@ -397,6 +398,7 @@ class AcceleratedNasdaqTrader:
             [Her ticker için tek kapsamlı bölüm oluştur - tüm bilgileri bir arada]
             
             ### [TICKER] - [Şirket/Asset Adı]
+            - **Videoda Bahsedilen**: [Hangi dakikada/saniyede bahsedildi - örnek: 5:23, 12:45]
             - **Fiyat**: [Mevcut fiyat, belirtilmişse - yoksa boş bırak]
             - **Öneri**: [AL/SAT/TUT] - [Gerekçe, belirtilmişse - yoksa boş bırak]
             - **Giriş**: [Fiyat, belirtilmişse - yoksa boş bırak]
@@ -454,12 +456,16 @@ class AcceleratedNasdaqTrader:
             - Never fill in gaps with external knowledge
             
             📝 **REPORTING STANDARDS:**
-            - If no trading ideas are mentioned, leave the section blank
-            - If no tickers are mentioned, leave the section blank
-            - If no prices are mentioned, leave the price fields blank
-            - If information is not mentioned, leave the field empty instead of writing "Videoda belirtilmemiş"
+            - NEVER use predicted values, estimates, or future dates (e.g., "06 Haziran 2024, 15:30 (Tahmini)")
+            - NEVER write "Videoda belirtilmemiş" or any placeholder text
+            - If no trading ideas are mentioned, leave the section completely blank
+            - If no tickers are mentioned, leave the section completely blank
+            - If no prices are mentioned, leave the price fields completely blank
+            - If information is not mentioned, leave the field completely empty
             - Always prioritize accuracy over completeness
             - Only include information that is explicitly mentioned in the video
+            - Include exact timestamps when tickers/assets are mentioned (e.g., "5:23", "12:45")
+            - Use only current/past information from the video, no future predictions
             """
             
             response = model.generate_content(prompt)
