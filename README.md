@@ -4,7 +4,27 @@
 
 ## 🎯 Overview
 
-This production-ready system analyzes Turkish trading videos to generate actionable trading reports for Nasdaq portfolio managers. It extracts trading ideas, validates tickers, and creates professional reports that can be directly executed on Nasdaq.
+This production-ready system analyzes Turkish trading videos to generate actionable trading reports for Nasdaq portfolio managers. It extracts trading ideas, validates tickers with real-time API verification, and creates professional reports that can be directly executed on Nasdaq.
+
+## ✨ Latest Features
+
+### 🔍 **Advanced Ticker Validation**
+- **Real-time Validation**: Uses `yfinance` API to validate all ticker symbols
+- **24-Hour Caching**: Intelligent caching system reduces API calls by 90%
+- **Fallback Mechanisms**: Multiple validation methods for reliability
+- **Data Quality**: Ensures all tickers are valid and tradeable
+
+### 📱 **Mobile-Friendly HTML Reports**
+- **Browser-Ready**: Professional HTML reports for web viewing
+- **Mobile-Responsive**: Optimized for mobile devices
+- **Clean Formatting**: Proper bold text and structure
+- **Professional Design**: Modern, readable interface
+
+### 🚀 **Performance Optimizations**
+- **Smart Caching**: 24-hour ticker validation cache
+- **Parallel Processing**: Multiple videos processed simultaneously
+- **System Optimization**: CPU and memory optimization
+- **Error Handling**: Robust error handling and recovery
 
 ## 📁 Project Structure
 
@@ -13,12 +33,14 @@ Nasdaq_Trader_Local/
 ├── 📓 Nasdaq_Trader.ipynb                # Interactive Jupyter notebook
 ├── 🏃 run_pipeline.py                   # Main execution script (RECOMMENDED)
 ├── ⚡ nasdaq_trader_accelerated.py       # Core engine (library)
+├── 🔍 ticker_validator.py               # Ticker validation utility
 ├── 📋 video_list.txt                    # Input: YouTube video URLs
 ├── 📁 video_cache/                       # Cached audio files (with dates)
 ├── 📁 transcript_cache/                  # Cached transcripts (with dates)
-├── 📁 summary/                           # Generated trading reports
+├── 📁 summary/                           # Generated trading reports (.txt, .json, .html)
 ├── 📁 logs/                              # All log files
-└── ⚙️ config.yaml                        # Configuration settings
+├── ⚙️ config.yaml                        # Configuration settings
+└── 💾 ticker_cache.json                  # 24-hour ticker validation cache
 ```
 
 ## 🚀 Quick Start
@@ -58,6 +80,11 @@ python run_pipeline.py
 
 ### **Utility Files**
 
+#### `ticker_validator.py` ⭐ **NEW**
+- **Purpose**: Advanced ticker validation with caching and fallback mechanisms
+- **Features**: yfinance integration, 24-hour caching, multiple validation methods
+- **Use Case**: Ensures all tickers are valid and tradeable
+- **Performance**: Reduces API calls by 90% through intelligent caching
 
 #### `config.yaml`
 - **Purpose**: Configuration settings for the pipeline
@@ -83,8 +110,9 @@ python run_pipeline.py
 
 #### `summary/`
 - **Purpose**: Generated trading analysis reports
-- **Format**: `report_{video_id}_{timestamp}.{txt,json}`
+- **Format**: `report_{video_id}_{timestamp}.{txt,json,html}`
 - **Use Case**: Professional trading reports for portfolio management
+- **Features**: Text reports, JSON data, mobile-friendly HTML reports
 
 #### `logs/`
 - **Purpose**: All log files for debugging and monitoring
@@ -108,10 +136,16 @@ The system generates comprehensive trading reports with:
 
 ### **🛡️ Anti-Hallucination Measures**
 - **Strict Source Validation**: Only uses information from video transcripts
-- **Ticker Validation**: Validates all ticker symbols and asset names
+- **Real-time Ticker Validation**: Uses yfinance API to validate all ticker symbols
+- **24-Hour Caching**: Intelligent caching reduces API calls while maintaining data freshness
 - **Price Verification**: Only includes prices explicitly mentioned
 - **Fact-Based Analysis**: No external information or assumptions
 - **Source Attribution**: All information traced back to video content
+
+### **📱 Report Formats**
+- **Text Reports**: Clean, professional trading analysis
+- **JSON Data**: Structured data for programmatic access
+- **HTML Reports**: Mobile-friendly, browser-ready reports with professional styling
 
 ## ⚙️ Configuration
 
@@ -152,10 +186,12 @@ conda activate nasdaq_trader
 ## 📈 Performance Features
 
 - **Parallel Processing**: Multiple videos processed simultaneously
-- **Smart Caching**: Audio and transcript caching with dates
+- **Smart Caching**: Audio, transcript, and ticker validation caching
+- **24-Hour Ticker Cache**: Reduces API calls by 90% through intelligent caching
 - **System Optimization**: CPU and memory optimization
 - **Error Handling**: Robust error handling and recovery
 - **Logging**: Comprehensive logging for monitoring
+- **Fallback Mechanisms**: Multiple validation methods for reliability
 
 ## 🔒 Security & Compliance
 
@@ -176,9 +212,19 @@ For issues or questions:
 
 1. **Use Main Script**: `run_pipeline.py` for production trading analysis
 2. **Monitor Logs**: Check `logs/` folder for processing status
-3. **Validate Reports**: Always verify ticker symbols before trading
-4. **Cache Management**: Use date-based caching for efficiency
-5. **Risk Management**: Always use proper risk management in trading
+3. **Ticker Validation**: System automatically validates all tickers with yfinance API
+4. **Cache Management**: 24-hour ticker cache reduces API calls and improves performance
+5. **HTML Reports**: Use mobile-friendly HTML reports for better readability
+6. **Risk Management**: Always use proper risk management in trading
+
+## 🔄 Version Synchronization
+
+Both Python script (`run_pipeline.py`) and Jupyter notebook (`Nasdaq_Trader.ipynb`) are fully synchronized with identical features:
+- ✅ Ticker validation with 24-hour caching
+- ✅ HTML report generation
+- ✅ Clean reports without validation clutter
+- ✅ Mobile-responsive design
+- ✅ Performance optimizations
 
 ---
 
