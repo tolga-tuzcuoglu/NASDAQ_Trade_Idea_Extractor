@@ -510,55 +510,55 @@ class AcceleratedNasdaqTrader:
             
             for result in successful_results:
                 try:
-                    save_report(result['result'], result['url'])
+                    self.save_report(result['result'], result['url'])
                     self.logger.info(f"Saved report for {result['url']}")
                 except Exception as e:
                     self.logger.error(f"Failed to save report for {result['url']}: {e}")
         else:
             self.logger.warning("No successful results to save")
-
-def save_report(analysis, url):
-    """Save analysis report to file"""
-    try:
-        # Create summary directory
-        os.makedirs('summary', exist_ok=True)
-        
-        # Generate filename
-        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        video_id = url.split('v=')[-1].split('&')[0] if 'v=' in url else 'unknown'
-        
-        # Save text report
-        txt_filename = f'summary/report_{video_id}_{timestamp}.txt'
-        with open(txt_filename, 'w', encoding='utf-8') as f:
-            f.write(f"Trading Analysis Report\n")
-            f.write(f"Video URL: {url}\n")
-            f.write(f"Generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
-            f.write(f"{'='*50}\n\n")
-            f.write(analysis)
-        
-        # Save JSON report
-        json_filename = f'summary/report_{video_id}_{timestamp}.json'
-        report_data = {
-            'url': url,
-            'timestamp': timestamp,
-            'analysis': analysis,
-            'generated_at': datetime.now().isoformat()
-        }
-        
-        import json
-        with open(json_filename, 'w', encoding='utf-8') as f:
-            json.dump(report_data, f, indent=2, ensure_ascii=False)
-        
-        # Save HTML report for mobile viewing
-        html_filename = f'summary/report_{video_id}_{timestamp}.html'
-        self.save_html_report(analysis, url, html_filename)
-        
-        print(f"Report saved: {txt_filename}")
-        print(f"Mobile-friendly: {html_filename}")
-        
-    except Exception as e:
-        print(f"Failed to save report: {e}")
-
+    
+    def save_report(self, analysis, url):
+        """Save analysis report to file"""
+        try:
+            # Create summary directory
+            os.makedirs('summary', exist_ok=True)
+            
+            # Generate filename
+            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+            video_id = url.split('v=')[-1].split('&')[0] if 'v=' in url else 'unknown'
+            
+            # Save text report
+            txt_filename = f'summary/report_{video_id}_{timestamp}.txt'
+            with open(txt_filename, 'w', encoding='utf-8') as f:
+                f.write(f"Trading Analysis Report\n")
+                f.write(f"Video URL: {url}\n")
+                f.write(f"Generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
+                f.write(f"{'='*50}\n\n")
+                f.write(analysis)
+            
+            # Save JSON report
+            json_filename = f'summary/report_{video_id}_{timestamp}.json'
+            report_data = {
+                'url': url,
+                'timestamp': timestamp,
+                'analysis': analysis,
+                'generated_at': datetime.now().isoformat()
+            }
+            
+            import json
+            with open(json_filename, 'w', encoding='utf-8') as f:
+                json.dump(report_data, f, indent=2, ensure_ascii=False)
+            
+            # Save HTML report for mobile viewing
+            html_filename = f'summary/report_{video_id}_{timestamp}.html'
+            self.save_html_report(analysis, url, html_filename)
+            
+            print(f"Report saved: {txt_filename}")
+            print(f"Mobile-friendly: {html_filename}")
+            
+        except Exception as e:
+            print(f"Failed to save report: {e}")
+    
     def save_html_report(self, analysis, url, filename):
         """Save HTML report for mobile viewing"""
         try:
