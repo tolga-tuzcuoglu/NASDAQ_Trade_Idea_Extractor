@@ -388,6 +388,7 @@ class AcceleratedNasdaqTrader:
             - **Tarih**: [Videoda belirtilen tarih, yoksa bugünün tarihi]
             - **Kanal**: [Kanal adı veya yayıncı]
             - **Video Başlığı**: [Video başlığı]
+            - **Rapor Oluşturulma**: [Şu anki tarih ve saat]
             
             ## 🎯 ÖZET
             [2-3 cümle ile ana trading fırsatları ve piyasa görünümü]
@@ -396,16 +397,15 @@ class AcceleratedNasdaqTrader:
             [Her ticker için tek kapsamlı bölüm oluştur - tüm bilgileri bir arada]
             
             ### [TICKER] - [Şirket/Asset Adı]
-            - **Fiyat**: [Mevcut fiyat, belirtilmişse]
-            - **Öneri**: [AL/SAT/TUT] - [Gerekçe]
-            - **Giriş**: [Fiyat, belirtilmişse]
-            - **Hedef**: [Fiyat, belirtilmişse]
-            - **Stop**: [Fiyat, belirtilmişse]
-            - **Süre**: [Kısa/Orta/Uzun vadeli]
-            - **Teknik**: [Teknik analiz, belirtilmişse]
-            - **Risk**: [Risk faktörleri, belirtilmişse]
-            - **Katalizör**: [Pozitif/negatif katalizörler, belirtilmişse]
-            - **Videoda Geçen**: [Hangi dakikada bahsedildi]
+            - **Fiyat**: [Mevcut fiyat, belirtilmişse - yoksa boş bırak]
+            - **Öneri**: [AL/SAT/TUT] - [Gerekçe, belirtilmişse - yoksa boş bırak]
+            - **Giriş**: [Fiyat, belirtilmişse - yoksa boş bırak]
+            - **Hedef**: [Fiyat, belirtilmişse - yoksa boş bırak]
+            - **Stop**: [Fiyat, belirtilmişse - yoksa boş bırak]
+            - **Süre**: [Kısa/Orta/Uzun vadeli, belirtilmişse - yoksa boş bırak]
+            - **Teknik**: [Teknik analiz, belirtilmişse - yoksa boş bırak]
+            - **Risk**: [Risk faktörleri, belirtilmişse - yoksa boş bırak]
+            - **Katalizör**: [Pozitif/negatif katalizörler, belirtilmişse - yoksa boş bırak]
             
             [Her unique ticker/asset için bu bölümü tekrarla]
             
@@ -473,10 +473,12 @@ class AcceleratedNasdaqTrader:
             - Never fill in gaps with external knowledge
             
             📝 **REPORTING STANDARDS:**
-            - If no trading ideas are mentioned, state "No specific trading ideas mentioned in video"
-            - If no tickers are mentioned, state "No ticker symbols mentioned in video"
-            - If no prices are mentioned, state "No price targets mentioned in video"
+            - If no trading ideas are mentioned, leave the section blank
+            - If no tickers are mentioned, leave the section blank
+            - If no prices are mentioned, leave the price fields blank
+            - If information is not mentioned, leave the field empty instead of writing "Videoda belirtilmemiş"
             - Always prioritize accuracy over completeness
+            - Only include information that is explicitly mentioned in the video
             """
             
             response = model.generate_content(prompt)
