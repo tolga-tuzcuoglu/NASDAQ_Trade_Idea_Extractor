@@ -150,9 +150,23 @@ The system generates comprehensive trading reports with:
 ## ⚙️ Configuration
 
 ### **Environment Variables**
-```bash
-export GEMINI_API_KEY="your_gemini_api_key"
-```
+
+**⚠️ SECURITY WARNING**: Never commit your actual API keys to the repository!
+
+1. **Copy the template file:**
+   ```bash
+   cp env_example.txt .env
+   ```
+
+2. **Edit the .env file with your actual API key:**
+   ```bash
+   # Edit .env file
+   GEMINI_API_KEY=your_actual_gemini_api_key_here
+   ```
+
+3. **Get your Gemini API key from:** [Google AI Studio](https://makersuite.google.com/app/apikey)
+
+**The .env file is automatically ignored by git to prevent accidental exposure of your API keys.**
 
 ### **Dependencies**
 ```bash
