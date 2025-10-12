@@ -15,9 +15,20 @@ ticker_cache.json
 # Summary reports (generated analysis reports - should not be public)
 summary/
 
-# Environment variables
+# Environment variables and secrets
 .env
 .env.local
+.env.production
+.env.staging
+.env.development
+*.key
+*.pem
+*.p12
+*.pfx
+*.p8
+credentials.json
+service-account.json
+firebase-adminsdk-*.json
 
 # IDE files
 .vscode/

@@ -240,6 +240,27 @@ Both Python script (`run_pipeline.py`) and Jupyter notebook (`Nasdaq_Trader.ipyn
 - ✅ Mobile-responsive design
 - ✅ Performance optimizations
 
+## 🔒 Security Features
+
+### **Automated Security Checks**
+- **Pre-commit Security Scan**: Automatically scans for exposed API keys and secrets
+- **Enhanced .gitignore**: Comprehensive patterns to prevent sensitive data exposure
+- **Security Documentation**: Complete security policies and procedures
+
+### **Security Commands**
+```bash
+# Run security check before committing
+python security_check.py
+
+# Run pre-commit security hook
+python pre-commit-hook.py
+```
+
+### **Security Files**
+- `security_check.py` - Automated security scanning
+- `SECURITY.md` - Security policies and procedures
+- `API_KEY_ROTATION.md` - Critical security response procedures
+
 ---
 
 **⚠️ Trading Disclaimer**: This system generates analysis based on video content only. Always verify information and use proper risk management before executing trades. Past performance does not guarantee future results.
