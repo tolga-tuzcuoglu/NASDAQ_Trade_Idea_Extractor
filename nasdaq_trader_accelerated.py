@@ -242,12 +242,33 @@ class AcceleratedNasdaqTrader:
             }
     
     def download_video(self, url):
-        """Download video and extract audio"""
+        """Download video and extract audio with proper caching"""
         try:
             # Create output directory
             os.makedirs('video_cache', exist_ok=True)
             
-            # Get current date for cache filename
+            # Extract video ID from URL first
+            video_id = self.extract_video_id(url)
+            if not video_id:
+                raise Exception("Could not extract video ID from URL")
+            
+            # Check for existing audio files (any date)
+            import glob
+            existing_files = []
+            for ext in ['m4a', 'wav', 'mp3', 'webm']:
+                pattern = f'video_cache/{video_id}_*.{ext}'
+                existing_files.extend(glob.glob(pattern))
+            
+            if existing_files:
+                # Use the most recent existing file
+                existing_file = max(existing_files, key=os.path.getctime)
+                self.logger.info(f"Using cached audio: {existing_file}")
+                return existing_file
+            
+            # Only download if no cached file exists
+            self.logger.info(f"Downloading new video: {video_id}")
+            
+            # Get current date for new cache filename
             from datetime import datetime
             date_str = datetime.now().strftime('%Y%m%d')
             
@@ -264,18 +285,38 @@ class AcceleratedNasdaqTrader:
             
             with YoutubeDL(ydl_opts) as ydl:
                 info = ydl.extract_info(url, download=True)
-                video_id = info.get('id', 'unknown')
+                downloaded_video_id = info.get('id', 'unknown')
                 
                 # Find the downloaded file
                 for ext in ['m4a', 'wav', 'mp3', 'webm']:
-                    audio_path = f'video_cache/{video_id}_{date_str}.{ext}'
+                    audio_path = f'video_cache/{downloaded_video_id}_{date_str}.{ext}'
                     if os.path.exists(audio_path):
+                        self.logger.info(f"Downloaded and cached: {audio_path}")
                         return audio_path
                 
                 raise Exception("Audio file not found after download")
                 
         except Exception as e:
             self.logger.error(f"Download failed for {url}: {e}")
+            return None
+    
+    def extract_video_id(self, url):
+        """Extract video ID from YouTube URL"""
+        try:
+            import re
+            # Handle various YouTube URL formats
+            patterns = [
+                r'(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([a-zA-Z0-9_-]{11})',
+                r'youtube\.com\/watch\?.*v=([a-zA-Z0-9_-]{11})'
+            ]
+            
+            for pattern in patterns:
+                match = re.search(pattern, url)
+                if match:
+                    return match.group(1)
+            return None
+        except Exception as e:
+            self.logger.error(f"Error extracting video ID: {e}")
             return None
     
     def transcribe_audio(self, audio_path):
