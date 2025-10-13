@@ -565,34 +565,30 @@ class AcceleratedNasdaqTrader:
             - Keep the report concise and action-oriented
             - Focus on practical trading information
             
-            **TRADER-FOCUSED REQUIREMENTS:**
-            - Capture ALL specific price levels mentioned (support, resistance, targets, stops)
-            - Extract ALL actionable trading signals and triggers
-            - Include ALL risk management rules and stop loss levels
-            - Capture ALL timing signals and market events
-            - Focus on IMMEDIATE executable trading decisions
-            - Prioritize specific entry/exit points over generic analysis
-            - Capture real-time trading alerts and triggers
-            - Include position sizing and risk management guidance
+            **CONCISE REPORT REQUIREMENTS:**
+            - Generate SHORT, ACTIONABLE reports (maximum 2-3 pages)
+            - Start with EXECUTIVE SUMMARY for quick overview
+            - End with PRIORITIZED QUICK WINS for immediate actions
+            - Focus on HIGH-IMPACT trading opportunities only
+            - Eliminate redundant information and verbose explanations
+            - Use bullet points and clear formatting
+            - Prioritize immediate executable actions over analysis
+            - Keep each section focused and concise
+            - Use direct, actionable language
+            - Focus on specific price levels and trading signals
             
             # TRADING ANALYSIS REPORT
             
-            ## 📊 VIDEO INFORMATION
+            ## 📊 EXECUTIVE SUMMARY
             - **Date**: [Videoda belirtilen tarih - SADECE videoda söylenen tarih, yıl belirtilmemişse yıl ekleme]
-            - **Video Title**: [Video başlığı]
-            - **Video Creator**: [Kanal adı veya yayıncı]
-            - **Report Generated**: {datetime.now().strftime('%d %B %Y, %H:%M')}
-            - **Note**: Bu rapor sadece video içeriğine dayanmaktadır, tahmin içermez
-            
-            **ÖNEMLİ TARİH KURALI**: Eğer video sadece "16 Eylül" diyorsa, "16 Eylül" yazın. "16 Eylül 2024" YAZMAYIN çünkü yıl belirtilmemiş.
-            
-            ## 🎯 EXECUTIVE SUMMARY
+            - **Video**: [Video başlığı] - [Kanal adı]
             - **Market Sentiment**: [Bullish/Bearish/Neutral] - [Gerekçe]
-            - **Key Trading Themes**: [Ana trading temaları]
-            - **Immediate Actions**: [Acil eylemler - 1-3 madde]
+            - **Key Opportunities**: [Ana trading fırsatları - 2-3 cümle]
             - **Risk Level**: [High/Medium/Low] - [Gerekçe]
             - **Cash Position**: [Önerilen nakit oranı %]
-            - **Market Overview**: [2-3 cümle ile ana trading fırsatları ve piyasa görünümü]
+            - **Immediate Actions**: [Acil eylemler - 1-2 madde]
+            
+            **ÖNEMLİ TARİH KURALI**: Eğer video sadece "16 Eylül" diyorsa, "16 Eylül" yazın. "16 Eylül 2024" YAZMAYIN çünkü yıl belirtilmemiş.
             
             ## 📈 TRADING OPPORTUNITIES
             [Her ticker için tek kapsamlı bölüm oluştur - tüm bilgileri bir arada]
@@ -620,50 +616,40 @@ class AcceleratedNasdaqTrader:
             
             [Her unique ticker/asset için bu bölümü tekrarla]
             
-            ## 🚀 TRADING SIGNALS
+            ## 🚀 QUICK WINS - HIGH POTENTIAL ACTIONS
             
-            ### 📋 IMMEDIATE TRADING ACTIONS (Priority Order)
-            
-            **🔥 URGENT ACTIONS (Execute Immediately)**
+            ### 🔥 IMMEDIATE ACTIONS (Execute Today)
             1. **[TICKER]**: [BUY/SELL/HOLD] - [Entry: $X.XX] [Stop: $X.XX] [Target: $X.XX] [Risk: X%] [Risk/Reward: 1:X]
-               *[Gerekçe: Acil eylem - gerçek zamanlı sinyal veya risk yönetimi]*
+               *[Gerekçe: En yüksek öncelik - acil fırsat veya risk yönetimi]*
             
-            **⚡ SHORT-TERM SIGNALS (1-7 days)**
+            ### ⚡ SHORT-TERM OPPORTUNITIES (1-7 days)
             2. **[TICKER]**: [BUY/SELL/HOLD] - [Entry: $X.XX] [Stop: $X.XX] [Target: $X.XX] [Risk: X%] [Risk/Reward: 1:X]
                *[Gerekçe: Kısa vadeli sinyal - teknik kırılım veya momentum]*
             
             3. **[TICKER]**: [BUY/SELL/HOLD] - [Entry: $X.XX] [Stop: $X.XX] [Target: $X.XX] [Risk: X%] [Risk/Reward: 1:X]
                *[Gerekçe: Destek/direnç seviyesi yaklaşımı]*
             
-            **📊 SWING TRADES (1-4 weeks)**
+            ### 📊 SWING TRADES (1-4 weeks)
             4. **[TICKER]**: [BUY/SELL/HOLD] - [Entry: $X.XX] [Stop: $X.XX] [Target: $X.XX] [Risk: X%] [Risk/Reward: 1:X]
                *[Gerekçe: Swing trade fırsatı - trend takibi]*
             
-            **🎯 POSITION TRADES (1+ months)**
+            ### 🎯 POSITION TRADES (1+ months)
             5. **[TICKER]**: [BUY/SELL/HOLD] - [Entry: $X.XX] [Stop: $X.XX] [Target: $X.XX] [Risk: X%] [Risk/Reward: 1:X]
                *[Gerekçe: Uzun vadeli pozisyon - temel analiz]*
             
-            **⚠️ RISK MANAGEMENT ACTIONS**
+            ### ⚠️ RISK MANAGEMENT
             6. **[TICKER]**: [TAKE PROFIT/EXIT] - [Current: $X.XX] [Take Profit: $X.XX] [Stop: $X.XX] [Timing: Immediate]
                *[Gerekçe: Risk yönetimi - kar alma veya zarar kesme]*
             
-            ### 📊 MARKET LEVELS & TRIGGERS
-            - **Key Support Levels**: [Kritik destek seviyeleri - tüm belirtilen seviyeler]
-            - **Key Resistance Levels**: [Kritik direnç seviyeleri - tüm belirtilen seviyeler]
+            ### 📊 KEY MARKET LEVELS
+            - **Critical Support**: [En kritik destek seviyeleri - tüm belirtilen seviyeler]
+            - **Critical Resistance**: [En kritik direnç seviyeleri - tüm belirtilen seviyeler]
             - **Breakout Levels**: [Kırılım seviyeleri - tüm belirtilen seviyeler]
             - **Gap Levels**: [Boşluk seviyeleri - tüm belirtilen seviyeler]
             - **Moving Average Levels**: [Hareketli ortalama seviyeleri - 8, 21, 50, 100, 200 günlük]
             - **Volume Triggers**: [Hacim tetikleyicileri - belirtilmişse]
             - **Market Events**: [Piyasa olayları - Fed, CPI, earnings, belirtilmişse]
             - **Trading Alerts**: [Gerçek zamanlı uyarılar - belirtilmişse]
-            
-            ### 📈 QUICK REFERENCE
-            - **Top 3 Buy Opportunities**: [TICKER1, TICKER2, TICKER3]
-            - **Top 3 Sell Signals**: [TICKER1, TICKER2, TICKER3]
-            - **Critical Support**: [En kritik destek seviyeleri]
-            - **Critical Resistance**: [En kritik direnç seviyeleri]
-            - **Market Sentiment**: [Bullish/Bearish/Neutral]
-            - **Cash Position**: [Önerilen nakit oranı %]
             
             **CRITICAL ANTI-HALLUCINATION REQUIREMENTS:**
             
@@ -738,19 +724,29 @@ class AcceleratedNasdaqTrader:
             - Focus on immediate execution (0-24 hours priority)
             - Eliminate ambiguity - be definitive in recommendations
             
-            📊 **CAPTURE ALL TRADING INFORMATION:**
-            - Extract EVERY specific price level mentioned (support, resistance, targets, stops)
-            - Capture ALL trading signals and triggers mentioned
-            - Include ALL risk management rules and stop loss levels
-            - Extract ALL timing signals and market events
-            - Capture ALL position sizing guidance
-            - Include ALL real-time trading alerts
-            - Extract ALL technical analysis levels (MA, gaps, breakouts)
-            - Capture ALL volume and momentum signals
-            - Include ALL exit strategies and profit-taking rules
-            - Extract ALL market event timing (Fed, CPI, earnings)
+            📊 **CONCISE REPORT GENERATION:**
+            - Generate MAXIMUM 2-3 page reports
+            - Start with EXECUTIVE SUMMARY (5-7 bullet points)
+            - Focus on HIGH-IMPACT opportunities only
+            - End with PRIORITIZED QUICK WINS (6-8 actionable items)
+            - Use bullet points and clear formatting
+            - Eliminate verbose explanations
+            - Focus on specific price levels and trading signals
+            - Prioritize immediate executable actions
+            - Use direct, actionable language
+            - Keep each section focused and concise
             
-            🔍 **SPECIFIC INFORMATION TO CAPTURE:**
+            🔍 **REPORT STRUCTURE REQUIREMENTS:**
+            - **EXECUTIVE SUMMARY**: 5-7 bullet points maximum
+            - **TRADING OPPORTUNITIES**: Only high-impact tickers (max 5-6)
+            - **QUICK WINS**: 6-8 prioritized actionable items
+            - **Eliminate**: Redundant sections, verbose explanations, generic analysis
+            - **Focus on**: Specific price levels, trading signals, immediate actions
+            - **Format**: Bullet points, clear headers, concise language
+            - **Length**: Maximum 2-3 pages total
+            - **Priority**: Immediate actions first, analysis second
+            
+            📋 **SPECIFIC INFORMATION TO CAPTURE:**
             - All exact price levels (e.g., "6500 support", "6800 resistance")
             - All moving average levels (8-day, 21-day, 50-day, 100-day, 200-day)
             - All gap levels (e.g., "Tesla 398 gap", "AMD 202-170 gap")
