@@ -8,7 +8,7 @@ INPUTS:
   QUALITY_MODE: "balanced" # fast|balanced|accurate - optimized for accuracy
 
 MODEL_PERFORMANCE:
-  WHISPER_MODEL: "small" # tiny|small|medium|large|large-v2|large-v3 - optimized for accuracy
+  WHISPER_MODEL: "medium" # tiny|small|medium|large|large-v2|large-v3 - optimized for accuracy
   GEMINI_MODEL: "gemini-2.5-flash" # gemini-2.5-flash|gemini-1.5-pro
   CHUNK_SIZE: 8000 # Characters per chunk for long transcripts - optimized for speed
   ENABLE_MODEL_CACHING: true # Keep Whisper model in memory between videos

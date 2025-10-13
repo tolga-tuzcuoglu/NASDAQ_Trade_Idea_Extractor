@@ -565,68 +565,77 @@ class AcceleratedNasdaqTrader:
             - Keep the report concise and action-oriented
             - Focus on practical trading information
             
-            # TRADİNG ANALİZ RAPORU
+            **DAY TRADING OPTIMIZATION REQUIREMENTS:**
+            - Prioritize IMMEDIATE actionable trade ideas (0-24 hours)
+            - Focus on technical analysis parameters (RSI, MACD, Moving Averages, Volume)
+            - Provide crystal clear entry/exit points with specific prices
+            - Eliminate ALL repetitions - each piece of information appears only once
+            - Make trading decisions immediately clear and executable
+            - Use concise, direct language for quick decision making
             
-            ## 📊 VİDEO BİLGİLERİ
-            - **Tarih**: [Videoda belirtilen tarih - SADECE videoda söylenen tarih, yıl belirtilmemişse yıl ekleme]
-            - **Video Başlığı**: [Video başlığı]
-            - **Video Yaratıcısı**: [Kanal adı veya yayıncı]
-            - **Rapor Oluşturulma**: {datetime.now().strftime('%d %B %Y, %H:%M')}
-            - **Not**: Bu rapor sadece video içeriğine dayanmaktadır, tahmin içermez
+            # TRADING ANALYSIS REPORT
+            
+            ## 📊 VIDEO INFORMATION
+            - **Date**: [Videoda belirtilen tarih - SADECE videoda söylenen tarih, yıl belirtilmemişse yıl ekleme]
+            - **Video Title**: [Video başlığı]
+            - **Video Creator**: [Kanal adı veya yayıncı]
+            - **Report Generated**: {datetime.now().strftime('%d %B %Y, %H:%M')}
+            - **Note**: Bu rapor sadece video içeriğine dayanmaktadır, tahmin içermez
             
             **ÖNEMLİ TARİH KURALI**: Eğer video sadece "16 Eylül" diyorsa, "16 Eylül" yazın. "16 Eylül 2024" YAZMAYIN çünkü yıl belirtilmemiş.
             
-            ## 🎯 ÖZET
-            [2-3 cümle ile ana trading fırsatları ve piyasa görünümü]
-            
-            ## 📊 EXECUTIVE SUMMARY
+            ## 🎯 EXECUTIVE SUMMARY
             - **Market Sentiment**: [Bullish/Bearish/Neutral] - [Gerekçe]
-            - **Key Themes**: [Ana trading temaları]
+            - **Key Trading Themes**: [Ana trading temaları]
             - **Immediate Actions**: [Acil eylemler - 1-3 madde]
             - **Risk Level**: [High/Medium/Low] - [Gerekçe]
             - **Cash Position**: [Önerilen nakit oranı %]
+            - **Market Overview**: [2-3 cümle ile ana trading fırsatları ve piyasa görünümü]
             
-            ## 📈 TRADİNG FİRSATLARI
+            ## 📈 TRADING OPPORTUNITIES
             [Her ticker için tek kapsamlı bölüm oluştur - tüm bilgileri bir arada]
             
             ### [TICKER] - [Şirket/Asset Adı]
             - **Timestamp**: [Tek timestamp - örnek: 5:23]
-            - **Öneri**: [AL/SAT/TUT] - [Gerekçe, belirtilmişse - yoksa boş bırak]
-            - **Giriş**: [Fiyat, belirtilmişse - yoksa boş bırak]
-            - **Hedef**: [Fiyat, belirtilmişse - yoksa boş bırak]
-            - **Stop**: [Fiyat, belirtilmişse - yoksa boş bırak]
-            - **Süre**: [Day Trade/Swing Trade/Position Trade/Long Term, belirtilmişse - yoksa boş bırak]
+            - **Action**: [BUY/SELL/HOLD] - [Gerekçe, belirtilmişse - yoksa boş bırak]
+            - **Entry**: [Fiyat, belirtilmişse - yoksa boş bırak]
+            - **Target**: [Fiyat, belirtilmişse - yoksa boş bırak]
+            - **Stop Loss**: [Fiyat, belirtilmişse - yoksa boş bırak]
+            - **Timeframe**: [Day Trade/Swing Trade/Position Trade/Long Term, belirtilmişse - yoksa boş bırak]
             - **Risk Level**: [High/Medium/Low] - [Risk gerekçesi]
             - **Risk/Reward**: [Oran, hesaplanabilirse]
-            - **Teknik Analiz**: [Destek/Direnç seviyeleri, belirtilmişse - yoksa boş bırak]
+            - **Technical Analysis**: [Destek/Direnç seviyeleri, Moving Average, RSI, MACD, Volume - belirtilmişse - yoksa boş bırak]
+            - **Key Levels**: [Support: $X.XX, Resistance: $X.XX, Breakout: $X.XX]
+            - **Volume Analysis**: [Volume pattern, belirtilmişse - yoksa boş bırak]
+            - **Momentum**: [RSI, MACD signals, belirtilmişse - yoksa boş bırak]
             
             [Her unique ticker/asset için bu bölümü tekrarla]
             
-            ## 🚀 HIZLI KAZANÇLAR
+            ## 🚀 QUICK WINS
             
-            ### 📋 ÖNCELİKLİ EYLEM LİSTESİ (En Yüksek Öncelikten En Düşüğe)
+            ### 📋 PRIORITY ACTION LIST (Highest to Lowest Priority)
             
-            **🔥 ACİL EYLEMLER (0-24 saat)**
-            1. **[TICKER]**: [AL/SAT/TUT] - [Giriş: $X.XX] [Stop: $X.XX] [Hedef: $X.XX] [Risk: X%] [Risk/Reward: 1:X]
+            **🔥 IMMEDIATE ACTIONS (0-24 hours)**
+            1. **[TICKER]**: [BUY/SELL/HOLD] - [Entry: $X.XX] [Stop: $X.XX] [Target: $X.XX] [Risk: X%] [Risk/Reward: 1:X]
                *[Gerekçe: En yüksek öncelik - acil fırsat veya risk yönetimi]*
             
-            **⚡ KISA VADELİ (1-7 gün)**
-            2. **[TICKER]**: [AL/SAT/TUT] - [Giriş: $X.XX] [Stop: $X.XX] [Hedef: $X.XX] [Risk: X%] [Risk/Reward: 1:X]
+            **⚡ SHORT-TERM (1-7 days)**
+            2. **[TICKER]**: [BUY/SELL/HOLD] - [Entry: $X.XX] [Stop: $X.XX] [Target: $X.XX] [Risk: X%] [Risk/Reward: 1:X]
                *[Gerekçe: Yüksek öncelik - güçlü teknik sinyal veya momentum]*
             
-            3. **[TICKER]**: [AL/SAT/TUT] - [Giriş: $X.XX] [Stop: $X.XX] [Hedef: $X.XX] [Risk: X%] [Risk/Reward: 1:X]
+            3. **[TICKER]**: [BUY/SELL/HOLD] - [Entry: $X.XX] [Stop: $X.XX] [Target: $X.XX] [Risk: X%] [Risk/Reward: 1:X]
                *[Gerekçe: Orta öncelik - iyi risk/getiri oranı]*
             
-            **📊 ORTA VADELİ (1-4 hafta)**
-            4. **[TICKER]**: [AL/SAT/TUT] - [Giriş: $X.XX] [Stop: $X.XX] [Hedef: $X.XX] [Risk: X%] [Risk/Reward: 1:X]
+            **📊 MEDIUM-TERM (1-4 weeks)**
+            4. **[TICKER]**: [BUY/SELL/HOLD] - [Entry: $X.XX] [Stop: $X.XX] [Target: $X.XX] [Risk: X%] [Risk/Reward: 1:X]
                *[Gerekçe: Swing trade fırsatı - teknik seviyeler]*
             
-            **🎯 UZUN VADELİ (1+ ay)**
-            5. **[TICKER]**: [AL/SAT/TUT] - [Giriş: $X.XX] [Stop: $X.XX] [Hedef: $X.XX] [Risk: X%] [Risk/Reward: 1:X]
+            **🎯 LONG-TERM (1+ months)**
+            5. **[TICKER]**: [BUY/SELL/HOLD] - [Entry: $X.XX] [Stop: $X.XX] [Target: $X.XX] [Risk: X%] [Risk/Reward: 1:X]
                *[Gerekçe: Position trade - temel analiz]*
             
-            **⚠️ RİSK YÖNETİMİ**
-            6. **[TICKER]**: [KAR AL/ÇIKIŞ] - [Mevcut: $X.XX] [Kar alma: $X.XX] [Stop: $X.XX] [Zamanlama: Hemen]
+            **⚠️ RISK MANAGEMENT**
+            6. **[TICKER]**: [TAKE PROFIT/EXIT] - [Current: $X.XX] [Take Profit: $X.XX] [Stop: $X.XX] [Timing: Immediate]
                *[Gerekçe: Risk yönetimi - hedef ulaşıldı veya risk artışı]*
             
             ### 📊 QUICK REFERENCE
@@ -693,6 +702,21 @@ class AcceleratedNasdaqTrader:
             - Include exact timestamps when tickers/assets are mentioned (e.g., "5:23", "12:45")
             - Use only current/past information from the video, no future predictions
             - CRITICAL: Use the exact date format provided in the template - do not change or modify it
+            
+            🚫 **ELIMINATE REPETITIONS:**
+            - Each piece of information appears ONLY ONCE in the entire report
+            - Do NOT repeat the same ticker in multiple sections
+            - Do NOT repeat the same price information
+            - Do NOT repeat the same technical analysis
+            - Do NOT repeat the same risk assessment
+            - Consolidate all information about each ticker into ONE section only
+            
+            🎯 **CRYSTAL CLEAR TRADING ACTIONS:**
+            - Make trading decisions immediately obvious (BUY/SELL/HOLD)
+            - Provide specific entry prices, stop losses, and targets
+            - Use direct, actionable language
+            - Focus on immediate execution (0-24 hours priority)
+            - Eliminate ambiguity - be definitive in recommendations
             """
             
             response = model.generate_content(prompt)
