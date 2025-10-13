@@ -565,13 +565,15 @@ class AcceleratedNasdaqTrader:
             - Keep the report concise and action-oriented
             - Focus on practical trading information
             
-            **DAY TRADING OPTIMIZATION REQUIREMENTS:**
-            - Prioritize IMMEDIATE actionable trade ideas (0-24 hours)
-            - Focus on technical analysis parameters (RSI, MACD, Moving Averages, Volume)
-            - Provide crystal clear entry/exit points with specific prices
-            - Eliminate ALL repetitions - each piece of information appears only once
-            - Make trading decisions immediately clear and executable
-            - Use concise, direct language for quick decision making
+            **TRADER-FOCUSED REQUIREMENTS:**
+            - Capture ALL specific price levels mentioned (support, resistance, targets, stops)
+            - Extract ALL actionable trading signals and triggers
+            - Include ALL risk management rules and stop loss levels
+            - Capture ALL timing signals and market events
+            - Focus on IMMEDIATE executable trading decisions
+            - Prioritize specific entry/exit points over generic analysis
+            - Capture real-time trading alerts and triggers
+            - Include position sizing and risk management guidance
             
             # TRADING ANALYSIS REPORT
             
@@ -598,52 +600,70 @@ class AcceleratedNasdaqTrader:
             ### [TICKER] - [Şirket/Asset Adı]
             - **Timestamp**: [Tek timestamp - örnek: 5:23]
             - **Action**: [BUY/SELL/HOLD] - [Gerekçe, belirtilmişse - yoksa boş bırak]
-            - **Entry**: [Fiyat, belirtilmişse - yoksa boş bırak]
-            - **Target**: [Fiyat, belirtilmişse - yoksa boş bırak]
-            - **Stop Loss**: [Fiyat, belirtilmişse - yoksa boş bırak]
-            - **Timeframe**: [Day Trade/Swing Trade/Position Trade/Long Term, belirtilmişse - yoksa boş bırak]
+            - **Current Price**: [Mevcut fiyat, belirtilmişse - yoksa boş bırak]
+            - **Entry Price**: [Giriş fiyatı, belirtilmişse - yoksa boş bırak]
+            - **Target Price**: [Hedef fiyat, belirtilmişse - yoksa boş bırak]
+            - **Stop Loss**: [Stop loss fiyatı, belirtilmişse - yoksa boş bırak]
+            - **Support Levels**: [Destek seviyeleri - tüm belirtilen seviyeler]
+            - **Resistance Levels**: [Direnç seviyeleri - tüm belirtilen seviyeler]
+            - **Moving Averages**: [8-day, 21-day, 50-day, 100-day, 200-day MA seviyeleri]
+            - **Key Breakout Levels**: [Kırılım seviyeleri, belirtilmişse - yoksa boş bırak]
+            - **Gap Levels**: [Boşluk seviyeleri, belirtilmişse - yoksa boş bırak]
+            - **Volume Signals**: [Hacim sinyalleri, belirtilmişse - yoksa boş bırak]
+            - **Trend Status**: [Trend durumu - yükseliş/düşüş/yanlış, belirtilmişse - yoksa boş bırak]
             - **Risk Level**: [High/Medium/Low] - [Risk gerekçesi]
             - **Risk/Reward**: [Oran, hesaplanabilirse]
-            - **Technical Analysis**: [Destek/Direnç seviyeleri, Moving Average, RSI, MACD, Volume - belirtilmişse - yoksa boş bırak]
-            - **Key Levels**: [Support: $X.XX, Resistance: $X.XX, Breakout: $X.XX]
-            - **Volume Analysis**: [Volume pattern, belirtilmişse - yoksa boş bırak]
-            - **Momentum**: [RSI, MACD signals, belirtilmişse - yoksa boş bırak]
+            - **Position Size**: [Pozisyon büyüklüğü önerisi, belirtilmişse - yoksa boş bırak]
+            - **Timeframe**: [Day Trade/Swing Trade/Position Trade/Long Term, belirtilmişse - yoksa boş bırak]
+            - **Trading Triggers**: [Alım/satım tetikleyicileri, belirtilmişse - yoksa boş bırak]
+            - **Exit Strategy**: [Çıkış stratejisi, belirtilmişse - yoksa boş bırak]
             
             [Her unique ticker/asset için bu bölümü tekrarla]
             
-            ## 🚀 QUICK WINS
+            ## 🚀 TRADING SIGNALS
             
-            ### 📋 PRIORITY ACTION LIST (Highest to Lowest Priority)
+            ### 📋 IMMEDIATE TRADING ACTIONS (Priority Order)
             
-            **🔥 IMMEDIATE ACTIONS (0-24 hours)**
+            **🔥 URGENT ACTIONS (Execute Immediately)**
             1. **[TICKER]**: [BUY/SELL/HOLD] - [Entry: $X.XX] [Stop: $X.XX] [Target: $X.XX] [Risk: X%] [Risk/Reward: 1:X]
-               *[Gerekçe: En yüksek öncelik - acil fırsat veya risk yönetimi]*
+               *[Gerekçe: Acil eylem - gerçek zamanlı sinyal veya risk yönetimi]*
             
-            **⚡ SHORT-TERM (1-7 days)**
+            **⚡ SHORT-TERM SIGNALS (1-7 days)**
             2. **[TICKER]**: [BUY/SELL/HOLD] - [Entry: $X.XX] [Stop: $X.XX] [Target: $X.XX] [Risk: X%] [Risk/Reward: 1:X]
-               *[Gerekçe: Yüksek öncelik - güçlü teknik sinyal veya momentum]*
+               *[Gerekçe: Kısa vadeli sinyal - teknik kırılım veya momentum]*
             
             3. **[TICKER]**: [BUY/SELL/HOLD] - [Entry: $X.XX] [Stop: $X.XX] [Target: $X.XX] [Risk: X%] [Risk/Reward: 1:X]
-               *[Gerekçe: Orta öncelik - iyi risk/getiri oranı]*
+               *[Gerekçe: Destek/direnç seviyesi yaklaşımı]*
             
-            **📊 MEDIUM-TERM (1-4 weeks)**
+            **📊 SWING TRADES (1-4 weeks)**
             4. **[TICKER]**: [BUY/SELL/HOLD] - [Entry: $X.XX] [Stop: $X.XX] [Target: $X.XX] [Risk: X%] [Risk/Reward: 1:X]
-               *[Gerekçe: Swing trade fırsatı - teknik seviyeler]*
+               *[Gerekçe: Swing trade fırsatı - trend takibi]*
             
-            **🎯 LONG-TERM (1+ months)**
+            **🎯 POSITION TRADES (1+ months)**
             5. **[TICKER]**: [BUY/SELL/HOLD] - [Entry: $X.XX] [Stop: $X.XX] [Target: $X.XX] [Risk: X%] [Risk/Reward: 1:X]
-               *[Gerekçe: Position trade - temel analiz]*
+               *[Gerekçe: Uzun vadeli pozisyon - temel analiz]*
             
-            **⚠️ RISK MANAGEMENT**
+            **⚠️ RISK MANAGEMENT ACTIONS**
             6. **[TICKER]**: [TAKE PROFIT/EXIT] - [Current: $X.XX] [Take Profit: $X.XX] [Stop: $X.XX] [Timing: Immediate]
-               *[Gerekçe: Risk yönetimi - hedef ulaşıldı veya risk artışı]*
+               *[Gerekçe: Risk yönetimi - kar alma veya zarar kesme]*
             
-            ### 📊 QUICK REFERENCE
+            ### 📊 MARKET LEVELS & TRIGGERS
+            - **Key Support Levels**: [Kritik destek seviyeleri - tüm belirtilen seviyeler]
+            - **Key Resistance Levels**: [Kritik direnç seviyeleri - tüm belirtilen seviyeler]
+            - **Breakout Levels**: [Kırılım seviyeleri - tüm belirtilen seviyeler]
+            - **Gap Levels**: [Boşluk seviyeleri - tüm belirtilen seviyeler]
+            - **Moving Average Levels**: [Hareketli ortalama seviyeleri - 8, 21, 50, 100, 200 günlük]
+            - **Volume Triggers**: [Hacim tetikleyicileri - belirtilmişse]
+            - **Market Events**: [Piyasa olayları - Fed, CPI, earnings, belirtilmişse]
+            - **Trading Alerts**: [Gerçek zamanlı uyarılar - belirtilmişse]
+            
+            ### 📈 QUICK REFERENCE
             - **Top 3 Buy Opportunities**: [TICKER1, TICKER2, TICKER3]
             - **Top 3 Sell Signals**: [TICKER1, TICKER2, TICKER3]
-            - **Key Support Levels**: [Önemli destek seviyeleri]
-            - **Key Resistance Levels**: [Önemli direnç seviyeleri]
+            - **Critical Support**: [En kritik destek seviyeleri]
+            - **Critical Resistance**: [En kritik direnç seviyeleri]
             - **Market Sentiment**: [Bullish/Bearish/Neutral]
+            - **Cash Position**: [Önerilen nakit oranı %]
             
             **CRITICAL ANTI-HALLUCINATION REQUIREMENTS:**
             
@@ -717,6 +737,30 @@ class AcceleratedNasdaqTrader:
             - Use direct, actionable language
             - Focus on immediate execution (0-24 hours priority)
             - Eliminate ambiguity - be definitive in recommendations
+            
+            📊 **CAPTURE ALL TRADING INFORMATION:**
+            - Extract EVERY specific price level mentioned (support, resistance, targets, stops)
+            - Capture ALL trading signals and triggers mentioned
+            - Include ALL risk management rules and stop loss levels
+            - Extract ALL timing signals and market events
+            - Capture ALL position sizing guidance
+            - Include ALL real-time trading alerts
+            - Extract ALL technical analysis levels (MA, gaps, breakouts)
+            - Capture ALL volume and momentum signals
+            - Include ALL exit strategies and profit-taking rules
+            - Extract ALL market event timing (Fed, CPI, earnings)
+            
+            🔍 **SPECIFIC INFORMATION TO CAPTURE:**
+            - All exact price levels (e.g., "6500 support", "6800 resistance")
+            - All moving average levels (8-day, 21-day, 50-day, 100-day, 200-day)
+            - All gap levels (e.g., "Tesla 398 gap", "AMD 202-170 gap")
+            - All breakout levels (e.g., "192 resistance", "kırılım olmadan pozisyon alma")
+            - All volume signals (e.g., "sert hacim çubuğu", "hacimli düşüş")
+            - All trend signals (e.g., "yükseliş trendi bozuldu", "kırmızı kanal")
+            - All risk management rules (e.g., "mutlaka stop loss", "nakit oranı %30")
+            - All timing signals (e.g., "Trump tweeti", "Fed konuşması")
+            - All position management (e.g., "stopları yukarı çek", "pozisyon kapat")
+            - All market events (e.g., "CPI verileri", "bilanço sezonu")
             """
             
             response = model.generate_content(prompt)
