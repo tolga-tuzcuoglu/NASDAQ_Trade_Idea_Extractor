@@ -485,10 +485,12 @@ class AcceleratedNasdaqTrader:
         """Extract video ID from YouTube URL"""
         try:
             import re
-            # Handle various YouTube URL formats
+            # Handle various YouTube URL formats including live streams
             patterns = [
                 r'(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([a-zA-Z0-9_-]{11})',
-                r'youtube\.com\/watch\?.*v=([a-zA-Z0-9_-]{11})'
+                r'youtube\.com\/watch\?.*v=([a-zA-Z0-9_-]{11})',
+                r'youtube\.com\/live\/([a-zA-Z0-9_-]{11})',  # Live stream URLs
+                r'youtube\.com\/live\/([a-zA-Z0-9_-]+)'      # Live stream URLs with different ID format
             ]
             
             for pattern in patterns:
@@ -566,11 +568,13 @@ class AcceleratedNasdaqTrader:
             # TRADİNG ANALİZ RAPORU
             
             ## 📊 VİDEO BİLGİLERİ
-            - **Tarih**: [Videoda belirtilen tarih, yoksa bugünün tarihi]
+            - **Tarih**: [Videoda belirtilen tarih - SADECE videoda söylenen tarih, yıl belirtilmemişse yıl ekleme]
             - **Kanal**: [Kanal adı veya yayıncı]
             - **Video Başlığı**: [Video başlığı]
             - **Rapor Oluşturulma**: {datetime.now().strftime('%d %B %Y, %H:%M')}
             - **Not**: Bu rapor sadece video içeriğine dayanmaktadır, tahmin içermez
+            
+            **ÖNEMLİ TARİH KURALI**: Eğer video sadece "16 Eylül" diyorsa, "16 Eylül" yazın. "16 Eylül 2024" YAZMAYIN çünkü yıl belirtilmemiş.
             
             ## 🎯 ÖZET
             [2-3 cümle ile ana trading fırsatları ve piyasa görünümü]
@@ -620,6 +624,8 @@ class AcceleratedNasdaqTrader:
             - NEVER assume or infer information not directly stated
             - NEVER add technical analysis not explicitly described in the video
             - NEVER include market news or events not mentioned in the transcript
+            - NEVER assume or guess years, dates, or timeframes not explicitly mentioned
+            - NEVER fill in missing date information (year, month, day) if not stated in transcript
             
             ✅ **MANDATORY REQUIREMENTS:**
             1. ONLY include tickers and assets explicitly mentioned in the transcript
@@ -634,16 +640,19 @@ class AcceleratedNasdaqTrader:
             10. Be specific about entry/exit points only if explicitly mentioned
             11. Focus on actionable information that can be executed on NASDAQ
             12. Maintain professional trading report format
+            13. **CRITICAL DATE HANDLING**: If only day/month is mentioned without year, write exactly as stated (e.g., "16 Eylül" not "16 Eylül 2024")
+            14. **DATE ACCURACY**: Never assume years - if year is not mentioned, leave it empty or state "Year not specified in video"
+            15. **EXACT TRANSCRIPT DATES**: Use only dates explicitly mentioned in the transcript, no assumptions
             
             🎯 **CRITICAL TICKER ORGANIZATION REQUIREMENTS:**
-            13. Each ticker/asset must appear ONLY ONCE in the entire report
-            14. Create ONE comprehensive section per ticker with ALL information about that ticker
-            15. Include exact timestamps when tickers/assets are mentioned (e.g., "5:23", "12:45")
-            16. Consolidate all information about each ticker into its dedicated section
-            17. Do NOT repeat the same ticker in multiple sections
-            18. Group all related information (prices, analysis, recommendations) under each ticker's section
-            19. If a ticker is mentioned multiple times in the video, combine all information into ONE section
-            20. Use the "Videoda Bahsedilen" field to show ALL timestamps where the ticker was mentioned
+            16. Each ticker/asset must appear ONLY ONCE in the entire report
+            17. Create ONE comprehensive section per ticker with ALL information about that ticker
+            18. Include exact timestamps when tickers/assets are mentioned (e.g., "5:23", "12:45")
+            19. Consolidate all information about each ticker into its dedicated section
+            20. Do NOT repeat the same ticker in multiple sections
+            21. Group all related information (prices, analysis, recommendations) under each ticker's section
+            22. If a ticker is mentioned multiple times in the video, combine all information into ONE section
+            23. Use the "Videoda Bahsedilen" field to show ALL timestamps where the ticker was mentioned
             
             🔍 **SOURCE VERIFICATION:**
             - Every piece of information must be traceable to the transcript
