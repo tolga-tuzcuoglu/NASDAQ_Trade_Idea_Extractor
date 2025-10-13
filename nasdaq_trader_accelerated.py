@@ -569,8 +569,8 @@ class AcceleratedNasdaqTrader:
             
             ## 📊 VİDEO BİLGİLERİ
             - **Tarih**: [Videoda belirtilen tarih - SADECE videoda söylenen tarih, yıl belirtilmemişse yıl ekleme]
-            - **Kanal**: [Kanal adı veya yayıncı]
             - **Video Başlığı**: [Video başlığı]
+            - **Video Yaratıcısı**: [Kanal adı veya yayıncı]
             - **Rapor Oluşturulma**: {datetime.now().strftime('%d %B %Y, %H:%M')}
             - **Not**: Bu rapor sadece video içeriğine dayanmaktadır, tahmin içermez
             
@@ -579,21 +579,26 @@ class AcceleratedNasdaqTrader:
             ## 🎯 ÖZET
             [2-3 cümle ile ana trading fırsatları ve piyasa görünümü]
             
+            ## 📊 EXECUTIVE SUMMARY
+            - **Market Sentiment**: [Bullish/Bearish/Neutral] - [Gerekçe]
+            - **Key Themes**: [Ana trading temaları]
+            - **Immediate Actions**: [Acil eylemler - 1-3 madde]
+            - **Risk Level**: [High/Medium/Low] - [Gerekçe]
+            - **Cash Position**: [Önerilen nakit oranı %]
+            
             ## 📈 TRADİNG FİRSATLARI
             [Her ticker için tek kapsamlı bölüm oluştur - tüm bilgileri bir arada]
             
             ### [TICKER] - [Şirket/Asset Adı]
-            - **Videoda Bahsedilen**: [Hangi dakikada/saniyede bahsedildi - örnek: 5:23, 12:45]
-            - **Fiyat**: [Mevcut fiyat, belirtilmişse - yoksa boş bırak]
+            - **Timestamp**: [Tek timestamp - örnek: 5:23]
             - **Öneri**: [AL/SAT/TUT] - [Gerekçe, belirtilmişse - yoksa boş bırak]
             - **Giriş**: [Fiyat, belirtilmişse - yoksa boş bırak]
             - **Hedef**: [Fiyat, belirtilmişse - yoksa boş bırak]
             - **Stop**: [Fiyat, belirtilmişse - yoksa boş bırak]
-            - **Süre**: [Kısa/Orta/Uzun vadeli, belirtilmişse - yoksa boş bırak]
-            - **Teknik Analiz**: [Destek/Direnç seviyeleri, grafik formasyonları, belirtilmişse - yoksa boş bırak]
-            - **Piyasa Haberleri**: [Pozitif/negatif katalizörler, belirtilmişse - yoksa boş bırak]
-            - **Risk Faktörleri**: [Riskler, belirtilmişse - yoksa boş bırak]
-            - **Zamanlama**: [Hemen (0-24 saat) ve Kısa vadeli (1-7 gün) eylemler, belirtilmişse - yoksa boş bırak]
+            - **Süre**: [Day Trade/Swing Trade/Position Trade/Long Term, belirtilmişse - yoksa boş bırak]
+            - **Risk Level**: [High/Medium/Low] - [Risk gerekçesi]
+            - **Risk/Reward**: [Oran, hesaplanabilirse]
+            - **Teknik Analiz**: [Destek/Direnç seviyeleri, belirtilmişse - yoksa boş bırak]
             
             [Her unique ticker/asset için bu bölümü tekrarla]
             
@@ -601,20 +606,35 @@ class AcceleratedNasdaqTrader:
             
             ### 📋 ÖNCELİKLİ EYLEM LİSTESİ (En Yüksek Öncelikten En Düşüğe)
             
-            1. **[TICKER]**: [AL/SAT/TUT] - [Giriş: $X.XX] [Stop: $X.XX] [Hedef: $X.XX] [Risk: X%] [Zamanlama: Hemen]
+            **🔥 ACİL EYLEMLER (0-24 saat)**
+            1. **[TICKER]**: [AL/SAT/TUT] - [Giriş: $X.XX] [Stop: $X.XX] [Hedef: $X.XX] [Risk: X%] [Risk/Reward: 1:X]
                *[Gerekçe: En yüksek öncelik - acil fırsat veya risk yönetimi]*
             
-            2. **[TICKER]**: [AL/SAT/TUT] - [Giriş: $X.XX] [Stop: $X.XX] [Hedef: $X.XX] [Risk: X%] [Zamanlama: Bu hafta]
+            **⚡ KISA VADELİ (1-7 gün)**
+            2. **[TICKER]**: [AL/SAT/TUT] - [Giriş: $X.XX] [Stop: $X.XX] [Hedef: $X.XX] [Risk: X%] [Risk/Reward: 1:X]
                *[Gerekçe: Yüksek öncelik - güçlü teknik sinyal veya momentum]*
             
-            3. **[TICKER]**: [AL/SAT/TUT] - [Giriş: $X.XX] [Stop: $X.XX] [Hedef: $X.XX] [Risk: X%] [Zamanlama: Bu hafta]
+            3. **[TICKER]**: [AL/SAT/TUT] - [Giriş: $X.XX] [Stop: $X.XX] [Hedef: $X.XX] [Risk: X%] [Risk/Reward: 1:X]
                *[Gerekçe: Orta öncelik - iyi risk/getiri oranı]*
             
-            4. **[TICKER]**: [AL/SAT/TUT] - [Giriş: $X.XX] [Stop: $X.XX] [Hedef: $X.XX] [Risk: X%] [Zamanlama: Orta vadeli]
-               *[Gerekçe: Düşük öncelik - spekülatif oyun veya uzun vadeli pozisyon]*
+            **📊 ORTA VADELİ (1-4 hafta)**
+            4. **[TICKER]**: [AL/SAT/TUT] - [Giriş: $X.XX] [Stop: $X.XX] [Hedef: $X.XX] [Risk: X%] [Risk/Reward: 1:X]
+               *[Gerekçe: Swing trade fırsatı - teknik seviyeler]*
             
-            5. **[TICKER]**: [KAR AL/ÇIKIŞ] - [Mevcut: $X.XX] [Kar alma: $X.XX] [Stop: $X.XX] [Zamanlama: Hemen]
+            **🎯 UZUN VADELİ (1+ ay)**
+            5. **[TICKER]**: [AL/SAT/TUT] - [Giriş: $X.XX] [Stop: $X.XX] [Hedef: $X.XX] [Risk: X%] [Risk/Reward: 1:X]
+               *[Gerekçe: Position trade - temel analiz]*
+            
+            **⚠️ RİSK YÖNETİMİ**
+            6. **[TICKER]**: [KAR AL/ÇIKIŞ] - [Mevcut: $X.XX] [Kar alma: $X.XX] [Stop: $X.XX] [Zamanlama: Hemen]
                *[Gerekçe: Risk yönetimi - hedef ulaşıldı veya risk artışı]*
+            
+            ### 📊 QUICK REFERENCE
+            - **Top 3 Buy Opportunities**: [TICKER1, TICKER2, TICKER3]
+            - **Top 3 Sell Signals**: [TICKER1, TICKER2, TICKER3]
+            - **Key Support Levels**: [Önemli destek seviyeleri]
+            - **Key Resistance Levels**: [Önemli direnç seviyeleri]
+            - **Market Sentiment**: [Bullish/Bearish/Neutral]
             
             **CRITICAL ANTI-HALLUCINATION REQUIREMENTS:**
             
@@ -647,12 +667,12 @@ class AcceleratedNasdaqTrader:
             🎯 **CRITICAL TICKER ORGANIZATION REQUIREMENTS:**
             16. Each ticker/asset must appear ONLY ONCE in the entire report
             17. Create ONE comprehensive section per ticker with ALL information about that ticker
-            18. Include exact timestamps when tickers/assets are mentioned (e.g., "5:23", "12:45")
+            18. Include ONE timestamp per ticker (the first or most relevant mention)
             19. Consolidate all information about each ticker into its dedicated section
             20. Do NOT repeat the same ticker in multiple sections
             21. Group all related information (prices, analysis, recommendations) under each ticker's section
             22. If a ticker is mentioned multiple times in the video, combine all information into ONE section
-            23. Use the "Videoda Bahsedilen" field to show ALL timestamps where the ticker was mentioned
+            23. Use the "Timestamp" field to show the most relevant timestamp for the ticker
             
             🔍 **SOURCE VERIFICATION:**
             - Every piece of information must be traceable to the transcript
