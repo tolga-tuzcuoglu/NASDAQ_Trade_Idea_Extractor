@@ -591,7 +591,7 @@ class AcceleratedNasdaqTrader:
             **ÖNEMLİ TARİH KURALI**: Eğer video sadece "16 Eylül" diyorsa, "16 Eylül" yazın. "16 Eylül 2024" YAZMAYIN çünkü yıl belirtilmemiş.
             
             ## 📈 TRADING OPPORTUNITIES
-            [Her ticker için tek kapsamlı bölüm oluştur - tüm bilgileri bir arada]
+            [TRANSCRIPT'TE BELİRTİLEN TÜM TICKER'LAR İÇİN BÖLÜM OLUŞTUR - HİÇBİR TICKER ATLANMAYACAK]
             
             ### [TICKER] - [Şirket/Asset Adı]
             - **Timestamp**: [Tek timestamp - örnek: 5:23]
@@ -614,7 +614,7 @@ class AcceleratedNasdaqTrader:
             - **Trading Triggers**: [Alım/satım tetikleyicileri, belirtilmişse - yoksa boş bırak]
             - **Exit Strategy**: [Çıkış stratejisi, belirtilmişse - yoksa boş bırak]
             
-            [Her unique ticker/asset için bu bölümü tekrarla]
+            [TRANSCRIPT'TE BELİRTİLEN HER TICKER/ASSET İÇİN BU BÖLÜMÜ TEKRARLA - HİÇBİR TICKER ATLANMAYACAK]
             
             ## 🚀 QUICK WINS - HIGH POTENTIAL ACTIONS
             
@@ -727,7 +727,7 @@ class AcceleratedNasdaqTrader:
             📊 **CONCISE REPORT GENERATION:**
             - Generate MAXIMUM 2-3 page reports
             - Start with EXECUTIVE SUMMARY (5-7 bullet points)
-            - Focus on HIGH-IMPACT opportunities only
+            - Include ALL tickers mentioned in transcript (no exceptions)
             - End with PRIORITIZED QUICK WINS (6-8 actionable items)
             - Use bullet points and clear formatting
             - Eliminate verbose explanations
@@ -735,18 +735,23 @@ class AcceleratedNasdaqTrader:
             - Prioritize immediate executable actions
             - Use direct, actionable language
             - Keep each section focused and concise
+            - **MANDATORY**: Every ticker in transcript must be covered
             
             🔍 **REPORT STRUCTURE REQUIREMENTS:**
             - **EXECUTIVE SUMMARY**: 5-7 bullet points maximum
-            - **TRADING OPPORTUNITIES**: Only high-impact tickers (max 5-6)
+            - **TRADING OPPORTUNITIES**: ALL tickers mentioned in transcript (no limit)
             - **QUICK WINS**: 6-8 prioritized actionable items
             - **Eliminate**: Redundant sections, verbose explanations, generic analysis
             - **Focus on**: Specific price levels, trading signals, immediate actions
             - **Format**: Bullet points, clear headers, concise language
             - **Length**: Maximum 2-3 pages total
             - **Priority**: Immediate actions first, analysis second
+            - **CRITICAL**: Include EVERY ticker mentioned in the transcript
             
             📋 **SPECIFIC INFORMATION TO CAPTURE:**
+            - **ALL TICKERS**: Every ticker mentioned in transcript must be covered
+            - **NO EXCEPTIONS**: No ticker can be skipped or omitted
+            - **COMPREHENSIVE COVERAGE**: Each ticker gets full analysis section
             - All exact price levels (e.g., "6500 support", "6800 resistance")
             - All moving average levels (8-day, 21-day, 50-day, 100-day, 200-day)
             - All gap levels (e.g., "Tesla 398 gap", "AMD 202-170 gap")
@@ -757,6 +762,12 @@ class AcceleratedNasdaqTrader:
             - All timing signals (e.g., "Trump tweeti", "Fed konuşması")
             - All position management (e.g., "stopları yukarı çek", "pozisyon kapat")
             - All market events (e.g., "CPI verileri", "bilanço sezonu")
+            
+            🚫 **CRITICAL REQUIREMENT**: 
+            - EVERY ticker mentioned in the transcript MUST be included in the report
+            - NO ticker can be skipped, omitted, or excluded
+            - Each ticker must have its own dedicated section
+            - If a ticker is mentioned multiple times, consolidate all information into one section
             """
             
             response = model.generate_content(prompt)
