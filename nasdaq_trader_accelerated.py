@@ -567,8 +567,6 @@ class AcceleratedNasdaqTrader:
             
             **CONCISE REPORT REQUIREMENTS:**
             - Generate SHORT, ACTIONABLE reports (maximum 2-3 pages)
-            - Start with EXECUTIVE SUMMARY for quick overview
-            - End with PRIORITIZED QUICK WINS for immediate actions
             - Focus on HIGH-IMPACT trading opportunities only
             - Eliminate redundant information and verbose explanations
             - Use bullet points and clear formatting
@@ -577,79 +575,43 @@ class AcceleratedNasdaqTrader:
             - Use direct, actionable language
             - Focus on specific price levels and trading signals
             
-            # TRADING ANALYSIS REPORT
+            # NASDAQ DAY & SWING TRADE REPORT
             
-            ## 📊 EXECUTIVE SUMMARY
-            - **Date**: [Videoda belirtilen tarih - SADECE videoda söylenen tarih, yıl belirtilmemişse yıl ekleme]
-            - **Video**: [Video başlığı] - [Kanal adı]
-            - **Market Sentiment**: [Bullish/Bearish/Neutral] - [Gerekçe]
-            - **Key Opportunities**: [Ana trading fırsatları - 2-3 cümle]
-            - **Risk Level**: [High/Medium/Low] - [Gerekçe]
-            - **Cash Position**: [Önerilen nakit oranı %]
-            - **Immediate Actions**: [Acil eylemler - 1-2 madde]
+            ## 📊 REPORT INFORMATION
+            - **Report Date**: [Rapor oluşturulma tarihi - bugünün tarihi]
+            - **Source**: [Video başlığı] - [Kanal adı]
+            - **Video Date**: [Videoda belirtilen tarih - SADECE videoda söylenen tarih, yıl belirtilmemişse yıl ekleme]
             
             **ÖNEMLİ TARİH KURALI**: Eğer video sadece "16 Eylül" diyorsa, "16 Eylül" yazın. "16 Eylül 2024" YAZMAYIN çünkü yıl belirtilmemiş.
+            
+            ## 📝 SHORT SUMMARY
+            [Video içeriğinin kısa özeti - 2-3 cümle ile ana mesaj ve trading fırsatları]
             
             ## 📈 TRADING OPPORTUNITIES
             [TRANSCRIPT'TE BELİRTİLEN TÜM TICKER'LAR İÇİN BÖLÜM OLUŞTUR - HİÇBİR TICKER ATLANMAYACAK]
             
             ### [TICKER] - [Şirket/Asset Adı]
             - **Timestamp**: [Tek timestamp - örnek: 5:23]
-            - **Action**: [BUY/SELL/HOLD] - [Gerekçe, belirtilmişse - yoksa boş bırak]
-            - **Current Price**: [Mevcut fiyat, belirtilmişse - yoksa boş bırak]
-            - **Entry Price**: [Giriş fiyatı, belirtilmişse - yoksa boş bırak]
-            - **Target Price**: [Hedef fiyat, belirtilmişse - yoksa boş bırak]
-            - **Stop Loss**: [Stop loss fiyatı, belirtilmişse - yoksa boş bırak]
-            - **Support Levels**: [Destek seviyeleri - tüm belirtilen seviyeler]
-            - **Resistance Levels**: [Direnç seviyeleri - tüm belirtilen seviyeler]
-            - **Moving Averages**: [8-day, 21-day, 50-day, 100-day, 200-day MA seviyeleri]
-            - **Key Breakout Levels**: [Kırılım seviyeleri, belirtilmişse - yoksa boş bırak]
-            - **Gap Levels**: [Boşluk seviyeleri, belirtilmişse - yoksa boş bırak]
-            - **Volume Signals**: [Hacim sinyalleri, belirtilmişse - yoksa boş bırak]
-            - **Trend Status**: [Trend durumu - yükseliş/düşüş/yanlış, belirtilmişse - yoksa boş bırak]
-            - **Risk Level**: [High/Medium/Low] - [Risk gerekçesi]
-            - **Risk/Reward**: [Oran, hesaplanabilirse]
-            - **Position Size**: [Pozisyon büyüklüğü önerisi, belirtilmişse - yoksa boş bırak]
-            - **Timeframe**: [Day Trade/Swing Trade/Position Trade/Long Term, belirtilmişse - yoksa boş bırak]
-            - **Trading Triggers**: [Alım/satım tetikleyicileri, belirtilmişse - yoksa boş bırak]
-            - **Exit Strategy**: [Çıkış stratejisi, belirtilmişse - yoksa boş bırak]
+            - **Sentiment**: [Bullish/Bearish/Neutral] - [Gerekçe]
+            - **Entry**: [Giriş fiyatı, belirtilmişse - yoksa boş bırak]
+            - **Target**: [Hedef fiyat, belirtilmişse - yoksa boş bırak]
+            - **Stop**: [Stop loss fiyatı, belirtilmişse - yoksa boş bırak]
+            - **Notes**: [Justification - gerekçe, teknik analiz, risk faktörleri, trading stratejisi]
             
             [TRANSCRIPT'TE BELİRTİLEN HER TICKER/ASSET İÇİN BU BÖLÜMÜ TEKRARLA - HİÇBİR TICKER ATLANMAYACAK]
             
-            ## 🚀 QUICK WINS - HIGH POTENTIAL ACTIONS
+            ## 🎯 HIGH POTENTIAL TRADES
+            [Sadece en yüksek kar potansiyeli olan ticker'lar ve risk yönetimi gereken pozisyonlar]
             
-            ### 🔥 IMMEDIATE ACTIONS (Execute Today)
             1. **[TICKER]**: [BUY/SELL/HOLD] - [Entry: $X.XX] [Stop: $X.XX] [Target: $X.XX] [Risk: X%] [Risk/Reward: 1:X]
-               *[Gerekçe: En yüksek öncelik - acil fırsat veya risk yönetimi]*
+               *[Gerekçe: En yüksek kar potansiyeli - acil fırsat]*
             
-            ### ⚡ SHORT-TERM OPPORTUNITIES (1-7 days)
             2. **[TICKER]**: [BUY/SELL/HOLD] - [Entry: $X.XX] [Stop: $X.XX] [Target: $X.XX] [Risk: X%] [Risk/Reward: 1:X]
-               *[Gerekçe: Kısa vadeli sinyal - teknik kırılım veya momentum]*
+               *[Gerekçe: Yüksek kar potansiyeli - teknik kırılım]*
             
-            3. **[TICKER]**: [BUY/SELL/HOLD] - [Entry: $X.XX] [Stop: $X.XX] [Target: $X.XX] [Risk: X%] [Risk/Reward: 1:X]
-               *[Gerekçe: Destek/direnç seviyesi yaklaşımı]*
+            3. **[TICKER]**: [TAKE PROFIT/EXIT] - [Current: $X.XX] [Take Profit: $X.XX] [Stop: $X.XX] [Timing: Immediate]
+               *[Gerekçe: Risk yönetimi - zarar kaçınma önceliği]*
             
-            ### 📊 SWING TRADES (1-4 weeks)
-            4. **[TICKER]**: [BUY/SELL/HOLD] - [Entry: $X.XX] [Stop: $X.XX] [Target: $X.XX] [Risk: X%] [Risk/Reward: 1:X]
-               *[Gerekçe: Swing trade fırsatı - trend takibi]*
-            
-            ### 🎯 POSITION TRADES (1+ months)
-            5. **[TICKER]**: [BUY/SELL/HOLD] - [Entry: $X.XX] [Stop: $X.XX] [Target: $X.XX] [Risk: X%] [Risk/Reward: 1:X]
-               *[Gerekçe: Uzun vadeli pozisyon - temel analiz]*
-            
-            ### ⚠️ RISK MANAGEMENT
-            6. **[TICKER]**: [TAKE PROFIT/EXIT] - [Current: $X.XX] [Take Profit: $X.XX] [Stop: $X.XX] [Timing: Immediate]
-               *[Gerekçe: Risk yönetimi - kar alma veya zarar kesme]*
-            
-            ### 📊 KEY MARKET LEVELS
-            - **Critical Support**: [En kritik destek seviyeleri - tüm belirtilen seviyeler]
-            - **Critical Resistance**: [En kritik direnç seviyeleri - tüm belirtilen seviyeler]
-            - **Breakout Levels**: [Kırılım seviyeleri - tüm belirtilen seviyeler]
-            - **Gap Levels**: [Boşluk seviyeleri - tüm belirtilen seviyeler]
-            - **Moving Average Levels**: [Hareketli ortalama seviyeleri - 8, 21, 50, 100, 200 günlük]
-            - **Volume Triggers**: [Hacim tetikleyicileri - belirtilmişse]
-            - **Market Events**: [Piyasa olayları - Fed, CPI, earnings, belirtilmişse]
-            - **Trading Alerts**: [Gerçek zamanlı uyarılar - belirtilmişse]
             
             **CRITICAL ANTI-HALLUCINATION REQUIREMENTS:**
             
