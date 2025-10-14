@@ -1,10 +1,10 @@
 # Nasdaq Trader - Professional Trading Analysis Pipeline
 
-**High-performance AI-powered trading analysis from YouTube videos for Nasdaq portfolio management**
+**High-performance AI-powered trading analysis from YouTube videos for Nasdaq investors and traders**
 
 ## 🎯 Overview
 
-This production-ready system analyzes Turkish trading videos to generate actionable trading reports for Nasdaq portfolio managers. It extracts trading ideas, validates tickers with real-time API verification, and creates professional reports that can be directly executed on Nasdaq.
+This production-ready system is specifically designed for **Nasdaq investors and traders**. It analyzes Turkish trading videos to generate actionable trading reports for Nasdaq portfolio management. The system extracts trading ideas, validates tickers with real-time API verification, and creates professional reports that can be directly executed on Nasdaq markets.
 
 ## ✨ Latest Features
 
@@ -170,11 +170,11 @@ conda activate nasdaq_trader
 
 ## 🚀 Production Usage
 
-### **For Portfolio Managers**
+### **For Nasdaq Investors & Traders**
 1. Add YouTube video URLs to `video_list.txt`
 2. Run `python run_pipeline.py`
 3. Review generated reports in `summary/` folder
-4. Execute trades based on actionable insights
+4. Execute trades based on actionable insights for Nasdaq markets
 
 ### **For Development**
 1. Modify `config.yaml` for different settings
@@ -211,14 +211,14 @@ For issues or questions:
 3. Ensure all dependencies are installed
 4. Check `config.yaml` for proper settings
 
-## 🎯 Best Practices
+## 🎯 Best Practices for Nasdaq Trading
 
-1. **Use Main Script**: `run_pipeline.py` for production trading analysis
+1. **Use Main Script**: `run_pipeline.py` for production Nasdaq trading analysis
 2. **Monitor Logs**: Check `logs/` folder for processing status
-3. **Ticker Validation**: System automatically validates all tickers with yfinance API
+3. **Ticker Validation**: System automatically validates all Nasdaq tickers with yfinance API
 4. **Cache Management**: 24-hour ticker cache reduces API calls and improves performance
 5. **HTML Reports**: Use mobile-friendly HTML reports for better readability
-6. **Risk Management**: Always use proper risk management in trading
+6. **Risk Management**: Always use proper risk management in Nasdaq trading
 
 ## 🔄 System Features
 
