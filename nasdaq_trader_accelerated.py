@@ -578,7 +578,6 @@ class AcceleratedNasdaqTrader:
             # NASDAQ DAY & SWING TRADE REPORT
             
             ## 📊 REPORT INFORMATION
-            - **Report Date**: [Rapor oluşturulma tarihi - bugünün tarihi]
             - **Source**: [Video başlığı] - [Kanal adı]
             - **Video Date**: [Videoda belirtilen tarih - SADECE videoda söylenen tarih, yıl belirtilmemişse yıl ekleme]
             
@@ -593,9 +592,9 @@ class AcceleratedNasdaqTrader:
             ### [TICKER] - [Şirket/Asset Adı]
             - **Timestamp**: [Tek timestamp - örnek: 5:23]
             - **Sentiment**: [Bullish/Bearish/Neutral] - [Gerekçe]
-            - **Entry**: [Giriş fiyatı, belirtilmişse - yoksa boş bırak]
+            - **Resistance**: [Direnç seviyesi, belirtilmişse - yoksa boş bırak]
+            - **Support**: [Destek seviyesi, belirtilmişse - yoksa boş bırak]
             - **Target**: [Hedef fiyat, belirtilmişse - yoksa boş bırak]
-            - **Stop**: [Stop loss fiyatı, belirtilmişse - yoksa boş bırak]
             - **Notes**: [Justification - gerekçe, teknik analiz, risk faktörleri, trading stratejisi]
             
             [TRANSCRIPT'TE BELİRTİLEN HER TICKER/ASSET İÇİN BU BÖLÜMÜ TEKRARLA - HİÇBİR TICKER ATLANMAYACAK]
@@ -617,14 +616,17 @@ class AcceleratedNasdaqTrader:
             
             **CRITICAL ANTI-HALLUCINATION REQUIREMENTS:**
             
-            🚫 **STRICT PROHIBITIONS:**
-            - NEVER add tickers, prices, or information not explicitly mentioned in the transcript
-            - NEVER use external knowledge or current market data
-            - NEVER assume or infer information not directly stated
-            - NEVER add technical analysis not explicitly described in the video
-            - NEVER include market news or events not mentioned in the transcript
-            - NEVER assume or guess years, dates, or timeframes not explicitly mentioned
-            - NEVER fill in missing date information (year, month, day) if not stated in transcript
+        🚫 **STRICT PROHIBITIONS:**
+        - NEVER add tickers, prices, or information not explicitly mentioned in the transcript
+        - NEVER use external knowledge or current market data
+        - NEVER assume or infer information not directly stated
+        - NEVER add technical analysis not explicitly described in the video
+        - NEVER include market news or events not mentioned in the transcript
+        - NEVER assume or guess years, dates, or timeframes not explicitly mentioned
+        - NEVER fill in missing date information (year, month, day) if not stated in transcript
+        - NEVER add current date or time unless explicitly mentioned in video
+        - NEVER assume video date or report date - use only what is explicitly stated
+        - NEVER be creative or make assumptions about any dates or times
             
             ✅ **MANDATORY REQUIREMENTS:**
             1. ONLY include tickers and assets explicitly mentioned in the transcript
@@ -639,9 +641,11 @@ class AcceleratedNasdaqTrader:
             10. Be specific about entry/exit points only if explicitly mentioned
             11. Focus on actionable information that can be executed on NASDAQ
             12. Maintain professional trading report format
-            13. **CRITICAL DATE HANDLING**: If only day/month is mentioned without year, write exactly as stated (e.g., "16 Eylül" not "16 Eylül 2024")
-            14. **DATE ACCURACY**: Never assume years - if year is not mentioned, leave it empty or state "Year not specified in video"
-            15. **EXACT TRANSCRIPT DATES**: Use only dates explicitly mentioned in the transcript, no assumptions
+        13. **CRITICAL DATE HANDLING**: If only day/month is mentioned without year, write exactly as stated (e.g., "16 Eylül" not "16 Eylül 2024")
+        14. **DATE ACCURACY**: Never assume years - if year is not mentioned, leave it empty or state "Year not specified in video"
+        15. **EXACT TRANSCRIPT DATES**: Use only dates explicitly mentioned in the transcript, no assumptions
+        16. **NO DATE CREATIVITY**: Never add current date, report date, or any date not explicitly mentioned in video
+        17. **VIDEO DATE ONLY**: Use only the date explicitly mentioned in the video content, nothing else
             
             🎯 **CRITICAL TICKER ORGANIZATION REQUIREMENTS:**
             16. Each ticker/asset must appear ONLY ONCE in the entire report
@@ -659,19 +663,20 @@ class AcceleratedNasdaqTrader:
             - If uncertain, state "Unclear from transcript" rather than guessing
             - Never fill in gaps with external knowledge
             
-            📝 **REPORTING STANDARDS:**
-            - NEVER use predicted values, estimates, or future dates (e.g., "06 Haziran 2024, 15:30 (Tahmini)")
-            - NEVER write "Videoda belirtilmemiş" or any placeholder text
-            - NEVER generate fake dates - use the exact current date and time provided in the template
-            - If no trading ideas are mentioned, leave the section completely blank
-            - If no tickers are mentioned, leave the section completely blank
-            - If no prices are mentioned, leave the price fields completely blank
-            - If information is not mentioned, leave the field completely empty
-            - Always prioritize accuracy over completeness
-            - Only include information that is explicitly mentioned in the video
-            - Include exact timestamps when tickers/assets are mentioned (e.g., "5:23", "12:45")
-            - Use only current/past information from the video, no future predictions
-            - CRITICAL: Use the exact date format provided in the template - do not change or modify it
+        📝 **REPORTING STANDARDS:**
+        - NEVER use predicted values, estimates, or future dates (e.g., "06 Haziran 2024, 15:30 (Tahmini)")
+        - NEVER write "Videoda belirtilmemiş" or any placeholder text
+        - NEVER generate fake dates or add current date/time
+        - NEVER add report date or any date not explicitly mentioned in video
+        - If no trading ideas are mentioned, leave the section completely blank
+        - If no tickers are mentioned, leave the section completely blank
+        - If no prices are mentioned, leave the price fields completely blank
+        - If information is not mentioned, leave the field completely empty
+        - Always prioritize accuracy over completeness
+        - Only include information that is explicitly mentioned in the video
+        - Include exact timestamps when tickers/assets are mentioned (e.g., "5:23", "12:45")
+        - Use only current/past information from the video, no future predictions
+        - CRITICAL: Use ONLY dates explicitly mentioned in the video transcript
             
             🚫 **ELIMINATE REPETITIONS:**
             - Each piece of information appears ONLY ONCE in the entire report
