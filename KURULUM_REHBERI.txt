@@ -1,7 +1,4 @@
-# 🎯 Trading Raporları Oluşturma ve Okuma - Tam Rehber
-
-## 📋 Önce Bilmeniz Gerekenler
-YouTube'da trading videolarını izleyen ve rapor oluşturan özel bir bilgisayar programınız var. Bu raporlar hangi hisseleri alıp satmanız gerektiğini söyler. **Raporlar henüz yok** - önce programı çalıştırıp oluşturmanız gerekiyor!
+# 🎯 Youtube Videolarından Trading Raporları Oluşturma - Tam Rehber
 
 ## 💻 Sistem Gereksinimleri
 - **İşletim Sistemi**: Windows 10/11, macOS, veya Linux
@@ -46,6 +43,8 @@ YouTube'da trading videolarını izleyen ve rapor oluşturan özel bir bilgisaya
    - `env_example.txt` (gizli anahtarınız için şablon)
 
 ### **Adım 4: Ek Programları Yükleyin (Gereksinimler)**
+
+#### **Seçenek A: Basit Yükleme (Önerilen)**
 1. **Klasörde sağ tıklayın** ve "Terminal'de Aç" veya "PowerShell'de Aç" seçin
 2. **Bu komutu yazın** ve Enter'a basın:
    ```
@@ -55,6 +54,29 @@ YouTube'da trading videolarını izleyen ve rapor oluşturan özel bir bilgisaya
 4. **Çok fazla metin kaydığını göreceksiniz** - bu normal!
 5. **Eğer hata alırsanız** `python -m pip install -r requirements.txt` deneyin
 6. **Whisper modeli indirilecek** (ilk seferde 1-2 GB, internet bağlantısı gerekli)
+
+#### **Seçenek B: Sanal Ortam (İleri Seviye - İsteğe Bağlı)**
+**Not**: Bu adım isteğe bağlıdır ama daha temiz bir kurulum sağlar.
+
+1. **Terminal'de bu komutu yazın**:
+   ```
+   python -m venv nasdaq_env
+   ```
+2. **Sanal ortamı aktifleştirin**:
+   - **Windows**: `nasdaq_env\Scripts\activate`
+   - **Mac/Linux**: `source nasdaq_env/bin/activate`
+3. **Gereksinimleri yükleyin**:
+   ```
+   pip install -r requirements.txt
+   ```
+4. **Artık sanal ortamda çalışıyorsunuz** (Terminal'de `(nasdaq_env)` yazısı görünür)
+
+### **Adım 4.5: Model Ayarları (İsteğe Bağlı)**
+1. **`config.yaml` dosyasını** açın (çift tıklayın)
+2. **`WHISPER_MODEL: "medium"` satırını** bulun
+3. **Daha hızlı için** `"small"` yapabilirsiniz (daha az RAM kullanır)
+4. **Daha doğru için** `"large"` yapabilirsiniz (daha fazla RAM gerekir)
+5. **Dosyayı kaydedin** (Ctrl+S)
 
 ### **Adım 5: Gizli Anahtarınızı Alın (API Key)**
 1. **Bu siteye gidin**: https://makersuite.google.com/app/apikey
@@ -144,6 +166,8 @@ Raporlar şu bölümlere sahip olacak:
 8. **"Video indirilemiyor"** - YouTube linkinin doğru olduğunu kontrol edin
 9. **"Program çok yavaş"** - Sadece 1-2 video ile başlayın, daha fazla RAM gerekebilir
 10. **"Disk alanı yetersiz"** - En az 2GB boş alan bırakın
+11. **"Paket çakışması hatası"** - Sanal ortam kullanmayı deneyin (Adım 4, Seçenek B)
+12. **"Model çok büyük"** - config.yaml'da WHISPER_MODEL'i "small" yapın
 
 ## 🎉 Tamamlandı!
 
