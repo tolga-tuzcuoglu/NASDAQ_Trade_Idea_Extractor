@@ -30,8 +30,7 @@ This production-ready system analyzes Turkish trading videos to generate actiona
 
 ```
 Nasdaq_Trader_Local/
-├── 📓 Nasdaq_Trader.ipynb                # Interactive Jupyter notebook
-├── 🏃 run_pipeline.py                   # Main execution script (RECOMMENDED)
+├── 🏃 run_pipeline.py                   # Main execution script
 ├── ⚡ nasdaq_trader_accelerated.py       # Core engine (library)
 ├── 🔍 ticker_validator.py               # Ticker validation utility
 ├── 📋 video_list.txt                    # Input: YouTube video URLs
@@ -45,37 +44,27 @@ Nasdaq_Trader_Local/
 
 ## 🚀 Quick Start
 
-### Method 1: Python Script (Recommended)
+### Python Script Execution
 ```bash
 python run_pipeline.py
 ```
-
-### Method 2: Jupyter Notebook
-1. Open `Nasdaq_Trader.ipynb`
-2. Run all cells in sequence
 
 ## 📋 File Descriptions
 
 ### **Main Execution Files**
 
-#### `run_pipeline.py` ⭐ **RECOMMENDED**
+#### `run_pipeline.py` ⭐ **MAIN SCRIPT**
 - **Purpose**: Main entry point for trading analysis
 - **Features**: User-friendly interface, maximum performance, professional output
 - **Use Case**: Production trading analysis
 - **Output**: Professional Nasdaq trading reports with actionable insights
-
-#### `Nasdaq_Trader.ipynb`
-- **Purpose**: Interactive Jupyter notebook for trading analysis
-- **Features**: Step-by-step execution, real-time monitoring, detailed results
-- **Use Case**: Interactive analysis, development, testing
-- **Output**: Same as Python script but with interactive interface
 
 ### **Core Engine Files**
 
 #### `nasdaq_trader_accelerated.py`
 - **Purpose**: Core processing engine (library)
 - **Features**: Maximum performance, parallel processing, system optimization
-- **Use Case**: Used by run_pipeline.py and Jupyter notebook
+- **Use Case**: Used by run_pipeline.py
 - **Output**: Core functionality (not run directly)
 
 ### **Utility Files**
@@ -183,17 +172,17 @@ conda activate nasdaq_trader
 
 ### **For Portfolio Managers**
 1. Add YouTube video URLs to `video_list.txt`
-2. Run `python nasdaq_trader_independent.py`
+2. Run `python run_pipeline.py`
 3. Review generated reports in `summary/` folder
 4. Execute trades based on actionable insights
 
 ### **For Development**
-1. Use `Nasdaq_Trader_Local.ipynb` for experimentation
-2. Modify `config.yaml` for different settings
-3. Use `acceleration_utils.py` for performance optimization
+1. Modify `config.yaml` for different settings
+2. Use `nasdaq_trader_accelerated.py` for custom implementations
+3. Monitor progress in `logs/` folder
 
 ### **For Batch Processing**
-1. Use `nasdaq_trader_accelerated.py` for multiple videos
+1. Use `run_pipeline.py` for multiple videos
 2. Monitor progress in `logs/` folder
 3. Review consolidated reports in `summary/` folder
 
@@ -231,9 +220,9 @@ For issues or questions:
 5. **HTML Reports**: Use mobile-friendly HTML reports for better readability
 6. **Risk Management**: Always use proper risk management in trading
 
-## 🔄 Version Synchronization
+## 🔄 System Features
 
-Both Python script (`run_pipeline.py`) and Jupyter notebook (`Nasdaq_Trader.ipynb`) are fully synchronized with identical features:
+The Python script (`run_pipeline.py`) includes all advanced features:
 - ✅ Ticker validation with 24-hour caching
 - ✅ HTML report generation
 - ✅ Clean reports without validation clutter
