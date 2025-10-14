@@ -1,0 +1,155 @@
+# 🎯 Trading Raporları Oluşturma ve Okuma - Tam Rehber
+
+## 📋 Önce Bilmeniz Gerekenler
+YouTube'da trading videolarını izleyen ve rapor oluşturan özel bir bilgisayar programınız var. Bu raporlar hangi hisseleri alıp satmanız gerektiğini söyler. **Raporlar henüz yok** - önce programı çalıştırıp oluşturmanız gerekiyor!
+
+## 💻 Sistem Gereksinimleri
+- **İşletim Sistemi**: Windows 10/11, macOS, veya Linux
+- **Python**: 3.8 veya üzeri (rehberde yükleme adımları var)
+- **RAM**: En az 4GB (8GB önerilir)
+- **Disk Alanı**: En az 2GB boş alan
+- **İnternet**: Stabil bağlantı (videoları indirmek ve AI analizi için)
+- **Google Hesabı**: Gemini API anahtarı için gerekli
+
+## 🚀 Adım Adım Talimatlar
+
+### **Adım 1: Kodu Bilgisayarınıza İndirin**
+1. **Bu linke tıklayın**: https://github.com/tolga-tuzcuoglu/nasdaq_trader_local
+2. **Yeşil "Code" butonunu** bulun
+3. **"Download ZIP"** seçeneğine tıklayın
+4. **İndirmenin bitmesini bekleyin** (birkaç dakika sürebilir)
+5. **İndirilen dosyayı bulun** (genellikle İndirilenler klasöründe)
+6. **ZIP dosyasına sağ tıklayın** ve "Tümünü Çıkar" seçin
+7. **Hedef olarak "Belgeler" klasörünü** seçin
+8. **"Çıkar" butonuna tıklayın**
+9. **Artık Belgeler klasöründe** `nasdaq_trader_local` adında bir klasörünüz var
+
+### **Adım 2: Python'u Yükleyin (Sihirli Dil)**
+1. **Bu siteye gidin**: https://www.python.org/downloads/
+2. **Büyük sarı "Download Python" butonuna** tıklayın
+3. **İndirilen dosyayı çalıştırın** (çift tıklayın)
+4. **ÖNEMLİ**: "Add Python to PATH" kutusunu işaretleyin ✅
+5. **"Install Now" butonuna** tıklayın
+6. **Bitmesini bekleyin** (birkaç dakika sürer)
+7. **Bittiğinde "Close" butonuna** tıklayın
+8. **Kontrol edin**: Terminal'de `python --version` yazın, Python 3.8+ görmelisiniz
+
+### **Adım 3: Sihirli Klasörü Açın**
+1. **Belgeler klasörüne** gidin
+2. **`nasdaq_trader_local` klasörünü** bulun
+3. **Çift tıklayarak açın**
+4. **Şu dosyaları görmelisiniz**:
+   - `run_pipeline.py` (ana program)
+   - `Nasdaq_Trader.ipynb` (notebook versiyonu)
+   - `requirements.txt` (ek programları söyler)
+   - `video_list.txt` (YouTube linklerini koyacağınız yer)
+   - `env_example.txt` (gizli anahtarınız için şablon)
+
+### **Adım 4: Ek Programları Yükleyin (Gereksinimler)**
+1. **Klasörde sağ tıklayın** ve "Terminal'de Aç" veya "PowerShell'de Aç" seçin
+2. **Bu komutu yazın** ve Enter'a basın:
+   ```
+   pip install -r requirements.txt
+   ```
+3. **Bitmesini bekleyin** (5-10 dakika sürer)
+4. **Çok fazla metin kaydığını göreceksiniz** - bu normal!
+5. **Eğer hata alırsanız** `python -m pip install -r requirements.txt` deneyin
+6. **Whisper modeli indirilecek** (ilk seferde 1-2 GB, internet bağlantısı gerekli)
+
+### **Adım 5: Gizli Anahtarınızı Alın (API Key)**
+1. **Bu siteye gidin**: https://makersuite.google.com/app/apikey
+2. **Google hesabınızla giriş yapın**
+3. **"Create API Key" butonuna** tıklayın
+4. **Anahtarı kopyalayın** (şuna benzer: `AIzaSyC...`)
+
+### **Adım 6: Gizli Anahtarınızı Ayarlayın**
+1. **Klasördeki `env_example.txt` dosyasını** bulun
+2. **Çift tıklayarak açın**
+3. **Şuna benzer bir şey göreceksiniz**: `GEMINI_API_KEY=your_api_key_here`
+4. **`your_api_key_here` kısmını** gerçek API anahtarınızla değiştirin (kopyaladığınız)
+5. **Dosyayı kaydedin** (Ctrl+S)
+6. **ÖNEMLİ**: Şimdi dosyayı `env_example.txt`'den `.env`'ye yeniden adlandırın
+   - Dosyaya sağ tıklayın
+   - "Yeniden Adlandır" seçin
+   - Adı tam olarak `.env` yapın ("example" kısmını kaldırın)
+   - Enter'a basın
+
+### **Adım 7: YouTube Video Linklerini Ekleyin**
+1. **`video_list.txt` dosyasını** açın (çift tıklayın)
+2. **Dosyadaki her şeyi silin**
+3. **YouTube linklerini ekleyin** (her satıra bir tane), örneğin:
+   ```
+   https://www.youtube.com/watch?v=ABC123
+   https://www.youtube.com/watch?v=XYZ789
+   ```
+4. **Dosyayı kaydedin** (Ctrl+S)
+
+### **Adım 8: Sihirli Programı Çalıştırın**
+1. **Klasörde sağ tıklayın** ve "Terminal'de Aç" veya "PowerShell'de Aç" seçin
+2. **Bu komutu yazın** ve Enter'a basın:
+   ```
+   python run_pipeline.py
+   ```
+3. **Sihrin gerçekleşmesini bekleyin!** (10-30 dakika sürer)
+4. **Metin kaydığını göreceksiniz** - program çalışıyor
+5. **Bittiğinde** "Processing Complete" yazısını göreceksiniz
+
+### **Adım 9: Raporlarınızı Bulun**
+1. **`summary/` adında yeni bir klasör** arayın
+2. **`summary` klasörünü** açın
+3. **Şuna benzer dosyalar görmelisiniz**:
+   - `report_ABC123_20251013_123456.txt`
+   - `report_ABC123_20251013_123456.html`
+   - `report_ABC123_20251013_123456.json`
+
+### **Adım 10: Raporları Okuyun**
+1. **Kolay okuma için**: Herhangi bir `.html` dosyasına çift tıklayın
+   - Bu web tarayıcınızda açılır
+   - Güzel ve renkli görünür
+   - Telefon veya bilgisayarda kolay okunur
+
+2. **Basit metin için**: Herhangi bir `.txt` dosyasına çift tıklayın
+   - Bu Not Defteri'nde açılır
+   - Düz metin gösterir
+   - Kopyalayıp yapıştırmak için iyidir
+
+## 🎯 Raporların Nasıl Görüneceği
+
+Raporlar şu bölümlere sahip olacak:
+- **📊 RAPOR BİLGİLERİ** - Ne zaman yapıldığı ve hangi video
+- **📝 KISA ÖZET** - Video hakkında (2-3 cümle)
+- **📈 TRADİNG FIRSATLARI** - Bahsedilen tüm hisseler
+- **🎯 YÜKSEK POTANSİYELLİ TRADELER** - En iyi trading fikirleri
+
+## 🚨 Önemli Notlar
+
+- **Raporlar programı çalıştırana kadar yok** - bu yüzden `summary/` klasörü başta boş
+- **Programı çalıştırmadan önce YouTube linklerini** `video_list.txt` dosyasına eklemeniz gerekiyor
+- **API anahtarını** `.env` dosyasında olması gerekiyor (`env_example.txt`'den yeniden adlandırılmış)
+- **Program zaman alır** - çalışırken sabırlı olun
+- **Her video 5-10 dakika** sürer
+- **İnternet bağlantısı gerekli** - videoları indirmek ve AI analizi için
+- **En az 4GB RAM** önerilir - Whisper modeli için
+- **Disk alanı**: Her video için ~100MB cache alanı gerekir
+
+## 🆘 Bir Şeyler Yanlış Giderse
+
+1. **"Python bulunamadı"** - Python düzgün yüklenmemiş, tekrar deneyin
+2. **"pip bulunamadı"** - `python -m pip install -r requirements.txt` deneyin
+3. **"Video bulunamadı"** - `video_list.txt` dosyanızda YouTube linkleri olduğunu kontrol edin
+4. **"API anahtarı hatası"** - `.env` dosyanızda doğru API anahtarı olduğunu kontrol edin
+5. **"İzin reddedildi"** - Terminal'i Yönetici olarak çalıştırmayı deneyin
+6. **"Dosya yeniden adlandırılamıyor"** - Dosya uzantılarını görebildiğinizden emin olun (Görünüm → Dosya uzantılarını göster)
+7. **"Whisper modeli indirilemiyor"** - İnternet bağlantınızı kontrol edin, 1-2 GB indirme gerekir
+8. **"Video indirilemiyor"** - YouTube linkinin doğru olduğunu kontrol edin
+9. **"Program çok yavaş"** - Sadece 1-2 video ile başlayın, daha fazla RAM gerekebilir
+10. **"Disk alanı yetersiz"** - En az 2GB boş alan bırakın
+
+## 🎉 Tamamlandı!
+
+Artık trading raporlarını istediğiniz zaman oluşturabilirsiniz:
+1. YouTube linklerini `video_list.txt` dosyasına ekleyin
+2. `python run_pipeline.py` komutunu çalıştırın
+3. Raporları `summary/` klasöründe okuyun
+
+Raporlar hangi hisseleri izlemeniz gerektiğini ve hangi trading fırsatlarının olduğunu söyleyecek!
