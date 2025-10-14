@@ -601,7 +601,7 @@ class AcceleratedNasdaqTrader:
             [TRANSCRIPT'TE BELİRTİLEN HER TICKER/ASSET İÇİN BU BÖLÜMÜ TEKRARLA - HİÇBİR TICKER ATLANMAYACAK]
             
             ## 🎯 HIGH POTENTIAL TRADES
-            [Sadece en yüksek kar potansiyeli olan ticker'lar ve risk yönetimi gereken pozisyonlar]
+            [Tüm yüksek kar potansiyeli olan ticker'lar ve risk yönetimi gereken pozisyonlar - sayı sınırı yok]
             
             1. **[TICKER]**: [BUY/SELL/HOLD] - [Entry: $X.XX] [Stop: $X.XX] [Target: $X.XX] [Risk: X%] [Risk/Reward: 1:X]
                *[Gerekçe: En yüksek kar potansiyeli - acil fırsat]*
@@ -611,6 +611,8 @@ class AcceleratedNasdaqTrader:
             
             3. **[TICKER]**: [TAKE PROFIT/EXIT] - [Current: $X.XX] [Take Profit: $X.XX] [Stop: $X.XX] [Timing: Immediate]
                *[Gerekçe: Risk yönetimi - zarar kaçınma önceliği]*
+            
+            [TÜM YÜKSEK POTANSİYELLİ TICKER'LAR İÇİN DEVAM ET - SAYI SINIRI YOK]
             
             
             **CRITICAL ANTI-HALLUCINATION REQUIREMENTS:**
@@ -688,9 +690,9 @@ class AcceleratedNasdaqTrader:
             
             📊 **CONCISE REPORT GENERATION:**
             - Generate MAXIMUM 2-3 page reports
-            - Start with EXECUTIVE SUMMARY (5-7 bullet points)
+            - Start with SHORT SUMMARY (2-3 sentences)
             - Include ALL tickers mentioned in transcript (no exceptions)
-            - End with PRIORITIZED QUICK WINS (6-8 actionable items)
+            - End with HIGH POTENTIAL TRADES (ALL high-potential tickers, no limit)
             - Use bullet points and clear formatting
             - Eliminate verbose explanations
             - Focus on specific price levels and trading signals
@@ -700,9 +702,9 @@ class AcceleratedNasdaqTrader:
             - **MANDATORY**: Every ticker in transcript must be covered
             
             🔍 **REPORT STRUCTURE REQUIREMENTS:**
-            - **EXECUTIVE SUMMARY**: 5-7 bullet points maximum
+            - **SHORT SUMMARY**: 2-3 sentences maximum
             - **TRADING OPPORTUNITIES**: ALL tickers mentioned in transcript (no limit)
-            - **QUICK WINS**: 6-8 prioritized actionable items
+            - **HIGH POTENTIAL TRADES**: ALL high-potential tickers (no limit)
             - **Eliminate**: Redundant sections, verbose explanations, generic analysis
             - **Focus on**: Specific price levels, trading signals, immediate actions
             - **Format**: Bullet points, clear headers, concise language
