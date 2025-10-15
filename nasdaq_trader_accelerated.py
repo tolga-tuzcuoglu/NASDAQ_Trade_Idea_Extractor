@@ -622,13 +622,12 @@ class AcceleratedNasdaqTrader:
             prompt = f"""
             As an experienced Nasdaq portfolio manager, analyze this trading video transcript and create a professional trading report in English.
             
-            **CRITICAL LANGUAGE REQUIREMENT**: 
-            - ALWAYS generate the report in English regardless of the video language
+            **CRITICAL TEMPLATE REQUIREMENT**: 
             - Use standard English section headers: "REPORT INFORMATION", "SHORT SUMMARY", "TRADING OPPORTUNITIES", "HIGH POTENTIAL TRADES"
-            - NEVER use Turkish or other language headers
-            - ALL content must be in English: reasoning, descriptions, notes
-            - Use "Reason:" instead of "Gerekçe:", "Entry:" instead of "Giriş:", "Target:" instead of "Hedef:"
-            - Generate ONLY English text throughout the entire report
+            - Keep template structure in English (headers, labels, format)
+            - Content can be in Turkish (analysis, reasoning, descriptions, notes)
+            - Use English field labels: "Timestamp:", "Sentiment:", "Resistance:", "Support:", "Target:", "Notes:"
+            - Use English section headers but Turkish content for analysis
             
             VIDEO INFORMATION:
             - Title: {video_title}
@@ -680,20 +679,20 @@ class AcceleratedNasdaqTrader:
             ## 🎯 HIGH POTENTIAL TRADES
             [All high profit potential tickers and positions requiring risk management - no limit on number]
             
-            **MANDATORY ENGLISH REQUIREMENT FOR HIGH POTENTIAL TRADES**:
+            **MANDATORY TEMPLATE REQUIREMENT FOR HIGH POTENTIAL TRADES**:
             - Section header MUST be "HIGH POTENTIAL TRADES" (never "YÜKSEK POTANSİYELLİ İŞLEMLER")
-            - All reasoning must use "Reason:" (never "Gerekçe:")
-            - All entry descriptions must be in English
-            - All notes and explanations must be in English
+            - Use English field labels: "Entry:", "Stop:", "Target:", "Risk:", "Risk/Reward:"
+            - Content can be in Turkish (reasoning, descriptions, explanations)
+            - Use "Reason:" as label but Turkish content for reasoning
             
             **1.** **[COMPANY_NAME] ([TICKER_CODE])**: [BUY/SELL/HOLD] - [Entry: **$X.XX**] [Stop: **$X.XX**] [Target: **$X.XX**] [Risk: **X%**] [Risk/Reward: **1:X**]
-               *[Reason: Highest profit potential - urgent opportunity]*
+               *[Reason: En yüksek kar potansiyeli - acil fırsat]*
             
             **2.** **[COMPANY_NAME] ([TICKER_CODE])**: [BUY/SELL/HOLD] - [Entry: **$X.XX**] [Stop: **$X.XX**] [Target: **$X.XX**] [Risk: **X%**] [Risk/Reward: **1:X**]
-               *[Reason: High profit potential - technical breakout]*
+               *[Reason: Yüksek kar potansiyeli - teknik kırılım]*
             
             **3.** **[COMPANY_NAME] ([TICKER_CODE])**: [TAKE PROFIT/EXIT] - [Current: **$X.XX**] [Take Profit: **$X.XX**] [Stop: **$X.XX**] [Timing: Immediate]
-               *[Reason: Risk management - loss avoidance priority]*
+               *[Reason: Risk yönetimi - zarar kaçınma önceliği]*
             
             [CONTINUE FOR ALL HIGH POTENTIAL TICKERS - NO LIMIT ON NUMBER]
             
@@ -847,12 +846,12 @@ class AcceleratedNasdaqTrader:
             - If a ticker is mentioned multiple times, consolidate all information into one section
             - **HIGH POTENTIAL TRADES SECTION MUST INCLUDE TICKER NAMES**: Every numbered entry must show "Company Name (TICKER_CODE)" format
             
-            **FINAL ENGLISH ENFORCEMENT**:
-            - Generate the ENTIRE report in English only
+            **FINAL TEMPLATE ENFORCEMENT**:
+            - Use English template structure (headers, labels, format)
             - Use "HIGH POTENTIAL TRADES" as section header
-            - Use "Reason:" for all explanations
-            - Translate all Turkish content to English
-            - Ensure consistent English formatting throughout
+            - Use English field labels: "Timestamp:", "Sentiment:", "Resistance:", "Support:", "Target:", "Notes:"
+            - Content can be in Turkish (analysis, reasoning, descriptions)
+            - Keep Turkish content for analysis but English template structure
             
             **TICKER IDENTIFICATION REQUIREMENT**:
             - NEVER use "Belirtilmemiş" or "Not Specified" for ticker codes
