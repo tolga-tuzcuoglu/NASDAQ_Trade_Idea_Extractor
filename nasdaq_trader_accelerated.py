@@ -676,6 +676,12 @@ class AcceleratedNasdaqTrader:
             
             **CRITICAL FORMAT REQUIREMENT**: In HIGH POTENTIAL TRADES section, ALWAYS use format: **Company Name (TICKER_CODE)** - NEVER use just ticker codes without company names
             
+            **MANDATORY TICKER REQUIREMENT**: 
+            - EVERY entry in HIGH POTENTIAL TRADES MUST include both company name AND ticker code
+            - Format: **1.** **Apple (AAPL)**: BUY - [Entry: **$150.00**] [Stop: **$140.00**] [Target: **$180.00**]
+            - Format: **2.** **Tesla (TSLA)**: SELL - [Entry: **$200.00**] [Stop: **$220.00**] [Target: **$180.00**]
+            - NEVER write just "1. BUY" or "1. Apple" - ALWAYS include ticker code in parentheses
+            
             **CRITICAL TIMESTAMP REQUIREMENT**: 
             - If Axon is mentioned at 2:45 in the video, the timestamp must be 2:45
             - If Tesla is mentioned at 15:30 in the video, the timestamp must be 15:30
@@ -781,7 +787,7 @@ class AcceleratedNasdaqTrader:
             🔍 **REPORT STRUCTURE REQUIREMENTS:**
             - **SHORT SUMMARY**: 2-3 sentences maximum
             - **TRADING OPPORTUNITIES**: ALL tickers mentioned in transcript (no limit)
-            - **HIGH POTENTIAL TRADES**: ALL high-potential tickers (no limit)
+            - **HIGH POTENTIAL TRADES**: ALL high-potential tickers (no limit) - MUST include company name and ticker code for each entry
             - **Eliminate**: Redundant sections, verbose explanations, generic analysis
             - **Focus on**: Specific price levels, trading signals, immediate actions
             - **Format**: Bullet points, clear headers, concise language
@@ -797,6 +803,7 @@ class AcceleratedNasdaqTrader:
             - **TIMESTAMP ACCURACY**: Each timestamp must reflect the actual moment the ticker appears in the video transcript
             - **TICKER CODE FORMAT**: Always include ticker symbol in format "Company Name (TICKER)" 
             - **BOLD NUMBERS**: All prices, percentages, and numbers in HIGH POTENTIAL TRADES must be bold
+            - **TICKER NAMES**: Every entry in HIGH POTENTIAL TRADES must show "Company Name (TICKER_CODE)" format
             - All exact price levels (e.g., "6500 support", "6800 resistance")
             - All moving average levels (8-day, 21-day, 50-day, 100-day, 200-day)
             - All gap levels (e.g., "Tesla 398 gap", "AMD 202-170 gap")
@@ -813,6 +820,7 @@ class AcceleratedNasdaqTrader:
             - NO ticker can be skipped, omitted, or excluded
             - Each ticker must have its own dedicated section
             - If a ticker is mentioned multiple times, consolidate all information into one section
+            - **HIGH POTENTIAL TRADES SECTION MUST INCLUDE TICKER NAMES**: Every numbered entry must show "Company Name (TICKER_CODE)" format
             """
             
             response = model.generate_content(prompt)
