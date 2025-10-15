@@ -361,12 +361,20 @@ class AcceleratedNasdaqTrader:
                 for url in video_urls
             }
             
-            # Collect results as they complete
+            # Collect results as they complete with rate limiting
+            completed_count = 0
             for future in concurrent.futures.as_completed(future_to_url):
                 url = future_to_url[future]
                 try:
                     result = future.result()
                     results.append(result)
+                    completed_count += 1
+                    
+                    # Add delay between completions to avoid API rate limits
+                    if completed_count < len(video_urls):
+                        self.logger.info(f"Completed {completed_count}/{len(video_urls)} videos. Waiting 15 seconds to avoid rate limits...")
+                        time.sleep(15)
+                        
                 except Exception as e:
                     self.logger.error(f"Error processing {url}: {e}")
                     results.append({
@@ -375,6 +383,7 @@ class AcceleratedNasdaqTrader:
                         'error': str(e),
                         'processing_time': 0
                     })
+                    completed_count += 1
         
         return results
     
@@ -823,8 +832,26 @@ class AcceleratedNasdaqTrader:
             - **HIGH POTENTIAL TRADES SECTION MUST INCLUDE TICKER NAMES**: Every numbered entry must show "Company Name (TICKER_CODE)" format
             """
             
-            response = model.generate_content(prompt)
-            analysis_text = response.text
+            # Generate content with rate limiting and retry logic
+            max_retries = 3
+            retry_delay = 60  # Start with 60 seconds delay
+            
+            for attempt in range(max_retries):
+                try:
+                    response = model.generate_content(prompt)
+                    analysis_text = response.text
+                    break
+                except Exception as e:
+                    error_msg = str(e).lower()
+                    if "quota" in error_msg or "rate" in error_msg or "limit" in error_msg:
+                        if attempt < max_retries - 1:
+                            self.logger.warning(f"Gemini API rate limit hit (attempt {attempt + 1}/{max_retries}). Waiting {retry_delay} seconds...")
+                            time.sleep(retry_delay)
+                            retry_delay *= 2  # Exponential backoff
+                        else:
+                            raise Exception(f"Gemini API rate limit exceeded after {max_retries} attempts: {e}")
+                    else:
+                        raise e
             
             # Validate tickers in the generated analysis (for internal use only)
             validation_results = self.validate_tickers_in_analysis(analysis_text)
