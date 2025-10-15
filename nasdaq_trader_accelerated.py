@@ -474,8 +474,25 @@ class AcceleratedNasdaqTrader:
             with YoutubeDL(ydl_opts) as ydl:
                 info = ydl.extract_info(url, download=True)
                 downloaded_video_id = info.get('id', 'unknown')
-                video_title = info.get('title', 'Unknown Title')
-                channel_name = info.get('uploader', 'Unknown Channel')
+                video_title = info.get('title', '')
+                channel_name = info.get('uploader', '')
+                
+                # If title is empty or None, try alternative fields
+                if not video_title:
+                    video_title = info.get('fulltitle', '') or info.get('alt_title', '')
+                
+                # If channel is empty or None, try alternative fields
+                if not channel_name:
+                    channel_name = info.get('uploader_id', '') or info.get('channel', '')
+                
+                # Final fallback
+                if not video_title:
+                    video_title = 'Unknown Title'
+                if not channel_name:
+                    channel_name = 'Unknown Channel'
+                
+                # Log the extracted metadata for debugging
+                self.logger.info(f"Extracted metadata - Title: '{video_title}', Channel: '{channel_name}'")
                 
                 # Find the downloaded file
                 for ext in ['m4a', 'wav', 'mp3', 'webm']:
@@ -558,6 +575,39 @@ class AcceleratedNasdaqTrader:
             
             genai.configure(api_key=api_key)
             model = genai.GenerativeModel(self.config.get('MODELS', {}).get('gemini_model', 'gemini-2.5-flash'))
+            
+            # Generate content-based title if metadata extraction failed
+            if video_title == "Unknown Title" or channel_name == "Unknown Channel":
+                self.logger.info("Metadata extraction failed, generating content-based title...")
+                title_prompt = f"""
+                Based on this Turkish trading video transcript, generate a meaningful title and identify the speaker/channel name.
+                
+                TRANSCRIPT:
+                {transcript}
+                
+                Please provide:
+                1. A descriptive title for the video (in Turkish)
+                2. The speaker/channel name (if mentioned in the transcript)
+                
+                Format your response as:
+                TITLE: [Generated title]
+                CHANNEL: [Speaker/channel name or "Unknown Speaker"]
+                """
+                
+                try:
+                    title_response = model.generate_content(title_prompt)
+                    title_text = title_response.text
+                    
+                    # Parse the response
+                    lines = title_text.strip().split('\n')
+                    for line in lines:
+                        if line.startswith('TITLE:'):
+                            video_title = line.replace('TITLE:', '').strip()
+                        elif line.startswith('CHANNEL:'):
+                            channel_name = line.replace('CHANNEL:', '').strip()
+                except Exception as e:
+                    self.logger.warning(f"Failed to generate content-based title: {e}")
+                    # Keep the original fallback values
             
             # Create professional trading analysis prompt
             prompt = f"""
