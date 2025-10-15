@@ -386,7 +386,14 @@ class AcceleratedNasdaqTrader:
             self.logger.info(f"Processing: {url}")
             
             # Download video
-            audio_path = self.download_video(url)
+            download_result = self.download_video(url)
+            if isinstance(download_result, tuple):
+                audio_path, video_title, channel_name = download_result
+            else:
+                audio_path = download_result
+                video_title = "Unknown Title"
+                channel_name = "Unknown Channel"
+            
             if not audio_path:
                 raise Exception("Failed to download video")
             
@@ -396,7 +403,7 @@ class AcceleratedNasdaqTrader:
                 raise Exception("Failed to transcribe audio")
             
             # Generate AI analysis
-            analysis = self.generate_analysis(transcript)
+            analysis = self.generate_analysis(transcript, video_title, channel_name)
             if not analysis:
                 raise Exception("Failed to generate analysis")
             
@@ -467,13 +474,15 @@ class AcceleratedNasdaqTrader:
             with YoutubeDL(ydl_opts) as ydl:
                 info = ydl.extract_info(url, download=True)
                 downloaded_video_id = info.get('id', 'unknown')
+                video_title = info.get('title', 'Unknown Title')
+                channel_name = info.get('uploader', 'Unknown Channel')
                 
                 # Find the downloaded file
                 for ext in ['m4a', 'wav', 'mp3', 'webm']:
                     audio_path = f'video_cache/{downloaded_video_id}_{date_str}.{ext}'
                     if os.path.exists(audio_path):
                         self.logger.info(f"Downloaded and cached: {audio_path}")
-                        return audio_path
+                        return audio_path, video_title, channel_name
                 
                 raise Exception("Audio file not found after download")
                 
@@ -539,7 +548,7 @@ class AcceleratedNasdaqTrader:
             self.logger.error(f"Transcription failed: {e}")
             return None
     
-    def generate_analysis(self, transcript):
+    def generate_analysis(self, transcript, video_title="Unknown Title", channel_name="Unknown Channel"):
         """Generate AI analysis using Gemini"""
         try:
             # Setup Gemini
@@ -553,6 +562,10 @@ class AcceleratedNasdaqTrader:
             # Create professional trading analysis prompt
             prompt = f"""
             As an experienced Nasdaq portfolio manager, analyze this Turkish trading video transcript and create a professional trading report.
+            
+            VIDEO INFORMATION:
+            - Title: {video_title}
+            - Channel: {channel_name}
             
             TRANSCRIPT:
             {transcript}
@@ -576,7 +589,7 @@ class AcceleratedNasdaqTrader:
             - Focus on specific price levels and trading signals
             
             ## 📊 REPORT INFORMATION
-            - **Source**: [Video başlığı] - [Kanal adı]
+            - **Source**: {video_title} - {channel_name}
             - **Video Date**: [Videoda belirtilen tarih - SADECE videoda söylenen tarih, yıl belirtilmemişse yıl ekleme]
             
             **ÖNEMLİ TARİH KURALI**: Eğer video sadece "16 Eylül" diyorsa, "16 Eylül" yazın. "16 Eylül 2024" YAZMAYIN çünkü yıl belirtilmemiş.
