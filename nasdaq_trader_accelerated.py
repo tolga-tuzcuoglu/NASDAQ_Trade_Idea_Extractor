@@ -589,8 +589,8 @@ class AcceleratedNasdaqTrader:
             ## 📈 TRADING OPPORTUNITIES
             [TRANSCRIPT'TE BELİRTİLEN TÜM TICKER'LAR İÇİN BÖLÜM OLUŞTUR - HİÇBİR TICKER ATLANMAYACAK]
             
-            ### [TICKER] - [Şirket/Asset Adı]
-            - **Timestamp**: [Tek timestamp - örnek: 5:23]
+            ### [TICKER] - [Şirket/Asset Adı] ([TICKER_CODE])
+            - **Timestamp**: [Videoda ticker'ın ilk geçtiği tam zaman - örnek: 5:23, 12:45, 1:30:15]
             - **Sentiment**: [Bullish/Bearish/Neutral] - [Gerekçe]
             - **Resistance**: [Direnç seviyesi, belirtilmişse - yoksa boş bırak]
             - **Support**: [Destek seviyesi, belirtilmişse - yoksa boş bırak]
@@ -602,13 +602,13 @@ class AcceleratedNasdaqTrader:
             ## 🎯 HIGH POTENTIAL TRADES
             [Tüm yüksek kar potansiyeli olan ticker'lar ve risk yönetimi gereken pozisyonlar - sayı sınırı yok]
             
-            1. **[TICKER]**: [BUY/SELL/HOLD] - [Entry: $X.XX] [Stop: $X.XX] [Target: $X.XX] [Risk: X%] [Risk/Reward: 1:X]
+            1. **[TICKER] ([TICKER_CODE])**: [BUY/SELL/HOLD] - [Entry: **$X.XX**] [Stop: **$X.XX**] [Target: **$X.XX**] [Risk: **X%**] [Risk/Reward: **1:X**]
                *[Gerekçe: En yüksek kar potansiyeli - acil fırsat]*
             
-            2. **[TICKER]**: [BUY/SELL/HOLD] - [Entry: $X.XX] [Stop: $X.XX] [Target: $X.XX] [Risk: X%] [Risk/Reward: 1:X]
+            2. **[TICKER] ([TICKER_CODE])**: [BUY/SELL/HOLD] - [Entry: **$X.XX**] [Stop: **$X.XX**] [Target: **$X.XX**] [Risk: **X%**] [Risk/Reward: **1:X**]
                *[Gerekçe: Yüksek kar potansiyeli - teknik kırılım]*
             
-            3. **[TICKER]**: [TAKE PROFIT/EXIT] - [Current: $X.XX] [Take Profit: $X.XX] [Stop: $X.XX] [Timing: Immediate]
+            3. **[TICKER] ([TICKER_CODE])**: [TAKE PROFIT/EXIT] - [Current: **$X.XX**] [Take Profit: **$X.XX**] [Stop: **$X.XX**] [Timing: Immediate]
                *[Gerekçe: Risk yönetimi - zarar kaçınma önceliği]*
             
             [TÜM YÜKSEK POTANSİYELLİ TICKER'LAR İÇİN DEVAM ET - SAYI SINIRI YOK]
@@ -674,9 +674,11 @@ class AcceleratedNasdaqTrader:
         - If information is not mentioned, leave the field completely empty
         - Always prioritize accuracy over completeness
         - Only include information that is explicitly mentioned in the video
-        - Include exact timestamps when tickers/assets are mentioned (e.g., "5:23", "12:45")
-        - Use only current/past information from the video, no future predictions
-        - CRITICAL: Use ONLY dates explicitly mentioned in the video transcript
+            - Include exact timestamps when tickers/assets are mentioned (e.g., "5:23", "12:45")
+            - **CRITICAL TIMESTAMP ACCURACY**: Extract the EXACT moment when each ticker is first mentioned in the video
+            - **TICKER CODE REQUIREMENT**: Always include the ticker symbol in parentheses (e.g., "Apple (AAPL)", "Tesla (TSLA)")
+            - Use only current/past information from the video, no future predictions
+            - CRITICAL: Use ONLY dates explicitly mentioned in the video transcript
             
             🚫 **ELIMINATE REPETITIONS:**
             - Each piece of information appears ONLY ONCE in the entire report
@@ -721,6 +723,9 @@ class AcceleratedNasdaqTrader:
             - **ALL TICKERS**: Every ticker mentioned in transcript must be covered
             - **NO EXCEPTIONS**: No ticker can be skipped or omitted
             - **COMPREHENSIVE COVERAGE**: Each ticker gets full analysis section
+            - **TIMESTAMP EXTRACTION**: Find the EXACT video timestamp when each ticker is first mentioned
+            - **TICKER CODE FORMAT**: Always include ticker symbol in format "Company Name (TICKER)" 
+            - **BOLD NUMBERS**: All prices, percentages, and numbers in HIGH POTENTIAL TRADES must be bold
             - All exact price levels (e.g., "6500 support", "6800 resistance")
             - All moving average levels (8-day, 21-day, 50-day, 100-day, 200-day)
             - All gap levels (e.g., "Tesla 398 gap", "AMD 202-170 gap")
@@ -805,7 +810,7 @@ class AcceleratedNasdaqTrader:
             # Save text report
             txt_filename = f'summary/report_{video_id}_{timestamp}.txt'
             with open(txt_filename, 'w', encoding='utf-8') as f:
-                f.write(f"Trading Analysis Report\n")
+                f.write(f"NASDAQ DAY & SWING TRADE REPORT\n")
                 f.write(f"Video URL: {url}\n")
                 f.write(f"Generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
                 f.write(f"{'='*50}\n\n")
@@ -857,7 +862,7 @@ class AcceleratedNasdaqTrader:
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trading Analysis Report</title>
+    <title>NASDAQ DAY & SWING TRADE REPORT</title>
     <style>
         body {{
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -942,7 +947,7 @@ class AcceleratedNasdaqTrader:
 <body>
     <div class="container">
         <div class="header">
-            <h1>📊 Trading Analysis Report</h1>
+            <h1>📊 NASDAQ DAY & SWING TRADE REPORT</h1>
             <p>Video: {url}</p>
             <p>Generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}</p>
         </div>
