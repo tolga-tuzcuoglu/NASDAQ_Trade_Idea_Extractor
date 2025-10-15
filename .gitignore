@@ -56,3 +56,6 @@ Thumbs.db
 # Conda environment
 .conda/
 
+# Project generation prompt (should not be public)
+project_generation_prompt.txt
+
