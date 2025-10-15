@@ -1136,6 +1136,24 @@ class AcceleratedNasdaqTrader:
                 import re
                 content = re.sub(r'\*\*(.*?)\*\*', r'<strong>\1</strong>', content)
                 html_parts.append(f'<li>{content}</li>')
+            # Handle numbered entries (HIGH POTENTIAL TRADES)
+            elif line.startswith('**') and '**:' in line:
+                if in_list:
+                    html_parts.append('</ul>')
+                    in_list = False
+                # Handle bold text in numbered entries
+                import re
+                content = re.sub(r'\*\*(.*?)\*\*', r'<strong>\1</strong>', line)
+                html_parts.append(f'<p>{content}</p>')
+            # Handle reasoning lines (start with *)
+            elif line.startswith('   *') or line.startswith('*'):
+                if in_list:
+                    html_parts.append('</ul>')
+                    in_list = False
+                # Handle italic text for reasoning
+                import re
+                content = re.sub(r'\*(.*?)\*', r'<em>\1</em>', line.strip())
+                html_parts.append(f'<p>{content}</p>')
             else:
                 # Regular paragraph
                 if in_list:
