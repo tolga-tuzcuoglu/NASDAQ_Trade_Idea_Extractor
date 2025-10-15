@@ -626,6 +626,9 @@ class AcceleratedNasdaqTrader:
             - ALWAYS generate the report in English regardless of the video language
             - Use standard English section headers: "REPORT INFORMATION", "SHORT SUMMARY", "TRADING OPPORTUNITIES", "HIGH POTENTIAL TRADES"
             - NEVER use Turkish or other language headers
+            - ALL content must be in English: reasoning, descriptions, notes
+            - Use "Reason:" instead of "Gerekçe:", "Entry:" instead of "Giriş:", "Target:" instead of "Hedef:"
+            - Generate ONLY English text throughout the entire report
             
             VIDEO INFORMATION:
             - Title: {video_title}
@@ -676,6 +679,12 @@ class AcceleratedNasdaqTrader:
             
             ## 🎯 HIGH POTENTIAL TRADES
             [All high profit potential tickers and positions requiring risk management - no limit on number]
+            
+            **MANDATORY ENGLISH REQUIREMENT FOR HIGH POTENTIAL TRADES**:
+            - Section header MUST be "HIGH POTENTIAL TRADES" (never "YÜKSEK POTANSİYELLİ İŞLEMLER")
+            - All reasoning must use "Reason:" (never "Gerekçe:")
+            - All entry descriptions must be in English
+            - All notes and explanations must be in English
             
             **1.** **[COMPANY_NAME] ([TICKER_CODE])**: [BUY/SELL/HOLD] - [Entry: **$X.XX**] [Stop: **$X.XX**] [Target: **$X.XX**] [Risk: **X%**] [Risk/Reward: **1:X**]
                *[Reason: Highest profit potential - urgent opportunity]*
@@ -835,6 +844,13 @@ class AcceleratedNasdaqTrader:
             - Each ticker must have its own dedicated section
             - If a ticker is mentioned multiple times, consolidate all information into one section
             - **HIGH POTENTIAL TRADES SECTION MUST INCLUDE TICKER NAMES**: Every numbered entry must show "Company Name (TICKER_CODE)" format
+            
+            **FINAL ENGLISH ENFORCEMENT**:
+            - Generate the ENTIRE report in English only
+            - Use "HIGH POTENTIAL TRADES" as section header
+            - Use "Reason:" for all explanations
+            - Translate all Turkish content to English
+            - Ensure consistent English formatting throughout
             """
             
             # Generate content with rate limiting and retry logic
