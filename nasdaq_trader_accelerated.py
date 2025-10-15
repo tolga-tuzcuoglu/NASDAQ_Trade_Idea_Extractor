@@ -588,7 +588,7 @@ class AcceleratedNasdaqTrader:
             [TRANSCRIPT'TE BELİRTİLEN TÜM TICKER'LAR İÇİN BÖLÜM OLUŞTUR - HİÇBİR TICKER ATLANMAYACAK]
             
             ### [TICKER] - [Şirket/Asset Adı] ([TICKER_CODE])
-            - **Timestamp**: [Videoda ticker'ın ilk geçtiği tam zaman - örnek: 5:23, 12:45, 1:30:15]
+            - **Timestamp**: [Videoda ticker'ın ilk geçtiği TAM ZAMAN - örnek: 2:45, 5:23, 12:45, 1:30:15 - SADECE videoda geçen gerçek zaman]
             - **Sentiment**: [Bullish/Bearish/Neutral] - [Gerekçe]
             - **Resistance**: [Direnç seviyesi, belirtilmişse - yoksa boş bırak]
             - **Support**: [Destek seviyesi, belirtilmişse - yoksa boş bırak]
@@ -612,6 +612,12 @@ class AcceleratedNasdaqTrader:
             [TÜM YÜKSEK POTANSİYELLİ TICKER'LAR İÇİN DEVAM ET - SAYI SINIRI YOK]
             
             **CRITICAL FORMAT REQUIREMENT**: In HIGH POTENTIAL TRADES section, ALWAYS use format: **Company Name (TICKER_CODE)** - NEVER use just ticker codes without company names
+            
+            **CRITICAL TIMESTAMP REQUIREMENT**: 
+            - If Axon is mentioned at 2:45 in the video, the timestamp must be 2:45
+            - If Tesla is mentioned at 15:30 in the video, the timestamp must be 15:30
+            - If Apple is mentioned at 1:25:45 in the video, the timestamp must be 1:25:45
+            - NEVER guess or estimate timestamps - use ONLY the exact time from the video transcript
             
             
             **CRITICAL ANTI-HALLUCINATION REQUIREMENTS:**
@@ -675,7 +681,8 @@ class AcceleratedNasdaqTrader:
         - Always prioritize accuracy over completeness
         - Only include information that is explicitly mentioned in the video
             - Include exact timestamps when tickers/assets are mentioned (e.g., "5:23", "12:45")
-            - **CRITICAL TIMESTAMP ACCURACY**: Extract the EXACT moment when each ticker is first mentioned in the video
+            - **CRITICAL TIMESTAMP ACCURACY**: Extract the EXACT moment when each ticker is first mentioned in the video (e.g., if Axon is mentioned at 2:45, use 2:45)
+            - **TIMESTAMP FORMAT**: Use MM:SS format for times under 1 hour (e.g., 2:45, 15:30), HH:MM:SS for longer videos (e.g., 1:15:30)
             - **TICKER CODE REQUIREMENT**: Always include the ticker symbol in parentheses (e.g., "Apple (AAPL)", "Tesla (TSLA)")
             - Use only current/past information from the video, no future predictions
             - CRITICAL: Use ONLY dates explicitly mentioned in the video transcript
@@ -723,7 +730,8 @@ class AcceleratedNasdaqTrader:
             - **ALL TICKERS**: Every ticker mentioned in transcript must be covered
             - **NO EXCEPTIONS**: No ticker can be skipped or omitted
             - **COMPREHENSIVE COVERAGE**: Each ticker gets full analysis section
-            - **TIMESTAMP EXTRACTION**: Find the EXACT video timestamp when each ticker is first mentioned
+            - **TIMESTAMP EXTRACTION**: Find the EXACT video timestamp when each ticker is first mentioned (e.g., if Axon is mentioned at 2:45 in video, use 2:45)
+            - **TIMESTAMP ACCURACY**: Each timestamp must reflect the actual moment the ticker appears in the video transcript
             - **TICKER CODE FORMAT**: Always include ticker symbol in format "Company Name (TICKER)" 
             - **BOLD NUMBERS**: All prices, percentages, and numbers in HIGH POTENTIAL TRADES must be bold
             - All exact price levels (e.g., "6500 support", "6800 resistance")
