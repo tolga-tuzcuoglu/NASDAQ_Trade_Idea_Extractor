@@ -704,6 +704,8 @@ class AcceleratedNasdaqTrader:
             - Format: **1.** **Apple (AAPL)**: BUY - [Entry: **$150.00**] [Stop: **$140.00**] [Target: **$180.00**]
             - Format: **2.** **Tesla (TSLA)**: SELL - [Entry: **$200.00**] [Stop: **$220.00**] [Target: **$180.00**]
             - NEVER write just "1. BUY" or "1. Apple" - ALWAYS include ticker code in parentheses
+            - NEVER use "Belirtilmemiş" or "Not Specified" - ALWAYS find the actual ticker code
+            - If ticker code is unknown, research and provide the most likely ticker symbol
             
             **CRITICAL TIMESTAMP REQUIREMENT**: 
             - If Axon is mentioned at 2:45 in the video, the timestamp must be 2:45
@@ -851,6 +853,12 @@ class AcceleratedNasdaqTrader:
             - Use "Reason:" for all explanations
             - Translate all Turkish content to English
             - Ensure consistent English formatting throughout
+            
+            **TICKER IDENTIFICATION REQUIREMENT**:
+            - NEVER use "Belirtilmemiş" or "Not Specified" for ticker codes
+            - ALWAYS provide actual ticker symbols (e.g., AAPL, TSLA, MSFT)
+            - If company name is mentioned but ticker is unclear, make educated guess based on context
+            - Format: **Company Name (TICKER)** - never leave ticker blank
             """
             
             # Generate content with rate limiting and retry logic
