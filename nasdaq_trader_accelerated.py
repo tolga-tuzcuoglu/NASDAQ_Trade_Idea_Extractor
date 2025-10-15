@@ -602,13 +602,13 @@ class AcceleratedNasdaqTrader:
             ## 🎯 HIGH POTENTIAL TRADES
             [Tüm yüksek kar potansiyeli olan ticker'lar ve risk yönetimi gereken pozisyonlar - sayı sınırı yok]
             
-            1. **[TICKER] ([TICKER_CODE])**: [BUY/SELL/HOLD] - [Entry: **$X.XX**] [Stop: **$X.XX**] [Target: **$X.XX**] [Risk: **X%**] [Risk/Reward: **1:X**]
+            **1.** **[TICKER] ([TICKER_CODE])**: [BUY/SELL/HOLD] - [Entry: **$X.XX**] [Stop: **$X.XX**] [Target: **$X.XX**] [Risk: **X%**] [Risk/Reward: **1:X**]
                *[Gerekçe: En yüksek kar potansiyeli - acil fırsat]*
             
-            2. **[TICKER] ([TICKER_CODE])**: [BUY/SELL/HOLD] - [Entry: **$X.XX**] [Stop: **$X.XX**] [Target: **$X.XX**] [Risk: **X%**] [Risk/Reward: **1:X**]
+            **2.** **[TICKER] ([TICKER_CODE])**: [BUY/SELL/HOLD] - [Entry: **$X.XX**] [Stop: **$X.XX**] [Target: **$X.XX**] [Risk: **X%**] [Risk/Reward: **1:X**]
                *[Gerekçe: Yüksek kar potansiyeli - teknik kırılım]*
             
-            3. **[TICKER] ([TICKER_CODE])**: [TAKE PROFIT/EXIT] - [Current: **$X.XX**] [Take Profit: **$X.XX**] [Stop: **$X.XX**] [Timing: Immediate]
+            **3.** **[TICKER] ([TICKER_CODE])**: [TAKE PROFIT/EXIT] - [Current: **$X.XX**] [Take Profit: **$X.XX**] [Stop: **$X.XX**] [Timing: Immediate]
                *[Gerekçe: Risk yönetimi - zarar kaçınma önceliği]*
             
             [TÜM YÜKSEK POTANSİYELLİ TICKER'LAR İÇİN DEVAM ET - SAYI SINIRI YOK]
@@ -810,7 +810,6 @@ class AcceleratedNasdaqTrader:
             # Save text report
             txt_filename = f'summary/report_{video_id}_{timestamp}.txt'
             with open(txt_filename, 'w', encoding='utf-8') as f:
-                f.write(f"NASDAQ DAY & SWING TRADE REPORT\n")
                 f.write(f"Video URL: {url}\n")
                 f.write(f"Generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
                 f.write(f"{'='*50}\n\n")
