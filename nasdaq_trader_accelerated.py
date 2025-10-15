@@ -575,8 +575,6 @@ class AcceleratedNasdaqTrader:
             - Use direct, actionable language
             - Focus on specific price levels and trading signals
             
-            # NASDAQ DAY & SWING TRADE REPORT
-            
             ## 📊 REPORT INFORMATION
             - **Source**: [Video başlığı] - [Kanal adı]
             - **Video Date**: [Videoda belirtilen tarih - SADECE videoda söylenen tarih, yıl belirtilmemişse yıl ekleme]
@@ -602,16 +600,18 @@ class AcceleratedNasdaqTrader:
             ## 🎯 HIGH POTENTIAL TRADES
             [Tüm yüksek kar potansiyeli olan ticker'lar ve risk yönetimi gereken pozisyonlar - sayı sınırı yok]
             
-            **1.** **[TICKER] ([TICKER_CODE])**: [BUY/SELL/HOLD] - [Entry: **$X.XX**] [Stop: **$X.XX**] [Target: **$X.XX**] [Risk: **X%**] [Risk/Reward: **1:X**]
+            **1.** **[COMPANY_NAME] ([TICKER_CODE])**: [BUY/SELL/HOLD] - [Entry: **$X.XX**] [Stop: **$X.XX**] [Target: **$X.XX**] [Risk: **X%**] [Risk/Reward: **1:X**]
                *[Gerekçe: En yüksek kar potansiyeli - acil fırsat]*
             
-            **2.** **[TICKER] ([TICKER_CODE])**: [BUY/SELL/HOLD] - [Entry: **$X.XX**] [Stop: **$X.XX**] [Target: **$X.XX**] [Risk: **X%**] [Risk/Reward: **1:X**]
+            **2.** **[COMPANY_NAME] ([TICKER_CODE])**: [BUY/SELL/HOLD] - [Entry: **$X.XX**] [Stop: **$X.XX**] [Target: **$X.XX**] [Risk: **X%**] [Risk/Reward: **1:X**]
                *[Gerekçe: Yüksek kar potansiyeli - teknik kırılım]*
             
-            **3.** **[TICKER] ([TICKER_CODE])**: [TAKE PROFIT/EXIT] - [Current: **$X.XX**] [Take Profit: **$X.XX**] [Stop: **$X.XX**] [Timing: Immediate]
+            **3.** **[COMPANY_NAME] ([TICKER_CODE])**: [TAKE PROFIT/EXIT] - [Current: **$X.XX**] [Take Profit: **$X.XX**] [Stop: **$X.XX**] [Timing: Immediate]
                *[Gerekçe: Risk yönetimi - zarar kaçınma önceliği]*
             
             [TÜM YÜKSEK POTANSİYELLİ TICKER'LAR İÇİN DEVAM ET - SAYI SINIRI YOK]
+            
+            **CRITICAL FORMAT REQUIREMENT**: In HIGH POTENTIAL TRADES section, ALWAYS use format: **Company Name (TICKER_CODE)** - NEVER use just ticker codes without company names
             
             
             **CRITICAL ANTI-HALLUCINATION REQUIREMENTS:**
