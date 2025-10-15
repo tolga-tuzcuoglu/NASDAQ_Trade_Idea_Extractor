@@ -620,7 +620,12 @@ class AcceleratedNasdaqTrader:
             
             # Create professional trading analysis prompt
             prompt = f"""
-            As an experienced Nasdaq portfolio manager, analyze this Turkish trading video transcript and create a professional trading report.
+            As an experienced Nasdaq portfolio manager, analyze this trading video transcript and create a professional trading report in English.
+            
+            **CRITICAL LANGUAGE REQUIREMENT**: 
+            - ALWAYS generate the report in English regardless of the video language
+            - Use standard English section headers: "REPORT INFORMATION", "SHORT SUMMARY", "TRADING OPPORTUNITIES", "HIGH POTENTIAL TRADES"
+            - NEVER use Turkish or other language headers
             
             VIDEO INFORMATION:
             - Title: {video_title}
@@ -649,39 +654,39 @@ class AcceleratedNasdaqTrader:
             
             ## 📊 REPORT INFORMATION
             - **Source**: {video_title} - {channel_name}
-            - **Video Date**: [Videoda belirtilen tarih - SADECE videoda söylenen tarih, yıl belirtilmemişse yıl ekleme]
+            - **Video Date**: [Date mentioned in video - ONLY use dates mentioned in video, add year if not specified]
             
             **ÖNEMLİ TARİH KURALI**: Eğer video sadece "16 Eylül" diyorsa, "16 Eylül" yazın. "16 Eylül 2024" YAZMAYIN çünkü yıl belirtilmemiş.
             
             ## 📝 SHORT SUMMARY
-            [Video içeriğinin kısa özeti - 2-3 cümle ile ana mesaj ve trading fırsatları]
+            [Brief summary of video content - 2-3 sentences covering main message and trading opportunities]
             
             ## 📈 TRADING OPPORTUNITIES
-            [TRANSCRIPT'TE BELİRTİLEN TÜM TICKER'LAR İÇİN BÖLÜM OLUŞTUR - HİÇBİR TICKER ATLANMAYACAK]
+            [CREATE SECTIONS FOR ALL TICKERS MENTIONED IN TRANSCRIPT - NO TICKER CAN BE SKIPPED]
             
-            ### [TICKER] - [Şirket/Asset Adı] ([TICKER_CODE])
-            - **Timestamp**: [Videoda ticker'ın ilk geçtiği TAM ZAMAN - örnek: 2:45, 5:23, 12:45, 1:30:15 - SADECE videoda geçen gerçek zaman]
-            - **Sentiment**: [Bullish/Bearish/Neutral] - [Gerekçe]
-            - **Resistance**: [Direnç seviyesi, belirtilmişse - yoksa boş bırak]
-            - **Support**: [Destek seviyesi, belirtilmişse - yoksa boş bırak]
-            - **Target**: [Hedef fiyat, belirtilmişse - yoksa boş bırak]
-            - **Notes**: [Justification - gerekçe, teknik analiz, risk faktörleri, trading stratejisi]
+            ### [TICKER] - [Company/Asset Name] ([TICKER_CODE])
+            - **Timestamp**: [EXACT time when ticker is first mentioned in video - example: 2:45, 5:23, 12:45, 1:30:15 - ONLY actual time from video]
+            - **Sentiment**: [Bullish/Bearish/Neutral] - [Reasoning]
+            - **Resistance**: [Resistance level if mentioned - leave blank if not]
+            - **Support**: [Support level if mentioned - leave blank if not]
+            - **Target**: [Target price if mentioned - leave blank if not]
+            - **Notes**: [Important notes, technical analysis, risk factors, trading strategy]
             
-            [TRANSCRIPT'TE BELİRTİLEN HER TICKER/ASSET İÇİN BU BÖLÜMÜ TEKRARLA - HİÇBİR TICKER ATLANMAYACAK]
+            [REPEAT THIS SECTION FOR EVERY TICKER/ASSET MENTIONED IN TRANSCRIPT - NO TICKER CAN BE SKIPPED]
             
             ## 🎯 HIGH POTENTIAL TRADES
-            [Tüm yüksek kar potansiyeli olan ticker'lar ve risk yönetimi gereken pozisyonlar - sayı sınırı yok]
+            [All high profit potential tickers and positions requiring risk management - no limit on number]
             
             **1.** **[COMPANY_NAME] ([TICKER_CODE])**: [BUY/SELL/HOLD] - [Entry: **$X.XX**] [Stop: **$X.XX**] [Target: **$X.XX**] [Risk: **X%**] [Risk/Reward: **1:X**]
-               *[Gerekçe: En yüksek kar potansiyeli - acil fırsat]*
+               *[Reason: Highest profit potential - urgent opportunity]*
             
             **2.** **[COMPANY_NAME] ([TICKER_CODE])**: [BUY/SELL/HOLD] - [Entry: **$X.XX**] [Stop: **$X.XX**] [Target: **$X.XX**] [Risk: **X%**] [Risk/Reward: **1:X**]
-               *[Gerekçe: Yüksek kar potansiyeli - teknik kırılım]*
+               *[Reason: High profit potential - technical breakout]*
             
             **3.** **[COMPANY_NAME] ([TICKER_CODE])**: [TAKE PROFIT/EXIT] - [Current: **$X.XX**] [Take Profit: **$X.XX**] [Stop: **$X.XX**] [Timing: Immediate]
-               *[Gerekçe: Risk yönetimi - zarar kaçınma önceliği]*
+               *[Reason: Risk management - loss avoidance priority]*
             
-            [TÜM YÜKSEK POTANSİYELLİ TICKER'LAR İÇİN DEVAM ET - SAYI SINIRI YOK]
+            [CONTINUE FOR ALL HIGH POTENTIAL TICKERS - NO LIMIT ON NUMBER]
             
             **CRITICAL FORMAT REQUIREMENT**: In HIGH POTENTIAL TRADES section, ALWAYS use format: **Company Name (TICKER_CODE)** - NEVER use just ticker codes without company names
             
